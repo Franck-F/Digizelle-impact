@@ -1,26 +1,102 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Navy — primary brand */
+  --navy: #1B2A4A;
+  --navy-light: #2A3D66;
+  --navy-dark: #111D35;
+
+  /* Gold accent */
+  --gold: #C5A55A;
+  --gold-light: #D4BB7C;
+  --gold-dark: #A88B3D;
+
+  /* Digizelle purple */
+  --purple: #7C3AED;
+  --purple-light: #A78BFA;
+
+  /* Neutrals */
+  --cream: #F5F3EE;
+  --cream-dark: #E8E4DD;
+  --text-dark: #1A1A2E;
+  --text-muted: #6B7280;
+
+  /* Semantic */
+  --surface: #FFFFFF;
+  --section: #FFFFFF;
+  --border-clr: #E8E4DD;
+  --heading-clr: #1B2A4A;
+  --body-clr: #6B7280;
+
+  --background: var(--cream);
+  --foreground: var(--text-dark);
+}
+
+.dark {
+  --cream: #0B1120;
+  --cream-dark: #1E2D45;
+  --text-dark: #F5F3EE;
+  --text-muted: #94A3B8;
+
+  --surface: #141E30;
+  --section: #101828;
+  --border-clr: #1E2D45;
+  --heading-clr: #F5F3EE;
+  --body-clr: #94A3B8;
+
+  --background: var(--cream);
+  --foreground: var(--text-dark);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-navy: var(--navy);
+  --color-navy-light: var(--navy-light);
+  --color-navy-dark: var(--navy-dark);
+
+  --color-gold: var(--gold);
+  --color-gold-light: var(--gold-light);
+  --color-gold-dark: var(--gold-dark);
+
+  --color-purple: var(--purple);
+  --color-purple-light: var(--purple-light);
+
+  --color-cream: var(--cream);
+  --color-cream-dark: var(--cream-dark);
+
+  --color-text-dark: var(--text-dark);
+  --color-text-muted: var(--text-muted);
+
+  --color-surface: var(--surface);
+  --color-section: var(--section);
+  --color-border: var(--border-clr);
+  --color-heading: var(--heading-clr);
+  --color-body: var(--body-clr);
+
+  --font-serif: var(--font-playfair);
+  --font-sans: var(--font-signika-negative);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+::selection {
+  background: var(--gold-light);
+  color: var(--navy-dark);
+}
+
+.focus-ring:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
 }
