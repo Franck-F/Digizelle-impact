@@ -1,10 +1,10 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Image from "next/image";
 import { Container } from "@/components/ui/Container";
 import { SectionTitle } from "@/components/ui/SectionTitle";
 import { Button } from "@/components/ui/Button";
+import { CelebrationAnimation } from "@/components/animations/CelebrationAnimation";
 import { EVENT } from "@/lib/constants";
 
 interface FormState {
@@ -104,26 +104,11 @@ export default function ContactPage() {
 
         <div className="mx-auto max-w-2xl">
           {form.status === "success" ? (
-            <div className="rounded-sm bg-surface p-8 text-center shadow-sm sm:p-12">
-              <Image
-                src="/images/mascotte/mascotte1.png"
-                alt="Merci!"
-                width={100}
-                height={100}
-                className="mx-auto mb-5 sm:mb-6"
-              />
-              <h3 className="font-serif text-xl font-bold text-heading sm:text-2xl">
-                Inscription confirmée !
-              </h3>
-              <p className="mt-3 text-body sm:mt-4">
-                {form.message}
-              </p>
-              {form.spotsLeft !== null && form.spotsLeft > 0 && (
-                <p className="mt-4 text-sm text-gold">
-                  Il reste {form.spotsLeft} place{form.spotsLeft > 1 ? "s" : ""}.
-                </p>
-              )}
-            </div>
+            <CelebrationAnimation
+              show
+              message={form.message}
+              spotsLeft={form.spotsLeft}
+            />
           ) : (
             <form
               onSubmit={handleSubmit}
