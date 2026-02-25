@@ -425,7 +425,7 @@ export function CelebrationAnimation({
                 Rendez-vous le 13 Mars 2026
               </p>
               <p className="mt-1 text-xs text-body sm:text-sm">
-                Epitech Paris — 24 Rue Pasteur
+                Epitech Paris — 24 Rue Pasteur, 94270 Le Kremlin-Bicêtre
               </p>
             </motion.div>
           </div>

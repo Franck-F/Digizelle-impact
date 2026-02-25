@@ -5,9 +5,9 @@ export const EVENT = {
   date: "2026-03-13T18:30:00",
   displayDate: "13 Mars 2026",
   location: "Epitech Paris",
-  address: "24 Rue Pasteur, Paris",
-  locationFull: "École informatique Paris - Epitech, 24 Rue Pasteur",
-  mapsUrl: "https://www.google.com/maps/search/?api=1&query=Epitech+Paris+24+Rue+Pasteur",
+  address: "24 Rue Pasteur, 94270 Le Kremlin-Bicêtre",
+  locationFull: "Epitech Paris — 24 Rue Pasteur, 94270 Le Kremlin-Bicêtre",
+  mapsUrl: "https://www.google.com/maps/search/?api=1&query=Epitech+Paris+24+Rue+Pasteur+94270+Le+Kremlin-Bic%C3%AAtre",
   description:
     "La diversité n'est plus le sujet, c'est le levier. Un événement élégant et moderne réunissant les leaders de la tech autour de la compétence, l'ambition et l'innovation.",
   quote:
