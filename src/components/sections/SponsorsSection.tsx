@@ -43,9 +43,7 @@ export function SponsorsSection() {
               height={180}
               className="h-24 w-auto opacity-50 sm:h-32"
             />
-            <p className="text-sm italic text-body">
-              Logos des partenaires à venir
-            </p>
+          
           </div>
         </FadeIn>
       </Container>
