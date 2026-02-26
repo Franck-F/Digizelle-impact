@@ -412,13 +412,13 @@ export default function AdminPage() {
 
             {/* Dernières 24h */}
             <div className="group relative overflow-hidden rounded-xl border border-white/10 bg-white/[0.03] p-4 transition-all hover:border-white/20 sm:p-5">
-              <div className="mb-2 flex h-9 w-9 items-center justify-center rounded-lg bg-[#7C3AED]/10">
-                <svg className="h-4.5 w-4.5 text-[#7C3AED]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+              <div className="mb-2 flex h-9 w-9 items-center justify-center rounded-lg bg-[#7301FF]/10">
+                <svg className="h-4.5 w-4.5 text-[#7301FF]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                 </svg>
               </div>
               <p className="text-[10px] font-semibold uppercase tracking-widest text-white/30 sm:text-xs">24 dernières h</p>
-              <p className="mt-0.5 font-serif text-2xl font-bold text-[#7C3AED] sm:text-3xl">{recentCount}</p>
+              <p className="mt-0.5 font-serif text-2xl font-bold text-[#7301FF] sm:text-3xl">{recentCount}</p>
             </div>
 
             {/* Entreprises */}

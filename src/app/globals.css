@@ -3,19 +3,19 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
-  /* Navy — primary brand */
-  --navy: #1B2A4A;
-  --navy-light: #2A3D66;
-  --navy-dark: #111D35;
+  /* Navy — primary brand (aligned with digizelle.fr) */
+  --navy: #24325F;
+  --navy-light: #344578;
+  --navy-dark: #1A2445;
 
   /* Gold accent */
   --gold: #C5A55A;
   --gold-light: #D4BB7C;
   --gold-dark: #A88B3D;
 
-  /* Digizelle purple */
-  --purple: #7C3AED;
-  --purple-light: #A78BFA;
+  /* Digizelle purple (aligned with digizelle.fr) */
+  --purple: #7301FF;
+  --purple-light: #A34BF5;
 
   /* Neutrals */
   --cream: #F5F3EE;
@@ -27,7 +27,7 @@
   --surface: #FFFFFF;
   --section: #FFFFFF;
   --border-clr: #E8E4DD;
-  --heading-clr: #1B2A4A;
+  --heading-clr: #24325F;
   --body-clr: #6B7280;
 
   --background: var(--cream);

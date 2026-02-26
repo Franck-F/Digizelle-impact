@@ -28,7 +28,7 @@ interface FloatingMascot {
 }
 
 const GOLD_COLORS = ["#C5A55A", "#d4b76b", "#FFD700", "#E8C547", "#B8941F", "#F5E6A3"];
-const PARTY_COLORS = [...GOLD_COLORS, "#7C3AED", "#9F67FF", "#FFFFFF", "#1B2A4A"];
+const PARTY_COLORS = [...GOLD_COLORS, "#7301FF", "#A34BF5", "#FFFFFF", "#24325F"];
 
 const MASCOTS = [
   "/images/mascotte/mascotte.png",

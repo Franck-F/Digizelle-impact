@@ -6,9 +6,10 @@ import { SectionTitle } from "@/components/ui/SectionTitle";
 import { FadeIn, StaggerContainer, StaggerItem } from "@/components/animations/FadeIn";
 
 const strategicPartners = [
-  { name: "AXA" },
-  { name: "Microsoft" },
-  { name: "Google" },
+  { name: "Epitech" },
+  { name: "Allianz" },
+  { name: "X-HEC" },
+  { name: "New Deal Founders" },
 ];
 
 export function SponsorsSection() {
@@ -21,11 +22,11 @@ export function SponsorsSection() {
           description="Une coalition d'acteurs majeurs unis pour l'innovation."
         />
 
-        <StaggerContainer className="mx-auto flex max-w-2xl flex-wrap items-center justify-center gap-6 sm:gap-12">
+        <StaggerContainer className="mx-auto flex max-w-3xl flex-wrap items-center justify-center gap-6 sm:gap-10">
           {strategicPartners.map((partner) => (
             <StaggerItem key={partner.name}>
-              <div className="group flex h-20 w-32 items-center justify-center rounded-sm border border-border bg-surface p-4 transition-all duration-300 hover:border-gold hover:shadow-md sm:h-24 sm:w-40 sm:p-6">
-                <span className="font-serif text-xl font-bold text-heading/40 transition-colors group-hover:text-heading sm:text-2xl">
+              <div className="group flex h-20 w-36 items-center justify-center rounded-sm border border-border bg-surface p-4 transition-all duration-300 hover:border-purple hover:shadow-md sm:h-24 sm:w-44 sm:p-6">
+                <span className="text-center font-serif text-lg font-bold text-heading/40 transition-colors group-hover:text-heading sm:text-xl">
                   {partner.name}
                 </span>
               </div>

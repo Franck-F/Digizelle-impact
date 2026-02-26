@@ -7,7 +7,7 @@ import { speakers } from "@/lib/data/speakers";
 export const metadata: Metadata = {
   title: "Speakers",
   description:
-    "Découvrez les intervenants du Digizelle Impact Event 2026. Des leaders de Microsoft, Google, AXA et X-HEC Entrepreneurs.",
+    "Découvrez les intervenants du Digizelle Impact Event 2026. Des leaders d'Epitech, Allianz Technology, X-HEC Entrepreneurs et New Deal Founders.",
 };
 
 export default function SpeakersPage() {

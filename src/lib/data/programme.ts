@@ -12,7 +12,7 @@ export const programme: ProgrammeItem[] = [
     time: "18h40",
     title: "Intervention : Laura Hassan",
     description:
-      "Keynote inspirante sur le leadership et l'innovation dans le paysage technologique actuel.",
+      "Keynote inspirante sur le leadership et l'innovation dans le paysage technologique et éducatif actuel, par la Directrice Générale d'Epitech.",
     speakers: ["Laura Hassan"],
     type: "talk",
   },
@@ -20,12 +20,12 @@ export const programme: ProgrammeItem[] = [
     time: "18h50",
     title: "Table Ronde : Leadership, innovation et responsabilité dans la tech",
     description:
-      "Un échange riche avec des intervenants experts de Microsoft, Google, X-HEC Entrepreneurs et AXA autour des enjeux du leadership et de l'innovation responsable.",
+      "Un échange riche avec des intervenants de X-HEC Entrepreneurs, Allianz Technology, Epitech et New Deal Founders autour des enjeux du leadership et de l'innovation responsable.",
     speakers: [
-      "Expert Microsoft",
-      "Expert Google",
-      "Expert X-HEC",
-      "Expert AXA",
+      "Audrey L. Baha Wognou",
+      "El Mehdi Naainiaa",
+      "Laura Hassan",
+      "Luc Olivier Yebga",
     ],
     type: "panel",
   },
