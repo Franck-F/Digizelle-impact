@@ -7,6 +7,7 @@ import { FadeIn, StaggerContainer, StaggerItem } from "@/components/animations/F
 
 const strategicPartners = [
   { name: "Epitech" },
+  { name: "Microsoft" },
   { name: "Allianz" },
   { name: "X-HEC" },
   { name: "New Deal Founders" },
@@ -43,7 +44,6 @@ export function SponsorsSection() {
               height={180}
               className="h-24 w-auto opacity-50 sm:h-32"
             />
-          
           </div>
         </FadeIn>
       </Container>

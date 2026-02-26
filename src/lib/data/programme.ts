@@ -20,11 +20,12 @@ export const programme: ProgrammeItem[] = [
     time: "18h50",
     title: "Table Ronde : Leadership, innovation et responsabilité dans la tech",
     description:
-      "Un échange riche avec des intervenants de X-HEC Entrepreneurs, Allianz Technology, Epitech et New Deal Founders autour des enjeux du leadership et de l'innovation responsable.",
+      "Un échange riche avec des intervenants de X-HEC Entrepreneurs, Allianz Technology, Epitech, Microsoft et New Deal Founders autour des enjeux du leadership et de l'innovation responsable.",
     speakers: [
       "Audrey L. Baha Wognou",
       "El Mehdi Naainiaa",
       "Laura Hassan",
+      "Mélissa Sari",
       "Luc Olivier Yebga",
     ],
     type: "panel",

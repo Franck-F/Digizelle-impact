@@ -45,6 +45,17 @@ export const speakers: Speaker[] = [
     topic: "Finance, entrepreneuriat & accès aux opportunités",
     linkedin: "https://www.linkedin.com/in/luc-olivier-yebga",
   },
+  {
+    id: "5",
+    slug: "melissa-sari",
+    name: "Mélissa Sari",
+    title: "Customer Engineer",
+    company: "Microsoft",
+    bio: "Mélissa Sari est Customer Engineer chez Microsoft France, où elle accompagne les entreprises dans leur transformation cloud et digitale. Certifiée Power Platform, Azure et multi-cloud (AWS, Google Cloud), elle allie expertise technique et engagement humain. Finaliste des Women Role Model Awards de Microsoft France dans la catégorie « Femme engagée », elle est reconnue pour son implication en faveur de la diversité et de l'inclusion dans la tech. Récompensée par le Microsoft Gold Club Award et distinguée CSU Top Performer, elle incarne l'excellence et le leadership au quotidien.",
+    image: "/images/speakers/melissa-sari.jpg",
+    topic: "Cloud, innovation & diversité dans la tech",
+    linkedin: "https://www.linkedin.com/in/sarimelissa",
+  },
 ];
 
 export function getSpeakerBySlug(slug: string): Speaker | undefined {
