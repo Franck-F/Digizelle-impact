@@ -75,7 +75,7 @@ export default async function SpeakerPage({ params }: Props) {
 
           {/* Info */}
           <div className="md:col-span-3">
-            <span className="mb-2 inline-block rounded-sm bg-gold/20 px-3 py-1 text-xs font-medium uppercase tracking-wider text-gold-dark dark:text-gold">
+            <span className="mb-2 inline-block rounded-sm bg-purple/20 px-3 py-1 text-xs font-medium uppercase tracking-wider text-purple dark:text-purple-light">
               {speaker.company}
             </span>
             <h1 className="mt-2 font-serif text-3xl font-bold text-heading sm:text-4xl md:text-5xl">
@@ -84,8 +84,8 @@ export default async function SpeakerPage({ params }: Props) {
             <p className="mt-2 text-base text-body sm:text-lg">{speaker.title}</p>
 
             {speaker.topic && (
-              <div className="mt-5 border-l-4 border-gold pl-4 sm:mt-6">
-                <p className="text-xs font-medium uppercase tracking-wider text-gold sm:text-sm">
+              <div className="mt-5 border-l-4 border-purple pl-4 sm:mt-6">
+                <p className="text-xs font-medium uppercase tracking-wider text-purple sm:text-sm">
                   Thème
                 </p>
                 <p className="mt-1 font-serif text-lg text-heading sm:text-xl">
@@ -108,7 +108,7 @@ export default async function SpeakerPage({ params }: Props) {
                   href={speaker.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-heading transition-colors hover:text-gold"
+                  className="text-heading transition-colors hover:text-purple"
                 >
                   LinkedIn
                 </a>
@@ -118,7 +118,7 @@ export default async function SpeakerPage({ params }: Props) {
                   href={speaker.twitter}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-heading transition-colors hover:text-gold"
+                  className="text-heading transition-colors hover:text-purple"
                 >
                   Twitter
                 </a>

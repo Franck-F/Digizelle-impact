@@ -8,25 +8,26 @@
   --navy-light: #344578;
   --navy-dark: #1A2445;
 
-  /* Gold accent */
-  --gold: #C5A55A;
-  --gold-light: #D4BB7C;
-  --gold-dark: #A88B3D;
-
   /* Digizelle purple (aligned with digizelle.fr) */
   --purple: #7301FF;
   --purple-light: #A34BF5;
+  --purple-dark: #5C01CC;
+
+  /* Accent (maps to old "gold" — now purple-based) */
+  --gold: #9333EA;
+  --gold-light: #A34BF5;
+  --gold-dark: #7E22CE;
 
   /* Neutrals */
-  --cream: #F5F3EE;
-  --cream-dark: #E8E4DD;
+  --cream: #F8F7FF;
+  --cream-dark: #EDE9FE;
   --text-dark: #1A1A2E;
   --text-muted: #6B7280;
 
   /* Semantic */
   --surface: #FFFFFF;
   --section: #FFFFFF;
-  --border-clr: #E8E4DD;
+  --border-clr: #E5E7EB;
   --heading-clr: #24325F;
   --body-clr: #6B7280;
 
@@ -64,6 +65,7 @@
 
   --color-purple: var(--purple);
   --color-purple-light: var(--purple-light);
+  --color-purple-dark: var(--purple-dark);
 
   --color-cream: var(--cream);
   --color-cream-dark: var(--cream-dark);
@@ -92,11 +94,11 @@ html {
 }
 
 ::selection {
-  background: var(--gold-light);
-  color: var(--navy-dark);
+  background: var(--purple-light);
+  color: white;
 }
 
 .focus-ring:focus-visible {
-  outline: 2px solid var(--gold);
+  outline: 2px solid var(--purple);
   outline-offset: 2px;
 }

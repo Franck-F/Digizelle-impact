@@ -49,11 +49,11 @@ export function CountdownTimer() {
   return (
     <div className="flex items-center gap-3 sm:gap-6 md:gap-10">
       <TimeUnit value={content.days} label="Jours" />
-      <span className="font-serif text-xl text-gold sm:text-3xl">:</span>
+      <span className="font-serif text-xl text-purple sm:text-3xl">:</span>
       <TimeUnit value={content.hours} label="Heures" />
-      <span className="font-serif text-xl text-gold sm:text-3xl">:</span>
+      <span className="font-serif text-xl text-purple sm:text-3xl">:</span>
       <TimeUnit value={content.minutes} label="Min" />
-      <span className="font-serif text-xl text-gold sm:text-3xl">:</span>
+      <span className="font-serif text-xl text-purple sm:text-3xl">:</span>
       <TimeUnit value={content.seconds} label="Sec" />
     </div>
   );

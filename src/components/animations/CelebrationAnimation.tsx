@@ -27,8 +27,8 @@ interface FloatingMascot {
   rotation: number;
 }
 
-const GOLD_COLORS = ["#C5A55A", "#d4b76b", "#FFD700", "#E8C547", "#B8941F", "#F5E6A3"];
-const PARTY_COLORS = [...GOLD_COLORS, "#7301FF", "#A34BF5", "#FFFFFF", "#24325F"];
+const PURPLE_COLORS = ["#7301FF", "#A34BF5", "#9333EA", "#7E22CE", "#C084FC", "#F3E8FF"];
+const PARTY_COLORS = [...PURPLE_COLORS, "#FFFFFF", "#24325F", "#EDE9FE"];
 
 const MASCOTS = [
   "/images/mascotte/mascotte.png",
@@ -213,18 +213,18 @@ export function CelebrationAnimation({
             transition={{ duration: 2, delay: 0.2, ease: "easeOut" }}
             className="pointer-events-none absolute left-1/2 top-1/2 h-[300px] w-[300px] -translate-x-1/2 -translate-y-1/2 rounded-full"
             style={{
-              background: "radial-gradient(circle, #C5A55A 0%, transparent 70%)",
+              background: "radial-gradient(circle, #7301FF 0%, transparent 70%)",
             }}
           />
 
-          {/* Gold ring burst */}
+          {/* Purple ring burst */}
           {[0, 1, 2].map((i) => (
             <motion.div
               key={`ring-${i}`}
               initial={{ scale: 0, opacity: 0.6 }}
               animate={{ scale: 4, opacity: 0 }}
               transition={{ duration: 2, delay: 0.3 + i * 0.4, ease: "easeOut" }}
-              className="pointer-events-none absolute left-1/2 top-1/2 h-24 w-24 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-gold"
+              className="pointer-events-none absolute left-1/2 top-1/2 h-24 w-24 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-purple"
             />
           ))}
 
@@ -240,13 +240,13 @@ export function CelebrationAnimation({
                 damping: 15,
                 delay: 0.3,
               }}
-              className="mb-4 flex h-20 w-20 items-center justify-center rounded-full bg-gold sm:mb-6 sm:h-24 sm:w-24"
+              className="mb-4 flex h-20 w-20 items-center justify-center rounded-full bg-purple sm:mb-6 sm:h-24 sm:w-24"
             >
               <motion.svg
                 initial={{ pathLength: 0 }}
                 animate={{ pathLength: 1 }}
                 transition={{ duration: 0.6, delay: 0.8 }}
-                className="h-10 w-10 text-navy-dark sm:h-12 sm:w-12"
+                className="h-10 w-10 text-white sm:h-12 sm:w-12"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -309,7 +309,7 @@ export function CelebrationAnimation({
                   backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
                 }}
                 transition={{ duration: 3, repeat: Infinity }}
-                className="bg-gradient-to-r from-gold via-purple to-gold bg-[length:200%_auto] bg-clip-text text-transparent"
+                className="bg-gradient-to-r from-purple via-purple-light to-purple bg-[length:200%_auto] bg-clip-text text-transparent"
               >
                 Inscription confirmée !
               </motion.span>
@@ -338,13 +338,13 @@ export function CelebrationAnimation({
                 }}
                 className="mt-4 sm:mt-6"
               >
-                <div className="inline-flex items-center gap-2 rounded-full border border-gold/40 bg-gold/10 px-5 py-2.5">
+                <div className="inline-flex items-center gap-2 rounded-full border border-purple/40 bg-purple/10 px-5 py-2.5">
                   <motion.span
                     animate={{ scale: [1, 1.3, 1] }}
                     transition={{ duration: 1.5, repeat: Infinity }}
-                    className="h-2.5 w-2.5 rounded-full bg-gold"
+                    className="h-2.5 w-2.5 rounded-full bg-purple"
                   />
-                  <span className="text-sm font-semibold text-gold sm:text-base">
+                  <span className="text-sm font-semibold text-purple sm:text-base">
                     {spotsLeft} place{spotsLeft > 1 ? "s" : ""} restante{spotsLeft > 1 ? "s" : ""}
                   </span>
                 </div>
@@ -406,7 +406,7 @@ export function CelebrationAnimation({
                       top: `${20 + (i % 3) * 25}%`,
                     }}
                   >
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="#C5A55A">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="#A34BF5">
                       <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
                     </svg>
                   </motion.div>
@@ -419,9 +419,9 @@ export function CelebrationAnimation({
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 2, duration: 0.5 }}
-              className="mt-6 rounded-sm border border-gold/20 bg-gold/5 px-6 py-4 sm:mt-8"
+              className="mt-6 rounded-sm border border-purple/20 bg-purple/5 px-6 py-4 sm:mt-8"
             >
-              <p className="text-xs font-medium uppercase tracking-[0.15em] text-gold sm:text-sm">
+              <p className="text-xs font-medium uppercase tracking-[0.15em] text-purple sm:text-sm">
                 Rendez-vous le 13 Mars 2026
               </p>
               <p className="mt-1 text-xs text-body sm:text-sm">

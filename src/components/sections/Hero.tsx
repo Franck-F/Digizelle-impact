@@ -10,14 +10,14 @@ import { EVENT } from "@/lib/constants";
 export function Hero() {
   return (
     <section className="relative min-h-screen overflow-hidden bg-cream pt-14 sm:pt-16 lg:pt-20">
-      {/* Decorative gold circles */}
-      <div className="pointer-events-none absolute right-[-15%] top-[10%] h-[250px] w-[250px] rounded-full border border-gold/20 sm:right-[-5%] sm:h-[500px] sm:w-[500px]" />
-      <div className="pointer-events-none absolute right-[0%] top-[18%] hidden rounded-full border border-gold/30 sm:block sm:h-[350px] sm:w-[350px]" />
-      <div className="pointer-events-none absolute right-[10%] top-[22%] hidden rounded-full border border-gold/20 md:block md:h-[200px] md:w-[200px]" />
+      {/* Decorative circles */}
+      <div className="pointer-events-none absolute right-[-15%] top-[10%] h-[250px] w-[250px] rounded-full border border-purple/20 sm:right-[-5%] sm:h-[500px] sm:w-[500px]" />
+      <div className="pointer-events-none absolute right-[0%] top-[18%] hidden rounded-full border border-purple/30 sm:block sm:h-[350px] sm:w-[350px]" />
+      <div className="pointer-events-none absolute right-[10%] top-[22%] hidden rounded-full border border-purple/20 md:block md:h-[200px] md:w-[200px]" />
 
       <Container className="relative z-10 flex min-h-[calc(100vh-3.5rem)] flex-col items-center justify-center px-4 py-12 text-center sm:min-h-[calc(100vh-4rem)] sm:py-20 lg:min-h-[calc(100vh-5rem)]">
         <FadeIn>
-          <span className="mb-3 inline-block text-xs font-medium uppercase tracking-[0.2em] text-gold sm:mb-4 sm:text-sm sm:tracking-[0.25em]">
+          <span className="mb-3 inline-block text-xs font-medium uppercase tracking-[0.2em] text-purple sm:mb-4 sm:text-sm sm:tracking-[0.25em]">
             {EVENT.name}
           </span>
         </FadeIn>
@@ -25,7 +25,7 @@ export function Hero() {
         <FadeIn delay={0.1}>
           <h1 className="max-w-4xl font-serif text-3xl font-bold leading-tight text-heading sm:text-4xl md:text-5xl lg:text-7xl">
             Leadership & Innovation :{" "}
-            <em className="text-gold dark:text-gold-light">construire l&apos;avenir ensemble</em>
+            <em className="text-purple dark:text-purple-light">construire l&apos;avenir ensemble</em>
           </h1>
         </FadeIn>
 
@@ -36,7 +36,7 @@ export function Hero() {
               href={EVENT.mapsUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="underline decoration-gold/40 underline-offset-2 transition-colors hover:text-gold"
+              className="underline decoration-purple/40 underline-offset-2 transition-colors hover:text-purple"
             >
               {EVENT.locationFull}
             </a>

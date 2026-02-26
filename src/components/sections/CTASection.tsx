@@ -10,8 +10,8 @@ export function CTASection() {
   return (
     <section className="relative overflow-hidden bg-navy py-16 sm:py-24">
       {/* Decorative circles */}
-      <div className="pointer-events-none absolute left-[-10%] top-[-20%] h-[300px] w-[300px] rounded-full border border-gold/10 sm:h-[400px] sm:w-[400px]" />
-      <div className="pointer-events-none absolute bottom-[-20%] right-[-10%] h-[350px] w-[350px] rounded-full border border-gold/10 sm:h-[500px] sm:w-[500px]" />
+      <div className="pointer-events-none absolute left-[-10%] top-[-20%] h-[300px] w-[300px] rounded-full border border-purple/10 sm:h-[400px] sm:w-[400px]" />
+      <div className="pointer-events-none absolute bottom-[-20%] right-[-10%] h-[350px] w-[350px] rounded-full border border-purple/10 sm:h-[500px] sm:w-[500px]" />
 
       <Container className="relative z-10 text-center">
         <FadeIn>
@@ -35,7 +35,7 @@ export function CTASection() {
             href={EVENT.mapsUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-3 inline-flex items-center gap-2 text-sm text-gold transition-colors hover:text-gold-light sm:mt-4 sm:text-base"
+            className="mt-3 inline-flex items-center gap-2 text-sm text-purple-light transition-colors hover:text-purple-light-light sm:mt-4 sm:text-base"
           >
             <svg className="h-4 w-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
@@ -57,14 +57,14 @@ export function CTASection() {
             <Button href="/contact" variant="secondary" size="lg">
               Réserver ma place
             </Button>
-            <Button href="/a-propos" variant="gold" size="lg">
+            <Button href="/a-propos" variant="accent" size="lg">
               En savoir plus
             </Button>
           </div>
         </FadeIn>
 
         <FadeIn delay={0.4}>
-          <p className="mt-6 text-xs font-medium uppercase tracking-[0.15em] text-gold sm:mt-8 sm:text-sm sm:tracking-[0.2em]">
+          <p className="mt-6 text-xs font-medium uppercase tracking-[0.15em] text-purple-light sm:mt-8 sm:text-sm sm:tracking-[0.2em]">
             {EVENT.motto}
           </p>
         </FadeIn>

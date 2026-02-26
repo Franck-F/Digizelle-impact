@@ -47,7 +47,7 @@ export default function AboutPage() {
           </div>
 
           {/* Quote */}
-          <blockquote className="my-10 border-l-4 border-gold py-3 pl-4 font-serif text-lg italic text-heading sm:my-16 sm:py-4 sm:pl-6 sm:text-xl md:text-2xl">
+          <blockquote className="my-10 border-l-4 border-purple py-3 pl-4 font-serif text-lg italic text-heading sm:my-16 sm:py-4 sm:pl-6 sm:text-xl md:text-2xl">
             &ldquo;{EVENT.quote}&rdquo;
           </blockquote>
 
@@ -63,7 +63,7 @@ export default function AboutPage() {
                     key={value}
                     className="flex items-center gap-2 rounded-sm border border-border p-3 sm:gap-3 sm:p-4"
                   >
-                    <span className="h-2 w-2 shrink-0 rounded-full bg-gold" />
+                    <span className="h-2 w-2 shrink-0 rounded-full bg-purple" />
                     <span className="text-sm font-medium text-heading sm:text-base">{value}</span>
                   </div>
                 )
@@ -78,7 +78,7 @@ export default function AboutPage() {
               <p className="mt-3 text-base text-cream-dark/70 sm:mt-4 sm:text-lg">
                 Une audience mixte et sélective
               </p>
-              <ul className="mt-3 space-y-1 text-sm text-gold-light sm:mt-4">
+              <ul className="mt-3 space-y-1 text-sm text-purple-light sm:mt-4">
                 <li>+ On parle inclusion</li>
                 <li>+ On parle performance</li>
                 <li>+ On valorise les femmes sans exclure</li>
@@ -96,7 +96,7 @@ export default function AboutPage() {
                   "DIGIZELLE affirme sa maturité.",
                 ].map((point) => (
                   <li key={point} className="flex items-start gap-3">
-                    <svg className="mt-0.5 h-5 w-5 shrink-0 text-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <svg className="mt-0.5 h-5 w-5 shrink-0 text-purple" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                     </svg>
                     <span className="text-sm text-body sm:text-base">{point}</span>

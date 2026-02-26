@@ -52,7 +52,7 @@ export function AboutSection() {
         />
 
         <FadeIn>
-          <blockquote className="mx-auto mb-10 max-w-3xl border-l-4 border-gold py-2 pl-4 text-center font-serif text-lg italic text-heading sm:mb-16 sm:pl-6 sm:text-xl md:text-2xl">
+          <blockquote className="mx-auto mb-10 max-w-3xl border-l-4 border-purple py-2 pl-4 text-center font-serif text-lg italic text-heading sm:mb-16 sm:pl-6 sm:text-xl md:text-2xl">
             &ldquo;{EVENT.quote}&rdquo;
           </blockquote>
         </FadeIn>
@@ -60,8 +60,8 @@ export function AboutSection() {
         <StaggerContainer className="grid gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-4 lg:gap-8">
           {PILLARS.map((pillar) => (
             <StaggerItem key={pillar.title}>
-              <div className="group rounded-sm border border-border bg-cream p-6 transition-all duration-300 hover:border-gold hover:shadow-lg sm:p-8">
-                <div className="mb-3 text-gold transition-colors group-hover:text-heading sm:mb-4">
+              <div className="group rounded-sm border border-border bg-cream p-6 transition-all duration-300 hover:border-purple hover:shadow-lg sm:p-8">
+                <div className="mb-3 text-purple transition-colors group-hover:text-heading sm:mb-4">
                   {pillarIcons[pillar.icon]}
                 </div>
                 <h3 className="mb-2 font-serif text-lg font-semibold text-heading sm:text-xl">

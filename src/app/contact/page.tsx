@@ -77,7 +77,7 @@ export default function ContactPage() {
   }
 
   const inputClasses =
-    "w-full rounded-sm border border-border bg-cream px-3 py-2.5 text-sm text-heading outline-none transition-colors placeholder:text-body/50 focus:border-gold sm:px-4 sm:py-3 sm:text-base";
+    "w-full rounded-sm border border-border bg-cream px-3 py-2.5 text-sm text-heading outline-none transition-colors placeholder:text-body/50 focus:border-purple sm:px-4 sm:py-3 sm:text-base";
 
   return (
     <section className="min-h-screen bg-cream pt-24 pb-16 sm:pt-32 sm:pb-24">
@@ -91,8 +91,8 @@ export default function ContactPage() {
         {/* Spots counter */}
         {form.spotsLeft !== null && form.status !== "success" && (
           <div className="mx-auto mb-8 max-w-2xl text-center">
-            <div className="inline-flex items-center gap-2 rounded-full border border-gold/30 bg-gold/10 px-4 py-2">
-              <span className="h-2 w-2 rounded-full bg-gold animate-pulse" />
+            <div className="inline-flex items-center gap-2 rounded-full border border-purple/30 bg-purple/10 px-4 py-2">
+              <span className="h-2 w-2 rounded-full bg-purple animate-pulse" />
               <span className="text-sm font-medium text-heading">
                 {form.spotsLeft > 0
                   ? `${form.spotsLeft} place${form.spotsLeft > 1 ? "s" : ""} restante${form.spotsLeft > 1 ? "s" : ""}`

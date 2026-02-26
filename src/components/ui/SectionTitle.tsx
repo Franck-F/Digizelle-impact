@@ -27,7 +27,7 @@ export function SectionTitle({
         <span
           className={clsx(
             "mb-3 inline-block text-xs font-medium uppercase tracking-[0.2em] sm:text-sm",
-            light ? "text-gold-light" : "text-gold"
+            light ? "text-purple-light" : "text-purple"
           )}
         >
           {label}

@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 };
 
 const typeColors = {
-  opening: "bg-gold text-navy-dark",
+  opening: "bg-purple text-white",
   talk: "bg-purple text-white",
   panel: "bg-navy text-white",
   networking: "bg-navy-light text-white",
@@ -65,7 +65,7 @@ export default function ProgrammePage() {
                 href={EVENT.mapsUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-1 inline-flex items-center gap-1 text-gold transition-colors hover:text-gold-light"
+                className="mt-1 inline-flex items-center gap-1 text-purple transition-colors hover:text-purple-light"
               >
                 <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
@@ -78,7 +78,7 @@ export default function ProgrammePage() {
         />
 
         {/* Quote */}
-        <blockquote className="mx-auto mb-10 max-w-3xl border-l-4 border-gold py-2 pl-4 text-center font-serif text-lg italic text-heading sm:mb-16 sm:pl-6 sm:text-xl md:text-2xl">
+        <blockquote className="mx-auto mb-10 max-w-3xl border-l-4 border-purple py-2 pl-4 text-center font-serif text-lg italic text-heading sm:mb-16 sm:pl-6 sm:text-xl md:text-2xl">
           &ldquo;{EVENT.quote}&rdquo;
         </blockquote>
 
@@ -86,7 +86,7 @@ export default function ProgrammePage() {
         <div className="mx-auto max-w-3xl">
           <div className="relative space-y-0">
             {/* Vertical line */}
-            <div className="absolute left-7 top-0 h-full w-px bg-gold/30 sm:left-8 md:left-12" />
+            <div className="absolute left-7 top-0 h-full w-px bg-purple/30 sm:left-8 md:left-12" />
 
             {programme.map((item, index) => (
               <div key={item.time} className="relative flex gap-4 py-6 sm:gap-6 sm:py-8 md:gap-10">

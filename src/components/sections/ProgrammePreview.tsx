@@ -8,18 +8,18 @@ import { programme } from "@/lib/data/programme";
 import { clsx } from "clsx";
 
 const typeStyles = {
-  opening: "border-gold bg-gold/5",
-  talk: "border-purple bg-purple/5",
+  opening: "border-purple bg-purple/5",
+  talk: "border-purple-light bg-purple-light/5",
   panel: "border-navy bg-navy/5 dark:bg-navy/20",
   networking: "border-navy-light bg-navy-light/5 dark:bg-navy-light/20",
   break: "border-border bg-cream",
 };
 
 const typeBadge = {
-  opening: "bg-gold/20 text-gold-dark dark:text-gold",
-  talk: "bg-purple/20 text-purple dark:text-purple-light",
+  opening: "bg-purple/20 text-purple dark:text-purple-light",
+  talk: "bg-purple-light/20 text-purple dark:text-purple-light",
   panel: "bg-navy/20 text-navy dark:text-cream",
-  networking: "bg-navy-light/20 text-navy-light dark:text-gold-light",
+  networking: "bg-navy-light/20 text-navy-light dark:text-purple-light",
   break: "bg-border text-body",
 };
 
