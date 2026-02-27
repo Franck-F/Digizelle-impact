@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getDb, initDb } from "@/lib/db";
+import { sendConfirmationEmail } from "@/lib/email";
 
 const MAX_CAPACITY = 50;
 
@@ -75,6 +76,16 @@ export async function POST(req: NextRequest) {
       INSERT INTO registrations (type, first_name, last_name, email, company, school, role, message)
       VALUES (${profileType}, ${cleanFirstName}, ${cleanLastName}, ${cleanEmail}, ${cleanCompany}, ${cleanSchool}, ${cleanRole}, ${cleanMessage})
     `;
+
+    // Fire-and-forget: send confirmation email without blocking the response
+    sendConfirmationEmail({
+      to: cleanEmail,
+      firstName: cleanFirstName,
+      lastName: cleanLastName,
+      type: profileType,
+      company: cleanCompany,
+      school: cleanSchool,
+    }).catch((err) => console.error("Email send error:", err));
 
     const newCount = total + 1;
 

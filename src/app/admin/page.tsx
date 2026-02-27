@@ -223,6 +223,10 @@ export default function AdminPage() {
   // Companies list
   const companies = [...new Set(registrations.map((r) => r.company).filter(Boolean))];
 
+  // Type breakdown
+  const studentCount = registrations.filter((r) => r.type === "etudiant").length;
+  const companyCount = registrations.filter((r) => r.type !== "etudiant").length;
+
   // Login screen
   if (!isAuthenticated) {
     return (
@@ -414,30 +418,33 @@ export default function AdminPage() {
                   <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 6v.75m0 3v.75m0 3v.75m0 3V18m-9-5.25h5.25M7.5 15h3M3.375 5.25c-.621 0-1.125.504-1.125 1.125v3.026a2.999 2.999 0 0 1 0 5.198v3.026c0 .621.504 1.125 1.125 1.125h17.25c.621 0 1.125-.504 1.125-1.125v-3.026a2.999 2.999 0 0 1 0-5.198V6.375c0-.621-.504-1.125-1.125-1.125H3.375Z" />
                 </svg>
               </div>
-              <p className="text-[10px] font-semibold uppercase tracking-widest text-body/50 sm:text-xs">Places</p>
-              <p className="mt-0.5 font-serif text-2xl font-bold sm:text-3xl" style={{ color: gaugeColor }}>{spotsLeft}</p>
+              <p className="text-[10px] font-semibold uppercase tracking-widest text-body/50 sm:text-xs">Places restantes</p>
+              <div className="mt-0.5 flex items-baseline gap-1">
+                <span className="font-serif text-2xl font-bold sm:text-3xl" style={{ color: gaugeColor }}>{spotsLeft}</span>
+                <span className="text-xs text-body/40">/ {MAX_CAPACITY}</span>
+              </div>
             </div>
 
-            {/* Dernières 24h */}
+            {/* Étudiants */}
             <div className="group relative overflow-hidden rounded-xl border border-border bg-surface p-4 transition-all hover:border-purple/20 sm:p-5">
-              <div className="mb-2 flex h-9 w-9 items-center justify-center rounded-lg bg-purple-dark/10">
-                <svg className="h-4.5 w-4.5 text-purple-dark" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+              <div className="mb-2 flex h-9 w-9 items-center justify-center rounded-lg bg-blue-500/10">
+                <svg className="h-4.5 w-4.5 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a23.54 23.54 0 0 0-2.688 6.413 24.777 24.777 0 0 1 2.688-6.413Zm15.482 0a23.54 23.54 0 0 1 2.688 6.413 24.777 24.777 0 0 0-2.688-6.413ZM12 2.25l8.458 3.86v3.752c0 .536-.024 1.067-.07 1.592M12 2.25 3.542 6.11v3.752c0 .536.024 1.067.07 1.592" />
                 </svg>
               </div>
-              <p className="text-[10px] font-semibold uppercase tracking-widest text-body/50 sm:text-xs">24 dernières h</p>
-              <p className="mt-0.5 font-serif text-2xl font-bold text-purple-dark sm:text-3xl">{recentCount}</p>
+              <p className="text-[10px] font-semibold uppercase tracking-widest text-body/50 sm:text-xs">Étudiants</p>
+              <p className="mt-0.5 font-serif text-2xl font-bold text-blue-400 sm:text-3xl">{studentCount}</p>
             </div>
 
             {/* Entreprises */}
             <div className="group relative overflow-hidden rounded-xl border border-border bg-surface p-4 transition-all hover:border-purple/20 sm:p-5">
-              <div className="mb-2 flex h-9 w-9 items-center justify-center rounded-lg bg-surface">
-                <svg className="h-4.5 w-4.5 text-body" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+              <div className="mb-2 flex h-9 w-9 items-center justify-center rounded-lg bg-purple/10">
+                <svg className="h-4.5 w-4.5 text-purple" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Z" />
                 </svg>
               </div>
               <p className="text-[10px] font-semibold uppercase tracking-widest text-body/50 sm:text-xs">Entreprises</p>
-              <p className="mt-0.5 font-serif text-2xl font-bold text-heading/80 sm:text-3xl">{companies.length}</p>
+              <p className="mt-0.5 font-serif text-2xl font-bold text-purple sm:text-3xl">{companyCount}</p>
             </div>
           </div>
         </div>
