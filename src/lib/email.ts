@@ -61,16 +61,16 @@ function buildConfirmationEmailHtml(data: ConfirmationEmailData): string {
   <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="background-color: #F3F0FF;">
     <tr>
       <td align="center" style="padding: 32px 16px;">
-        <table role="presentation" cellpadding="0" cellspacing="0" width="600" style="max-width: 600px; width: 100%;">
+        <table role="presentation" cellpadding="0" cellspacing="0" width="600" style="max-width: 600px; width: 100%; border-radius: 16px; overflow: hidden; background-color: #FFFFFF; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);">
 
           <!-- Header -->
           <tr>
-            <td style="background: linear-gradient(135deg, #7301FF 0%, #5B21B6 100%); border-radius: 16px 16px 0 0; padding: 40px 32px; text-align: center;">
-              <img src="cid:digizelleLogo" alt="Digizelle" width="80" style="display: block; margin: 0 auto 16px; width: 80px; height: auto;" />
-              <h1 style="margin: 0 0 4px; font-size: 28px; font-weight: 800; color: #FFFFFF; letter-spacing: 3px;">
+            <td style="background-color: #FFFFFF; padding: 48px 32px 32px; text-align: center; border-bottom: 1px solid #F3F0FF;">
+              <img src="cid:digizelleLogo" alt="Digizelle" width="100" style="display: block; margin: 0 auto 20px; width: 100px; height: auto;" />
+              <h1 style="margin: 0 0 6px; font-size: 26px; font-weight: 800; color: #24325F; letter-spacing: 3px;">
                 DIGIZELLE
               </h1>
-              <p style="margin: 0; font-size: 13px; color: rgba(255,255,255,0.8); letter-spacing: 1.5px; text-transform: uppercase;">
+              <p style="margin: 0; font-size: 13px; color: #6B7280; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase;">
                 Impact Event 2026
               </p>
             </td>
