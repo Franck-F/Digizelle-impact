@@ -29,7 +29,6 @@ export default function AdminPage() {
   const [loginError, setLoginError] = useState("");
   const [registrations, setRegistrations] = useState<Registration[]>([]);
   const [total, setTotal] = useState(0);
-  const [spotsLeft, setSpotsLeft] = useState(MAX_CAPACITY);
   const [loading, setLoading] = useState(false);
   const [lastRefresh, setLastRefresh] = useState<Date | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
@@ -66,7 +65,6 @@ export default function AdminPage() {
 
         setRegistrations(data.registrations);
         setTotal(data.total);
-        setSpotsLeft(data.spotsLeft);
         setLastRefresh(new Date());
       } else {
         sessionStorage.removeItem("admin-token");
@@ -94,7 +92,6 @@ export default function AdminPage() {
         setIsAuthenticated(true);
         setRegistrations(data.registrations);
         setTotal(data.total);
-        setSpotsLeft(data.spotsLeft);
         prevTotalRef.current = data.total;
         setLastRefresh(new Date());
       } else {
@@ -211,7 +208,8 @@ export default function AdminPage() {
     });
 
   const fillPercent = Math.round((total / MAX_CAPACITY) * 100);
-  const gaugeColor = spotsLeft <= 10 ? "#ef4444" : spotsLeft <= 25 ? "#f59e0b" : "#22c55e";
+  const remaining = MAX_CAPACITY - total;
+  const gaugeColor = remaining <= 10 ? "#ef4444" : remaining <= 25 ? "#f59e0b" : "#22c55e";
   const circumference = 2 * Math.PI * 54;
   const gaugeOffset = circumference - (fillPercent / 100) * circumference;
 
@@ -411,18 +409,15 @@ export default function AdminPage() {
               <p className="mt-0.5 font-serif text-2xl font-bold text-heading sm:text-3xl">{total}</p>
             </div>
 
-            {/* Places restantes */}
+            {/* Dernières 24h */}
             <div className="group relative overflow-hidden rounded-xl border border-border bg-surface p-4 transition-all hover:border-purple/20 sm:p-5">
-              <div className="mb-2 flex h-9 w-9 items-center justify-center rounded-lg" style={{ backgroundColor: `${gaugeColor}15` }}>
-                <svg className="h-4.5 w-4.5" style={{ color: gaugeColor }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 6v.75m0 3v.75m0 3v.75m0 3V18m-9-5.25h5.25M7.5 15h3M3.375 5.25c-.621 0-1.125.504-1.125 1.125v3.026a2.999 2.999 0 0 1 0 5.198v3.026c0 .621.504 1.125 1.125 1.125h17.25c.621 0 1.125-.504 1.125-1.125v-3.026a2.999 2.999 0 0 1 0-5.198V6.375c0-.621-.504-1.125-1.125-1.125H3.375Z" />
+              <div className="mb-2 flex h-9 w-9 items-center justify-center rounded-lg bg-purple-dark/10">
+                <svg className="h-4.5 w-4.5 text-purple-dark" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                 </svg>
               </div>
-              <p className="text-[10px] font-semibold uppercase tracking-widest text-body/50 sm:text-xs">Places restantes</p>
-              <div className="mt-0.5 flex items-baseline gap-1">
-                <span className="font-serif text-2xl font-bold sm:text-3xl" style={{ color: gaugeColor }}>{spotsLeft}</span>
-                <span className="text-xs text-body/40">/ {MAX_CAPACITY}</span>
-              </div>
+              <p className="text-[10px] font-semibold uppercase tracking-widest text-body/50 sm:text-xs">24 dernières h</p>
+              <p className="mt-0.5 font-serif text-2xl font-bold text-purple-dark sm:text-3xl">{recentCount}</p>
             </div>
 
             {/* Étudiants */}
