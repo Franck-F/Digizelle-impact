@@ -179,21 +179,21 @@ export function CelebrationAnimation({
               <motion.div
                 key={`m-${m.id}`}
                 initial={{
-                  x: `${m.startX}%`,
-                  y: "100%",
+                  x: `${m.startX}vw`,
+                  y: "110vh",
                   rotate: 0,
                   scale: 0,
                   opacity: 0,
                 }}
                 animate={{
-                  x: [`${m.startX}%`, `${m.endX}%`, `${m.startX + 5}%`],
-                  y: ["100%", `${m.endY}%`, `${m.endY + 10}%`],
+                  x: [`${m.startX}vw`, `${m.endX}vw`, `${m.startX + 5}vw`],
+                  y: ["110vh", `${m.endY}vh`, `-${m.endY + 20}vh`],
                   rotate: [0, m.rotation, -m.rotation / 2],
                   scale: [0, 1.3, 1],
                   opacity: [0, 0.7, 0.5],
                 }}
                 transition={{
-                  duration: 3,
+                  duration: 4 + Math.random() * 2,
                   delay: m.delay,
                   ease: "easeOut",
                 }}
