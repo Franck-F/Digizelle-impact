@@ -1,4 +1,5 @@
 import nodemailer from "nodemailer";
+import path from "path";
 import { EVENT } from "./constants";
 
 function getTransporter() {
@@ -65,6 +66,7 @@ function buildConfirmationEmailHtml(data: ConfirmationEmailData): string {
           <!-- Header -->
           <tr>
             <td style="background: linear-gradient(135deg, #7301FF 0%, #5B21B6 100%); border-radius: 16px 16px 0 0; padding: 40px 32px; text-align: center;">
+              <img src="cid:digizelleLogo" alt="Digizelle" width="80" style="display: block; margin: 0 auto 16px; width: 80px; height: auto;" />
               <h1 style="margin: 0 0 4px; font-size: 28px; font-weight: 800; color: #FFFFFF; letter-spacing: 3px;">
                 DIGIZELLE
               </h1>
@@ -258,6 +260,13 @@ export async function sendConfirmationEmail(data: ConfirmationEmailData) {
       date: new Date(),
       messageId: `<${Date.now()}@digizelle.fr>`,
       priority: "normal",
+      attachments: [
+        {
+          filename: 'logo.png',
+          path: path.join(process.cwd(), 'public', 'images', 'logo.png'),
+          cid: 'digizelleLogo'
+        }
+      ]
     }, (err, info) => {
       if (err) {
         console.error("Erreur serveur SMTP (Envoi):", err);
