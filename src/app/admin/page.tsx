@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback, useRef } from "react";
 import Image from "next/image";
+import { ThemeToggle } from "@/components/ui/ThemeToggle";
 
 interface Registration {
   id: string;
@@ -343,6 +344,8 @@ export default function AdminPage() {
               <span className={`h-1.5 w-1.5 rounded-full ${autoRefresh ? "animate-pulse bg-green-400" : "bg-white/30"}`} />
               {autoRefresh ? "Live" : "Pause"}
             </button>
+
+            <ThemeToggle />
 
             {/* Event date */}
             <span className="hidden rounded-full border border-[#A34BF5]/20 bg-[#A34BF5]/10 px-3 py-1.5 text-xs text-[#A34BF5] sm:block">
