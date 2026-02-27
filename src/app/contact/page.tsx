@@ -118,7 +118,7 @@ export default function ContactPage() {
                       : "border-border text-heading hover:border-purple/50"
                   )}
                 >
-                  Entreprise
+                  Salarié(e)
                 </button>
               </div>
 
@@ -168,7 +168,7 @@ export default function ContactPage() {
 
               <div>
                 <label htmlFor="email" className="mb-1.5 block text-sm font-medium text-heading sm:mb-2">
-                  {profileType === "etudiant" ? "Email *" : "Email professionnel *"}
+                  {profileType === "etudiant" ? "Email *" : "Email *"}
                 </label>
                 <input
                   type="email"
@@ -197,7 +197,7 @@ export default function ContactPage() {
                 </div>
               )}
 
-              {/* Entreprise fields */}
+              {/* Salarié fields */}
               {profileType === "entreprise" && (
                 <div className="grid gap-4 sm:grid-cols-2 sm:gap-6">
                   <div>

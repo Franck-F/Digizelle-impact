@@ -1,12 +1,18 @@
-import { Resend } from "resend";
+import nodemailer from "nodemailer";
 import { EVENT } from "./constants";
 
-function getResend(): Resend {
-  const key = process.env.RESEND_API_KEY;
-  if (!key) {
-    throw new Error("RESEND_API_KEY is not set");
+function getTransporter() {
+  const user = process.env.SMTP_USER;
+  const pass = process.env.SMTP_PASS;
+  if (!user || !pass) {
+    throw new Error("SMTP_USER or SMTP_PASS is not set");
   }
-  return new Resend(key);
+  return nodemailer.createTransport({
+    host: "smtp.office365.com",
+    port: 587,
+    secure: false,
+    auth: { user, pass },
+  });
 }
 
 interface ConfirmationEmailData {
@@ -225,17 +231,12 @@ function buildConfirmationEmailHtml(data: ConfirmationEmailData): string {
 
 export async function sendConfirmationEmail(data: ConfirmationEmailData) {
   const html = buildConfirmationEmailHtml(data);
+  const transporter = getTransporter();
 
-  const resend = getResend();
-
-  const { error } = await resend.emails.send({
-    from: `Digizelle <onboarding@resend.dev>`,
+  await transporter.sendMail({
+    from: `"Digizelle" <${process.env.SMTP_USER}>`,
     to: data.to,
     subject: `Inscription confirmée — ${EVENT.name}`,
     html,
   });
-
-  if (error) {
-    throw new Error(`Resend error: ${error.message}`);
-  }
 }
