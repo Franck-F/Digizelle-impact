@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Container } from "@/components/ui/Container";
 import { SectionTitle } from "@/components/ui/SectionTitle";
 import { Button } from "@/components/ui/Button";
@@ -14,7 +14,6 @@ interface FormState {
   status: "idle" | "submitting" | "success" | "error";
   message: string;
   errors: string[];
-  spotsLeft: number | null;
 }
 
 export default function ContactPage() {
@@ -23,16 +22,7 @@ export default function ContactPage() {
     status: "idle",
     message: "",
     errors: [],
-    spotsLeft: null,
   });
-
-  // Fetch remaining spots on mount
-  useEffect(() => {
-    fetch("/api/register")
-      .then((r) => r.json())
-      .then((data) => setForm((prev) => ({ ...prev, spotsLeft: data.spotsLeft })))
-      .catch(() => {});
-  }, []);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -64,7 +54,6 @@ export default function ContactPage() {
           status: "success",
           message: data.message,
           errors: [],
-          spotsLeft: data.spotsLeft,
         });
       } else {
         setForm((prev) => ({
@@ -91,29 +80,14 @@ export default function ContactPage() {
         <SectionTitle
           label="Contact & Inscription"
           title="Réservez votre place"
-          description={`${EVENT.displayDate} — ${EVENT.location}. Places limitées à 50 participants.`}
+          description={`${EVENT.displayDate} — ${EVENT.location}. Places limitées, une confirmation vous sera envoyée par email.`}
         />
-
-        {/* Spots counter */}
-        {form.spotsLeft !== null && form.status !== "success" && (
-          <div className="mx-auto mb-8 max-w-2xl text-center">
-            <div className="inline-flex items-center gap-2 rounded-full border border-purple/30 bg-purple/10 px-4 py-2">
-              <span className="h-2 w-2 rounded-full bg-purple animate-pulse" />
-              <span className="text-sm font-medium text-heading">
-                {form.spotsLeft > 0
-                  ? `${form.spotsLeft} place${form.spotsLeft > 1 ? "s" : ""} restante${form.spotsLeft > 1 ? "s" : ""}`
-                  : "Complet — liste d'attente"}
-              </span>
-            </div>
-          </div>
-        )}
 
         <div className="mx-auto max-w-2xl">
           {form.status === "success" ? (
             <CelebrationAnimation
               show
               message={form.message}
-              spotsLeft={form.spotsLeft}
             />
           ) : (
             <form

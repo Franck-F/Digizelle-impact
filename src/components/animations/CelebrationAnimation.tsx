@@ -68,11 +68,9 @@ function createFloatingMascots(): FloatingMascot[] {
 export function CelebrationAnimation({
   show,
   message,
-  spotsLeft,
 }: {
   show: boolean;
   message: string;
-  spotsLeft: number | null;
 }) {
   const [particles, setParticles] = useState<Particle[]>([]);
   const [mascots, setMascots] = useState<FloatingMascot[]>([]);
@@ -325,31 +323,15 @@ export function CelebrationAnimation({
               {message}
             </motion.p>
 
-            {/* Spots left */}
-            {spotsLeft !== null && spotsLeft > 0 && (
-              <motion.div
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                transition={{
-                  type: "spring",
-                  stiffness: 200,
-                  damping: 15,
-                  delay: 1.4,
-                }}
-                className="mt-4 sm:mt-6"
-              >
-                <div className="inline-flex items-center gap-2 rounded-full border border-purple/40 bg-purple/10 px-5 py-2.5">
-                  <motion.span
-                    animate={{ scale: [1, 1.3, 1] }}
-                    transition={{ duration: 1.5, repeat: Infinity }}
-                    className="h-2.5 w-2.5 rounded-full bg-purple"
-                  />
-                  <span className="text-sm font-semibold text-purple sm:text-base">
-                    {spotsLeft} place{spotsLeft > 1 ? "s" : ""} restante{spotsLeft > 1 ? "s" : ""}
-                  </span>
-                </div>
-              </motion.div>
-            )}
+            {/* Confirmation notice */}
+            <motion.p
+              initial={{ y: 10, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 1.4, duration: 0.5 }}
+              className="mt-4 text-sm text-body sm:mt-6"
+            >
+              Une confirmation vous sera envoyée par email.
+            </motion.p>
 
             {/* Side mascots that peek in */}
             <div className="pointer-events-none absolute -left-4 bottom-0 sm:-left-8">

@@ -14,10 +14,10 @@ export function SpeakersPreview() {
         <SectionTitle
           label="Intervenants"
           title="Nos Speakers"
-          description="Des leaders d'exception de Microsoft, Google, AXA et X-HEC Entrepreneurs."
+          description="Des leaders d'exception de Microsoft, Epitech, Allianz, X-HEC Entrepreneurs et New Deal Founders."
         />
 
-        <SpeakerGrid speakers={speakers} limit={4} />
+        <SpeakerGrid speakers={speakers} limit={5} />
 
         <FadeIn delay={0.3}>
           <div className="mt-10 text-center sm:mt-12">
