@@ -3,17 +3,6 @@ import { Speaker } from "../types";
 export const speakers: Speaker[] = [
   {
     id: "1",
-    slug: "melissa-sari",
-    name: "Mélissa Sari",
-    title: "Customer Engineer",
-    company: "Microsoft",
-    bio: "Mélissa Sari est Customer Engineer chez Microsoft France, experte sur les sujets Power Platform et IA. Diplômée du Groupe IONIS, elle accompagne les entreprises dans leur transformation cloud et digitale. Finaliste des Women Role Model Awards de Microsoft France dans la catégorie « Femme engagée », elle est reconnue pour son implication en faveur de la diversité et de l'inclusion dans la tech. Récompensée par le Microsoft Gold Club Award et distinguée CSU Top Performer, elle incarne l'excellence et le leadership au quotidien.",
-    image: "/images/speakers/melissa-sari.jpg",
-    topic: "Power Platform, IA & diversité dans la tech",
-    linkedin: "https://www.linkedin.com/in/sarimelissa",
-  },
-  {
-    id: "2",
     slug: "laura-hassan",
     name: "Laura Hassan",
     title: "Directrice Générale d'Epitech",
@@ -22,6 +11,17 @@ export const speakers: Speaker[] = [
     image: "/images/speakers/Laura-Hassan.jpg",
     topic: "Leadership & Innovation dans l'éducation tech",
     linkedin: "https://www.linkedin.com/in/laura-hassan",
+  },
+  {
+    id: "2",
+    slug: "melissa-sari",
+    name: "Mélissa Sari",
+    title: "Customer Engineer",
+    company: "Microsoft",
+    bio: "Mélissa Sari est Customer Engineer chez Microsoft France, experte sur les sujets Power Platform et IA. Diplômée du Groupe IONIS, elle accompagne les entreprises dans leur transformation cloud et digitale. Finaliste des Women Role Model Awards de Microsoft France dans la catégorie « Femme engagée », elle est reconnue pour son implication en faveur de la diversité et de l'inclusion dans la tech. Récompensée par le Microsoft Gold Club Award et distinguée CSU Top Performer, elle incarne l'excellence et le leadership au quotidien.",
+    image: "/images/speakers/melissa-sari.jpg",
+    topic: "Power Platform, IA & diversité dans la tech",
+    linkedin: "https://www.linkedin.com/in/sarimelissa",
   },
   {
     id: "3",
