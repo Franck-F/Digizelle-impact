@@ -51,7 +51,7 @@ export const speakers: Speaker[] = [
     name: "Luc Olivier Yebga",
     title: "Fondateur & Président de New Deal Founders",
     company: "New Deal Founders",
-    bio: "Luc Olivier Yebga est entrepreneur et financier, fondateur et président de New Deal Founders, un réseau dédié à l'accompagnement des entrepreneurs ambitieux. Diplômé d'emlyon business school, il a forgé son expertise au sein d'institutions prestigieuses telles qu'EY, Deutsche Bank et Rothschild & Cie. Fort de cette double compétence en finance et en entrepreneuriat, il s'engage pour démocratiser l'accès aux opportunités et inspirer une nouvelle génération de leaders dans la tech et la finance.",
+    bio: "Luc Olivier Yebga est entrepreneur et financier, fondateur et président de New Deal Founders, un réseau dédié à l'accompagnement des entrepreneurs ambitieux. Diplômé d'emlyon business school, il a forgé son expertise au sein d'institutions prestigieuses telles qu'EY, Deutsche Bank, M&A, et Rothschild & Cie. Fort de cette double compétence en finance et en entrepreneuriat, il s'engage pour démocratiser l'accès aux opportunités et inspirer une nouvelle génération de leaders dans la tech et la finance.",
     image: "/images/speakers/luc-olivier-yebga.jpg",
     topic: "Finance, entrepreneuriat & accès aux opportunités",
     linkedin: "https://www.linkedin.com/in/luc-olivier-yebga",
