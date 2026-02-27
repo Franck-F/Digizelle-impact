@@ -41,6 +41,16 @@
   --text-dark: #F5F3EE;
   --text-muted: #94A3B8;
 
+  /* Purple — lighter for readability on dark backgrounds */
+  --purple: #A34BF5;
+  --purple-light: #C084FC;
+  --purple-dark: #7301FF;
+
+  /* Accent (gold alias) — lighter in dark mode */
+  --gold: #A855F7;
+  --gold-light: #C084FC;
+  --gold-dark: #9333EA;
+
   --surface: #141E30;
   --section: #101828;
   --border-clr: #1E2D45;

@@ -6,11 +6,11 @@ import { SectionTitle } from "@/components/ui/SectionTitle";
 import { FadeIn, StaggerContainer, StaggerItem } from "@/components/animations/FadeIn";
 
 const strategicPartners = [
-  { name: "Epitech" },
-  { name: "Microsoft" },
-  { name: "Allianz" },
-  { name: "X-HEC" },
-  { name: "New Deal Founders" },
+  { name: "Epitech", linkedin: "https://www.linkedin.com/school/epitech/" },
+  { name: "Microsoft", linkedin: "https://www.linkedin.com/company/microsoft/" },
+  { name: "Allianz", linkedin: "https://www.linkedin.com/company/allianz/" },
+  { name: "X-HEC", linkedin: "https://www.linkedin.com/company/x-hec-entrepreneurs/" },
+  { name: "New Deal Founders", linkedin: "https://www.linkedin.com/company/new-deal-founders/" },
 ];
 
 export function SponsorsSection() {
@@ -26,11 +26,16 @@ export function SponsorsSection() {
         <StaggerContainer className="mx-auto flex max-w-3xl flex-wrap items-center justify-center gap-6 sm:gap-10">
           {strategicPartners.map((partner) => (
             <StaggerItem key={partner.name}>
-              <div className="group flex h-20 w-36 items-center justify-center rounded-sm border border-border bg-surface p-4 transition-all duration-300 hover:border-purple hover:shadow-md sm:h-24 sm:w-44 sm:p-6">
+              <a
+                href={partner.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex h-20 w-36 items-center justify-center rounded-sm border border-border bg-surface p-4 transition-all duration-300 hover:border-purple hover:shadow-md sm:h-24 sm:w-44 sm:p-6"
+              >
                 <span className="text-center font-serif text-lg font-bold text-heading/40 transition-colors group-hover:text-heading sm:text-xl">
                   {partner.name}
                 </span>
-              </div>
+              </a>
             </StaggerItem>
           ))}
         </StaggerContainer>

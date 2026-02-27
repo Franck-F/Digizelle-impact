@@ -71,7 +71,7 @@ export function ProgrammePreview() {
                         {item.speakers.map((name) => (
                           <span
                             key={name}
-                            className="rounded-sm bg-cream px-2 py-1 text-xs font-medium text-heading"
+                            className="rounded-sm border border-border bg-surface px-2 py-1 text-xs font-medium text-heading"
                           >
                             {name}
                           </span>
