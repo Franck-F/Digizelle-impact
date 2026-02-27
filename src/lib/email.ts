@@ -251,8 +251,13 @@ export async function sendConfirmationEmail(data: ConfirmationEmailData) {
     transporter.sendMail({
       from: `"Digizelle" <${process.env.SMTP_FROM || "contact@digizelle.fr"}>`,
       to: data.to,
+      replyTo: "contact@digizelle.fr",
       subject: `Inscription confirmée — ${EVENT.name}`,
       html,
+      text: `Bonjour ${data.firstName} ${data.lastName}, votre inscription au ${EVENT.name} est confirmée. Rendez-vous le ${EVENT.displayDate} à ${EVENT.location}.`,
+      date: new Date(),
+      messageId: `<${Date.now()}@digizelle.fr>`,
+      priority: "normal",
     }, (err, info) => {
       if (err) {
         console.error("Erreur serveur SMTP (Envoi):", err);
