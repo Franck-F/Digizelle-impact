@@ -46,7 +46,7 @@ export function CTASection() {
         </FadeIn>
 
         <FadeIn delay={0.2}>
-          <p className="mx-auto mt-3 max-w-xl text-base text-cream-dark/70 sm:mt-4 sm:text-lg">
+          <p className="mx-auto mt-3 max-w-xl text-base text-white/60 sm:mt-4 sm:text-lg">
             Ce soir, on ne vient pas seulement écouter. On vient créer des
             connexions utiles. Transformer l&apos;inspiration en action.
           </p>
