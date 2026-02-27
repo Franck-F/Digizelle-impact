@@ -5,10 +5,12 @@ import Image from "next/image";
 
 interface Registration {
   id: string;
+  type: string;
   firstName: string;
   lastName: string;
   email: string;
   company: string;
+  school: string;
   role: string;
   message: string;
   registeredAt: string;
@@ -130,12 +132,14 @@ export default function AdminPage() {
   };
 
   const handleExportCSV = () => {
-    const headers = ["Nom", "Prenom", "Email", "Entreprise", "Poste", "Message", "Date inscription"];
+    const headers = ["Type", "Nom", "Prenom", "Email", "Entreprise", "École", "Poste", "Message", "Date inscription"];
     const rows = registrations.map((r) => [
+      r.type === "etudiant" ? "Étudiant" : "Entreprise",
       r.lastName,
       r.firstName,
       r.email,
       r.company,
+      r.school,
       r.role,
       r.message.replace(/"/g, '""'),
       new Date(r.registeredAt).toLocaleString("fr-FR"),
@@ -185,6 +189,7 @@ export default function AdminPage() {
         r.lastName.toLowerCase().includes(q) ||
         r.email.toLowerCase().includes(q) ||
         r.company.toLowerCase().includes(q) ||
+        (r.school || "").toLowerCase().includes(q) ||
         r.role.toLowerCase().includes(q)
       );
     })
@@ -516,13 +521,13 @@ export default function AdminPage() {
                     <th className="cursor-pointer px-4 py-3 text-left text-[10px] font-semibold uppercase tracking-widest text-white/30 hover:text-white/50" onClick={() => handleSort("name")}>
                       Nom <SortIcon col="name" />
                     </th>
+                    <th className="px-4 py-3 text-left text-[10px] font-semibold uppercase tracking-widest text-white/30">Type</th>
                     <th className="cursor-pointer px-4 py-3 text-left text-[10px] font-semibold uppercase tracking-widest text-white/30 hover:text-white/50" onClick={() => handleSort("email")}>
                       Email <SortIcon col="email" />
                     </th>
                     <th className="cursor-pointer px-4 py-3 text-left text-[10px] font-semibold uppercase tracking-widest text-white/30 hover:text-white/50" onClick={() => handleSort("company")}>
-                      Entreprise <SortIcon col="company" />
+                      Organisation <SortIcon col="company" />
                     </th>
-                    <th className="px-4 py-3 text-left text-[10px] font-semibold uppercase tracking-widest text-white/30">Poste</th>
                     <th className="cursor-pointer px-4 py-3 text-left text-[10px] font-semibold uppercase tracking-widest text-white/30 hover:text-white/50" onClick={() => handleSort("date")}>
                       Date <SortIcon col="date" />
                     </th>
@@ -552,12 +557,16 @@ export default function AdminPage() {
                         </div>
                       </td>
                       <td className="px-4 py-3">
+                        <span className={`rounded-full px-2 py-0.5 text-[10px] font-semibold ${r.type === "etudiant" ? "bg-blue-500/10 text-blue-400" : "bg-[#C5A55A]/10 text-[#C5A55A]"}`}>
+                          {r.type === "etudiant" ? "Étudiant" : "Entreprise"}
+                        </span>
+                      </td>
+                      <td className="px-4 py-3">
                         <a href={`mailto:${r.email}`} onClick={(e) => e.stopPropagation()} className="text-[#C5A55A]/80 transition-colors hover:text-[#C5A55A]">
                           {r.email}
                         </a>
                       </td>
-                      <td className="px-4 py-3 text-white/50">{r.company || "—"}</td>
-                      <td className="px-4 py-3 text-white/50">{r.role || "—"}</td>
+                      <td className="px-4 py-3 text-white/50">{r.type === "etudiant" ? (r.school || "—") : (r.company || "—")}{r.role ? ` — ${r.role}` : ""}</td>
                       <td className="px-4 py-3 text-white/30">
                         {new Date(r.registeredAt).toLocaleDateString("fr-FR", {
                           day: "2-digit",
@@ -625,7 +634,10 @@ export default function AdminPage() {
                   </div>
                   <a href={`mailto:${r.email}`} onClick={(e) => e.stopPropagation()} className="mt-1.5 block text-sm text-[#C5A55A]/70">{r.email}</a>
                   <div className="mt-2 flex flex-wrap gap-x-3 gap-y-1 text-xs text-white/30">
-                    {r.company && <span>{r.company}</span>}
+                    <span className={`rounded-full px-2 py-0.5 text-[10px] font-semibold ${r.type === "etudiant" ? "bg-blue-500/10 text-blue-400" : "bg-[#C5A55A]/10 text-[#C5A55A]"}`}>
+                      {r.type === "etudiant" ? "Étudiant" : "Entreprise"}
+                    </span>
+                    {r.type === "etudiant" ? r.school && <span>{r.school}</span> : r.company && <span>{r.company}</span>}
                     {r.role && <span>{r.role}</span>}
                     <span>
                       {new Date(r.registeredAt).toLocaleDateString("fr-FR", {
@@ -658,9 +670,17 @@ export default function AdminPage() {
                 <div>
                   <h3 className="text-lg font-bold text-white">{selectedReg.firstName} {selectedReg.lastName}</h3>
                   <p className="text-sm text-white/40">
-                    {selectedReg.company && `${selectedReg.company}`}
-                    {selectedReg.company && selectedReg.role && " — "}
-                    {selectedReg.role && selectedReg.role}
+                    <span className={`mr-2 rounded-full px-2 py-0.5 text-[10px] font-semibold ${selectedReg.type === "etudiant" ? "bg-blue-500/10 text-blue-400" : "bg-[#C5A55A]/10 text-[#C5A55A]"}`}>
+                      {selectedReg.type === "etudiant" ? "Étudiant" : "Entreprise"}
+                    </span>
+                    {selectedReg.type === "etudiant"
+                      ? selectedReg.school && selectedReg.school
+                      : <>
+                          {selectedReg.company && `${selectedReg.company}`}
+                          {selectedReg.company && selectedReg.role && " — "}
+                          {selectedReg.role && selectedReg.role}
+                        </>
+                    }
                   </p>
                 </div>
               </div>

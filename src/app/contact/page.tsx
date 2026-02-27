@@ -6,6 +6,9 @@ import { SectionTitle } from "@/components/ui/SectionTitle";
 import { Button } from "@/components/ui/Button";
 import { CelebrationAnimation } from "@/components/animations/CelebrationAnimation";
 import { EVENT } from "@/lib/constants";
+import { clsx } from "clsx";
+
+type ProfileType = "etudiant" | "entreprise";
 
 interface FormState {
   status: "idle" | "submitting" | "success" | "error";
@@ -15,6 +18,7 @@ interface FormState {
 }
 
 export default function ContactPage() {
+  const [profileType, setProfileType] = useState<ProfileType>("entreprise");
   const [form, setForm] = useState<FormState>({
     status: "idle",
     message: "",
@@ -36,11 +40,13 @@ export default function ContactPage() {
 
     const formData = new FormData(e.currentTarget);
     const payload = {
+      type: profileType,
       firstName: formData.get("firstName") as string,
       lastName: formData.get("lastName") as string,
       email: formData.get("email") as string,
-      company: formData.get("company") as string,
-      role: formData.get("role") as string,
+      company: profileType === "entreprise" ? (formData.get("company") as string) : "",
+      school: profileType === "etudiant" ? (formData.get("school") as string) : "",
+      role: profileType === "entreprise" ? (formData.get("role") as string) : "",
       message: formData.get("message") as string,
     };
 
@@ -114,6 +120,34 @@ export default function ContactPage() {
               onSubmit={handleSubmit}
               className="space-y-5 rounded-sm bg-surface p-5 shadow-sm sm:space-y-6 sm:p-8 md:p-12"
             >
+              {/* Profile type toggle */}
+              <div className="flex gap-2">
+                <button
+                  type="button"
+                  onClick={() => setProfileType("etudiant")}
+                  className={clsx(
+                    "flex-1 rounded-sm border-2 px-4 py-2.5 text-sm font-medium transition-all sm:text-base",
+                    profileType === "etudiant"
+                      ? "border-purple bg-purple text-white"
+                      : "border-border text-heading hover:border-purple/50"
+                  )}
+                >
+                  Étudiant(e)
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setProfileType("entreprise")}
+                  className={clsx(
+                    "flex-1 rounded-sm border-2 px-4 py-2.5 text-sm font-medium transition-all sm:text-base",
+                    profileType === "entreprise"
+                      ? "border-purple bg-purple text-white"
+                      : "border-border text-heading hover:border-purple/50"
+                  )}
+                >
+                  Entreprise
+                </button>
+              </div>
+
               {/* Error display */}
               {form.errors.length > 0 && (
                 <div className="rounded-sm border border-red-300 bg-red-50 p-4 dark:border-red-800 dark:bg-red-900/20">
@@ -160,44 +194,64 @@ export default function ContactPage() {
 
               <div>
                 <label htmlFor="email" className="mb-1.5 block text-sm font-medium text-heading sm:mb-2">
-                  Email professionnel *
+                  {profileType === "etudiant" ? "Email *" : "Email professionnel *"}
                 </label>
                 <input
                   type="email"
                   id="email"
                   name="email"
                   required
-                  placeholder="prenom@entreprise.com"
+                  placeholder={profileType === "etudiant" ? "prenom@ecole.fr" : "prenom@entreprise.com"}
                   className={inputClasses}
                 />
               </div>
 
-              <div className="grid gap-4 sm:grid-cols-2 sm:gap-6">
+              {/* Étudiant fields */}
+              {profileType === "etudiant" && (
                 <div>
-                  <label htmlFor="company" className="mb-1.5 block text-sm font-medium text-heading sm:mb-2">
-                    Entreprise
+                  <label htmlFor="school" className="mb-1.5 block text-sm font-medium text-heading sm:mb-2">
+                    École / Université *
                   </label>
                   <input
                     type="text"
-                    id="company"
-                    name="company"
-                    placeholder="Nom de l'entreprise"
+                    id="school"
+                    name="school"
+                    required
+                    placeholder="Nom de votre établissement"
                     className={inputClasses}
                   />
                 </div>
-                <div>
-                  <label htmlFor="role" className="mb-1.5 block text-sm font-medium text-heading sm:mb-2">
-                    Fonction
-                  </label>
-                  <input
-                    type="text"
-                    id="role"
-                    name="role"
-                    placeholder="Votre poste"
-                    className={inputClasses}
-                  />
+              )}
+
+              {/* Entreprise fields */}
+              {profileType === "entreprise" && (
+                <div className="grid gap-4 sm:grid-cols-2 sm:gap-6">
+                  <div>
+                    <label htmlFor="company" className="mb-1.5 block text-sm font-medium text-heading sm:mb-2">
+                      Entreprise
+                    </label>
+                    <input
+                      type="text"
+                      id="company"
+                      name="company"
+                      placeholder="Nom de l'entreprise"
+                      className={inputClasses}
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="role" className="mb-1.5 block text-sm font-medium text-heading sm:mb-2">
+                      Fonction
+                    </label>
+                    <input
+                      type="text"
+                      id="role"
+                      name="role"
+                      placeholder="Votre poste"
+                      className={inputClasses}
+                    />
+                  </div>
                 </div>
-              </div>
+              )}
 
               <div>
                 <label htmlFor="message" className="mb-1.5 block text-sm font-medium text-heading sm:mb-2">

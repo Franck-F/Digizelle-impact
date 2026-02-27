@@ -13,7 +13,9 @@ export async function POST(req: NextRequest) {
     await initDb();
 
     const body = await req.json();
-    const { firstName, lastName, email, company, role, message } = body;
+    const { type, firstName, lastName, email, company, school, role, message } = body;
+
+    const profileType = type === "etudiant" ? "etudiant" : "entreprise";
 
     // Validation
     const errors: string[] = [];
@@ -25,6 +27,9 @@ export async function POST(req: NextRequest) {
     }
     if (!email || !validateEmail(email)) {
       errors.push("Un email valide est requis.");
+    }
+    if (profileType === "etudiant" && (!school || typeof school !== "string" || school.trim().length < 2)) {
+      errors.push("L'école / université est requise.");
     }
 
     if (errors.length > 0) {
@@ -62,12 +67,13 @@ export async function POST(req: NextRequest) {
     const cleanFirstName = firstName.trim();
     const cleanLastName = lastName.trim();
     const cleanCompany = (company || "").trim();
+    const cleanSchool = (school || "").trim();
     const cleanRole = (role || "").trim();
     const cleanMessage = (message || "").trim();
 
     await sql`
-      INSERT INTO registrations (first_name, last_name, email, company, role, message)
-      VALUES (${cleanFirstName}, ${cleanLastName}, ${cleanEmail}, ${cleanCompany}, ${cleanRole}, ${cleanMessage})
+      INSERT INTO registrations (type, first_name, last_name, email, company, school, role, message)
+      VALUES (${profileType}, ${cleanFirstName}, ${cleanLastName}, ${cleanEmail}, ${cleanCompany}, ${cleanSchool}, ${cleanRole}, ${cleanMessage})
     `;
 
     const newCount = total + 1;
@@ -100,17 +106,19 @@ export async function GET(req: NextRequest) {
 
     if (authHeader === `Bearer ${adminToken}`) {
       const rows = await sql`
-        SELECT id, first_name, last_name, email, company, role, message, registered_at
+        SELECT id, type, first_name, last_name, email, company, school, role, message, registered_at
         FROM registrations
         ORDER BY registered_at DESC
       `;
 
       const registrations = rows.map((r) => ({
         id: r.id,
+        type: r.type || "entreprise",
         firstName: r.first_name,
         lastName: r.last_name,
         email: r.email,
         company: r.company,
+        school: r.school || "",
         role: r.role,
         message: r.message,
         registeredAt: r.registered_at,

@@ -25,7 +25,7 @@ export function Hero() {
         <FadeIn delay={0.1}>
           <h1 className="max-w-4xl font-serif text-3xl font-bold leading-tight text-heading sm:text-4xl md:text-5xl lg:text-7xl">
             Leadership & Innovation :{" "}
-            <em className="text-purple dark:text-purple-light">construire l&apos;avenir ensemble</em>
+            <span className="text-purple dark:text-purple-light">construire l&apos;avenir ensemble</span>
           </h1>
         </FadeIn>
 
