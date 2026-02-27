@@ -77,22 +77,26 @@ export async function POST(req: NextRequest) {
       VALUES (${profileType}, ${cleanFirstName}, ${cleanLastName}, ${cleanEmail}, ${cleanCompany}, ${cleanSchool}, ${cleanRole}, ${cleanMessage})
     `;
 
-    // Fire-and-forget: send confirmation email without blocking the response
-    sendConfirmationEmail({
-      to: cleanEmail,
-      firstName: cleanFirstName,
-      lastName: cleanLastName,
-      type: profileType,
-      company: cleanCompany,
-      school: cleanSchool,
-    }).catch((err) => console.error("Email send error:", err));
-
-    const newCount = total + 1;
+    // Send confirmation email
+    let emailStatus = "sent";
+    try {
+      await sendConfirmationEmail({
+        to: cleanEmail,
+        firstName: cleanFirstName,
+        lastName: cleanLastName,
+        type: profileType,
+        company: cleanCompany,
+        school: cleanSchool,
+      });
+    } catch (emailErr) {
+      emailStatus = `error: ${emailErr instanceof Error ? emailErr.message : String(emailErr)}`;
+      console.error("Email send error:", emailErr);
+    }
 
     return NextResponse.json({
       success: true,
       message: `Merci ${cleanFirstName} ! Votre inscription est confirmée.`,
-      spotsLeft: MAX_CAPACITY - newCount,
+      emailStatus,
     });
   } catch (err) {
     console.error("Registration error:", err);
