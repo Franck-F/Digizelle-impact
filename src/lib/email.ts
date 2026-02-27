@@ -229,7 +229,7 @@ export async function sendConfirmationEmail(data: ConfirmationEmailData) {
   const resend = getResend();
 
   const { error } = await resend.emails.send({
-    from: `Digizelle <digizelle.group@epitech.digital>`,
+    from: `Digizelle <onboarding@resend.dev>`,
     to: data.to,
     subject: `Inscription confirmée — ${EVENT.name}`,
     html,

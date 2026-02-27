@@ -447,8 +447,8 @@ export default function AdminPage() {
         {/* Progress bar */}
         <div className="mb-6 rounded-xl border border-border bg-surface p-4 sm:mb-8 sm:p-5">
           <div className="flex items-center justify-between text-xs">
-            <span className="font-semibold text-body">Capacité de l&apos;événement</span>
-            <span className="font-bold" style={{ color: gaugeColor }}>{total}/{MAX_CAPACITY}</span>
+            <span className="font-semibold text-body">Inscriptions</span>
+            <span className="font-bold" style={{ color: gaugeColor }}>{total} inscrits</span>
           </div>
           <div className="mt-2.5 h-3 w-full overflow-hidden rounded-full bg-heading/10">
             <div
@@ -459,11 +459,6 @@ export default function AdminPage() {
                 boxShadow: `0 0 12px ${gaugeColor}40`,
               }}
             />
-          </div>
-          <div className="mt-2 flex justify-between text-[10px] text-heading/20">
-            <span>0</span>
-            <span>25</span>
-            <span>50</span>
           </div>
         </div>
 
