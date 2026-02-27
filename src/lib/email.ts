@@ -236,6 +236,18 @@ export async function sendConfirmationEmail(data: ConfirmationEmailData) {
   const transporter = getTransporter();
 
   await new Promise((resolve, reject) => {
+    transporter.verify(function (error, success) {
+      if (error) {
+        console.error("Erreur de connexion SMTP :", error);
+        reject(error);
+      } else {
+        console.log("Serveur SMTP prêt à envoyer des messages");
+        resolve(success);
+      }
+    });
+  });
+
+  await new Promise((resolve, reject) => {
     transporter.sendMail({
       from: `"Digizelle" <${process.env.SMTP_FROM || "contact@digizelle.fr"}>`,
       to: data.to,
@@ -243,7 +255,7 @@ export async function sendConfirmationEmail(data: ConfirmationEmailData) {
       html,
     }, (err, info) => {
       if (err) {
-        console.error("Erreur serveur SMTP:", err);
+        console.error("Erreur serveur SMTP (Envoi):", err);
         reject(err);
       } else {
         resolve(info);

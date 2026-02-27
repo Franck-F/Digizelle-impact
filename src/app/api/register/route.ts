@@ -80,6 +80,7 @@ export async function POST(req: NextRequest) {
     // Send confirmation email
     let emailStatus = "sent";
     try {
+      console.log(`Tentative d'envoi d'email à ${cleanEmail}...`);
       await sendConfirmationEmail({
         to: cleanEmail,
         firstName: cleanFirstName,
@@ -88,9 +89,10 @@ export async function POST(req: NextRequest) {
         company: cleanCompany,
         school: cleanSchool,
       });
+      console.log(`Email envoyé avec succès à ${cleanEmail}`);
     } catch (emailErr) {
       emailStatus = `error: ${emailErr instanceof Error ? emailErr.message : String(emailErr)}`;
-      console.error("Email send error:", emailErr);
+      console.error("Erreur critique lors de l'envoi de l'email :", emailErr);
     }
 
     return NextResponse.json({
