@@ -235,10 +235,19 @@ export async function sendConfirmationEmail(data: ConfirmationEmailData) {
   const html = buildConfirmationEmailHtml(data);
   const transporter = getTransporter();
 
-  await transporter.sendMail({
-    from: `"Digizelle" <${process.env.SMTP_FROM || "contact@digizelle.fr"}>`,
-    to: data.to,
-    subject: `Inscription confirmée — ${EVENT.name}`,
-    html,
+  await new Promise((resolve, reject) => {
+    transporter.sendMail({
+      from: `"Digizelle" <${process.env.SMTP_FROM || "contact@digizelle.fr"}>`,
+      to: data.to,
+      subject: `Inscription confirmée — ${EVENT.name}`,
+      html,
+    }, (err, info) => {
+      if (err) {
+        console.error("Erreur serveur SMTP:", err);
+        reject(err);
+      } else {
+        resolve(info);
+      }
+    });
   });
 }
