@@ -27,7 +27,7 @@ export default function AboutPage() {
               <h3 className="mb-3 font-serif text-xl font-bold text-heading sm:mb-4 sm:text-2xl">
                 Le Contexte
               </h3>
-              <p className="text-sm leading-relaxed text-body sm:text-base">
+              <p className="text-justify text-sm leading-relaxed text-body sm:text-base">
                 À l&apos;occasion de la Journée internationale des droits des
                 femmes, Digizelle organise un événement d&apos;exception réunissant
                 les acteurs majeurs de la tech. Le 8 mars est le contexte, pas le
@@ -38,7 +38,7 @@ export default function AboutPage() {
               <h3 className="mb-3 font-serif text-xl font-bold text-heading sm:mb-4 sm:text-2xl">
                 L&apos;Argument
               </h3>
-              <p className="text-sm leading-relaxed text-body sm:text-base">
+              <p className="text-justify text-sm leading-relaxed text-body sm:text-base">
                 La compétence. L&apos;ambition. L&apos;innovation. Nous invitons
                 hommes et femmes à la même table. Un dialogue ouvert pour créer de
                 vraies opportunités.
@@ -47,7 +47,7 @@ export default function AboutPage() {
           </div>
 
           {/* Quote */}
-          <blockquote className="my-10 border-l-4 border-purple py-3 pl-4 font-serif text-lg italic text-heading sm:my-16 sm:py-4 sm:pl-6 sm:text-xl md:text-2xl">
+          <blockquote className="my-10 border-l-4 border-purple py-3 pl-4 font-serif text-lg italic text-heading text-justify sm:my-16 sm:py-4 sm:pl-6 sm:text-xl md:text-2xl">
             &ldquo;{EVENT.quote}&rdquo;
           </blockquote>
 

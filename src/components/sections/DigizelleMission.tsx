@@ -27,12 +27,12 @@ export function DigizelleMission() {
           </FadeIn>
 
           {/* Text */}
-          <FadeIn direction="right" delay={0.15}>
-            <p className="text-base leading-relaxed text-body sm:text-lg">
+          <FadeIn direction="right" delay={0.15} className="flex-1">
+            <p className="text-justify text-base leading-relaxed text-body sm:text-lg">
               Digizelle a pour mission d&apos;inspirer, d&apos;éduquer et d&apos;accompagner
               les jeunes dans leur parcours vers le digital.
             </p>
-            <p className="mt-4 text-base leading-relaxed text-body sm:mt-6 sm:text-lg">
+            <p className="mt-4 text-justify text-base leading-relaxed text-body sm:mt-6 sm:text-lg">
               À travers cette association, nous avons à cœur de créer un environnement
               stimulant et bienveillant, permettant à chacun de développer son potentiel
               tout en contribuant à des projets concrets et à fort impact.
