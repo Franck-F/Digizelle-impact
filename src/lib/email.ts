@@ -7,11 +7,11 @@ function getTransporter() {
     throw new Error("SMTP_KEY is not set");
   }
   return nodemailer.createTransport({
-    host: "smtp-relay.brevo.com",
-    port: 587,
-    secure: false,
+    host: process.env.SMTP_HOST || "ssl0.ovh.net",
+    port: Number(process.env.SMTP_PORT) || 465,
+    secure: process.env.SMTP_SECURE ? process.env.SMTP_SECURE === "true" : true,
     auth: {
-      user: process.env.SMTP_USER || "digizelle.group@epitech.digital",
+      user: process.env.SMTP_USER || "contact@digizelle.fr",
       pass: smtpKey,
     },
   });
@@ -206,7 +206,7 @@ function buildConfirmationEmailHtml(data: ConfirmationEmailData): string {
 
               <p style="margin: 0; font-size: 14px; color: #6B7280; line-height: 1.6; text-align: center;">
                 Une question ? Contactez-nous à<br />
-                <a href="mailto:digizelle.group@epitech.digital" style="color: #7301FF; text-decoration: none; font-weight: 600;">digizelle.group@epitech.digital</a>
+                <a href="mailto:contact@digizelle.fr" style="color: #7301FF; text-decoration: none; font-weight: 600;">contact@digizelle.fr</a>
               </p>
             </td>
           </tr>
@@ -236,7 +236,7 @@ export async function sendConfirmationEmail(data: ConfirmationEmailData) {
   const transporter = getTransporter();
 
   await transporter.sendMail({
-    from: `"Digizelle" <${process.env.SMTP_FROM || "digizelle.group@epitech.digital"}>`,
+    from: `"Digizelle" <${process.env.SMTP_FROM || "contact@digizelle.fr"}>`,
     to: data.to,
     subject: `Inscription confirmée — ${EVENT.name}`,
     html,
