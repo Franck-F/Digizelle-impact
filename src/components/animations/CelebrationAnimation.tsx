@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useRef } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -38,9 +38,11 @@ const MASCOTS = [
   "/images/mascotte/mascotte4.png",
 ];
 
+let nextParticleId = 0;
+
 function createParticles(count: number): Particle[] {
-  return Array.from({ length: count }, (_, i) => ({
-    id: i,
+  return Array.from({ length: count }, () => ({
+    id: nextParticleId++,
     x: Math.random() * 100,
     y: -10 - Math.random() * 20,
     size: 4 + Math.random() * 8,
@@ -75,30 +77,38 @@ export function CelebrationAnimation({
   const [particles, setParticles] = useState<Particle[]>([]);
   const [mascots, setMascots] = useState<FloatingMascot[]>([]);
   const [burstPhase, setBurstPhase] = useState(0);
+  const timeoutsRef = useRef<ReturnType<typeof setTimeout>[]>([]);
 
-  const triggerBurst = useCallback(() => {
+  useEffect(() => {
+    if (!show) return;
+
+    // Clear any pending timeouts from a previous run (React Strict Mode)
+    timeoutsRef.current.forEach(clearTimeout);
+    timeoutsRef.current = [];
+
     setParticles(createParticles(60));
     setMascots(createFloatingMascots());
     setBurstPhase(1);
 
     // Second burst
-    setTimeout(() => {
-      setParticles((prev) => [...prev, ...createParticles(40).map((p) => ({ ...p, id: p.id + 100, delay: p.delay + 0.5 }))]);
+    const t1 = setTimeout(() => {
+      setParticles((prev) => [...prev, ...createParticles(40).map((p) => ({ ...p, delay: p.delay + 0.5 }))]);
       setBurstPhase(2);
     }, 800);
 
     // Third burst
-    setTimeout(() => {
-      setParticles((prev) => [...prev, ...createParticles(30).map((p) => ({ ...p, id: p.id + 200, delay: p.delay + 1 }))]);
+    const t2 = setTimeout(() => {
+      setParticles((prev) => [...prev, ...createParticles(30).map((p) => ({ ...p, delay: p.delay + 1 }))]);
       setBurstPhase(3);
     }, 1600);
-  }, []);
 
-  useEffect(() => {
-    if (show) {
-      triggerBurst();
-    }
-  }, [show, triggerBurst]);
+    timeoutsRef.current = [t1, t2];
+
+    return () => {
+      timeoutsRef.current.forEach(clearTimeout);
+      timeoutsRef.current = [];
+    };
+  }, [show]);
 
   return (
     <AnimatePresence>

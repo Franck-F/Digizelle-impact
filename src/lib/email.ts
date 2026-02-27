@@ -2,16 +2,18 @@ import nodemailer from "nodemailer";
 import { EVENT } from "./constants";
 
 function getTransporter() {
-  const user = process.env.SMTP_USER;
-  const pass = process.env.SMTP_PASS;
-  if (!user || !pass) {
-    throw new Error("SMTP_USER or SMTP_PASS is not set");
+  const smtpKey = process.env.SMTP_KEY;
+  if (!smtpKey) {
+    throw new Error("SMTP_KEY is not set");
   }
   return nodemailer.createTransport({
-    host: "smtp.office365.com",
+    host: "smtp-relay.brevo.com",
     port: 587,
     secure: false,
-    auth: { user, pass },
+    auth: {
+      user: process.env.SMTP_USER || "digizelle.group@epitech.digital",
+      pass: smtpKey,
+    },
   });
 }
 
@@ -234,7 +236,7 @@ export async function sendConfirmationEmail(data: ConfirmationEmailData) {
   const transporter = getTransporter();
 
   await transporter.sendMail({
-    from: `"Digizelle" <${process.env.SMTP_USER}>`,
+    from: `"Digizelle" <${process.env.SMTP_FROM || "digizelle.group@epitech.digital"}>`,
     to: data.to,
     subject: `Inscription confirmée — ${EVENT.name}`,
     html,
