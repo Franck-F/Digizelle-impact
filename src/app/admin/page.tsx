@@ -210,7 +210,7 @@ export default function AdminPage() {
     });
 
   const fillPercent = Math.round((total / MAX_CAPACITY) * 100);
-  const gaugeColor = spotsLeft <= 10 ? "#ef4444" : spotsLeft <= 25 ? "#C5A55A" : "#22c55e";
+  const gaugeColor = spotsLeft <= 10 ? "#ef4444" : spotsLeft <= 25 ? "#f59e0b" : "#22c55e";
   const circumference = 2 * Math.PI * 54;
   const gaugeOffset = circumference - (fillPercent / 100) * circumference;
 
@@ -227,9 +227,9 @@ export default function AdminPage() {
     return (
       <div className="flex min-h-screen items-center justify-center bg-[#0B1120] p-4">
         <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute -left-20 -top-20 h-[400px] w-[400px] rounded-full border border-[#C5A55A]/5" />
-          <div className="absolute -bottom-32 -right-16 h-[500px] w-[500px] rounded-full border border-[#C5A55A]/5" />
-          <div className="absolute left-1/2 top-1/3 h-[300px] w-[300px] -translate-x-1/2 rounded-full bg-[#C5A55A]/[0.02]" />
+          <div className="absolute -left-20 -top-20 h-[400px] w-[400px] rounded-full border border-[#A34BF5]/5" />
+          <div className="absolute -bottom-32 -right-16 h-[500px] w-[500px] rounded-full border border-[#A34BF5]/5" />
+          <div className="absolute left-1/2 top-1/3 h-[300px] w-[300px] -translate-x-1/2 rounded-full bg-[#A34BF5]/[0.02]" />
         </div>
 
         <div className="relative w-full max-w-md">
@@ -242,7 +242,7 @@ export default function AdminPage() {
                 height={80}
                 className="h-20 w-auto"
               />
-              <span className="absolute -bottom-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-[#C5A55A] text-[10px] font-bold text-[#0B1120]">
+              <span className="absolute -bottom-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-[#A34BF5] text-[10px] font-bold text-[#0B1120]">
                 <svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" />
                 </svg>
@@ -250,11 +250,11 @@ export default function AdminPage() {
             </div>
             <h1 className="font-serif text-3xl font-bold text-white">Back Office</h1>
             <p className="mt-2 text-sm text-white/40">Digizelle Impact Event 2026</p>
-            <p className="mt-1 text-xs text-[#C5A55A]/60">Tableau de bord administrateur</p>
+            <p className="mt-1 text-xs text-[#A34BF5]/60">Tableau de bord administrateur</p>
           </div>
 
           <form onSubmit={handleLogin} className="rounded-xl border border-white/10 bg-white/[0.03] p-6 backdrop-blur-sm sm:p-8">
-            <label className="mb-2 block text-xs font-semibold uppercase tracking-widest text-[#C5A55A]">
+            <label className="mb-2 block text-xs font-semibold uppercase tracking-widest text-[#A34BF5]">
               Token d&apos;accès
             </label>
             <div className="relative">
@@ -266,7 +266,7 @@ export default function AdminPage() {
                 value={token}
                 onChange={(e) => setToken(e.target.value)}
                 placeholder="Entrez le token admin"
-                className="mb-4 w-full rounded-lg border border-white/10 bg-white/5 py-3.5 pl-11 pr-4 text-sm text-white placeholder-white/25 outline-none transition-all focus:border-[#C5A55A]/50 focus:bg-white/[0.07]"
+                className="mb-4 w-full rounded-lg border border-white/10 bg-white/5 py-3.5 pl-11 pr-4 text-sm text-white placeholder-white/25 outline-none transition-all focus:border-[#A34BF5]/50 focus:bg-white/[0.07]"
                 autoFocus
               />
             </div>
@@ -281,7 +281,7 @@ export default function AdminPage() {
             <button
               type="submit"
               disabled={loading || !token}
-              className="flex w-full items-center justify-center gap-2 rounded-lg bg-[#C5A55A] px-4 py-3.5 text-sm font-bold text-[#0B1120] transition-all hover:bg-[#d4b76b] hover:shadow-lg hover:shadow-[#C5A55A]/20 disabled:opacity-50"
+              className="flex w-full items-center justify-center gap-2 rounded-lg bg-[#A34BF5] px-4 py-3.5 text-sm font-bold text-[#0B1120] transition-all hover:bg-[#C084FC] hover:shadow-lg hover:shadow-[#A34BF5]/20 disabled:opacity-50"
             >
               {loading ? (
                 <>
@@ -309,7 +309,7 @@ export default function AdminPage() {
   // Column sort indicator
   const SortIcon = ({ col }: { col: SortKey }) => (
     <svg
-      className={`ml-1 inline h-3 w-3 transition-transform ${sortKey === col ? "text-[#C5A55A]" : "text-white/20"} ${sortKey === col && sortDir === "desc" ? "rotate-180" : ""}`}
+      className={`ml-1 inline h-3 w-3 transition-transform ${sortKey === col ? "text-[#A34BF5]" : "text-white/20"} ${sortKey === col && sortDir === "desc" ? "rotate-180" : ""}`}
       fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}
     >
       <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
@@ -345,7 +345,7 @@ export default function AdminPage() {
             </button>
 
             {/* Event date */}
-            <span className="hidden rounded-full border border-[#C5A55A]/20 bg-[#C5A55A]/10 px-3 py-1.5 text-xs text-[#C5A55A] sm:block">
+            <span className="hidden rounded-full border border-[#A34BF5]/20 bg-[#A34BF5]/10 px-3 py-1.5 text-xs text-[#A34BF5] sm:block">
               13 Mars 2026
             </span>
 
@@ -395,8 +395,8 @@ export default function AdminPage() {
           <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
             {/* Inscrits */}
             <div className="group relative overflow-hidden rounded-xl border border-white/10 bg-white/[0.03] p-4 transition-all hover:border-white/20 sm:p-5">
-              <div className="mb-2 flex h-9 w-9 items-center justify-center rounded-lg bg-[#C5A55A]/10">
-                <svg className="h-4.5 w-4.5 text-[#C5A55A]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+              <div className="mb-2 flex h-9 w-9 items-center justify-center rounded-lg bg-[#A34BF5]/10">
+                <svg className="h-4.5 w-4.5 text-[#A34BF5]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" />
                 </svg>
               </div>
@@ -473,7 +473,7 @@ export default function AdminPage() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Rechercher par nom, email, entreprise..."
-              className="w-full rounded-lg border border-white/10 bg-white/5 py-2.5 pl-11 pr-4 text-sm text-white placeholder-white/25 outline-none transition-all focus:border-[#C5A55A]/50 focus:bg-white/[0.07]"
+              className="w-full rounded-lg border border-white/10 bg-white/5 py-2.5 pl-11 pr-4 text-sm text-white placeholder-white/25 outline-none transition-all focus:border-[#A34BF5]/50 focus:bg-white/[0.07]"
             />
           </div>
 
@@ -493,7 +493,7 @@ export default function AdminPage() {
             <button
               onClick={handleExportCSV}
               disabled={registrations.length === 0}
-              className="flex items-center gap-1.5 rounded-lg bg-[#C5A55A] px-3.5 py-2 text-xs font-bold text-[#0B1120] transition-all hover:bg-[#d4b76b] hover:shadow-lg hover:shadow-[#C5A55A]/20 disabled:opacity-40"
+              className="flex items-center gap-1.5 rounded-lg bg-[#A34BF5] px-3.5 py-2 text-xs font-bold text-[#0B1120] transition-all hover:bg-[#C084FC] hover:shadow-lg hover:shadow-[#A34BF5]/20 disabled:opacity-40"
             >
               <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
@@ -541,28 +541,28 @@ export default function AdminPage() {
                       onClick={() => setSelectedReg(selectedReg?.id === r.id ? null : r)}
                       className={`cursor-pointer transition-all ${
                         newIds.has(r.id)
-                          ? "animate-pulse bg-[#C5A55A]/10"
+                          ? "animate-pulse bg-[#A34BF5]/10"
                           : selectedReg?.id === r.id
-                          ? "bg-[#C5A55A]/5"
+                          ? "bg-[#A34BF5]/5"
                           : "hover:bg-white/[0.03]"
                       }`}
                     >
                       <td className="px-4 py-3 text-white/20">{i + 1}</td>
                       <td className="px-4 py-3">
                         <div className="flex items-center gap-2.5">
-                          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#C5A55A]/10 text-xs font-bold text-[#C5A55A]">
+                          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#A34BF5]/10 text-xs font-bold text-[#A34BF5]">
                             {r.firstName[0]}{r.lastName[0]}
                           </div>
                           <span className="font-medium text-white">{r.firstName} {r.lastName}</span>
                         </div>
                       </td>
                       <td className="px-4 py-3">
-                        <span className={`rounded-full px-2 py-0.5 text-[10px] font-semibold ${r.type === "etudiant" ? "bg-blue-500/10 text-blue-400" : "bg-[#C5A55A]/10 text-[#C5A55A]"}`}>
+                        <span className={`rounded-full px-2 py-0.5 text-[10px] font-semibold ${r.type === "etudiant" ? "bg-blue-500/10 text-blue-400" : "bg-[#A34BF5]/10 text-[#A34BF5]"}`}>
                           {r.type === "etudiant" ? "Étudiant" : "Entreprise"}
                         </span>
                       </td>
                       <td className="px-4 py-3">
-                        <a href={`mailto:${r.email}`} onClick={(e) => e.stopPropagation()} className="text-[#C5A55A]/80 transition-colors hover:text-[#C5A55A]">
+                        <a href={`mailto:${r.email}`} onClick={(e) => e.stopPropagation()} className="text-[#A34BF5]/80 transition-colors hover:text-[#A34BF5]">
                           {r.email}
                         </a>
                       </td>
@@ -605,11 +605,11 @@ export default function AdminPage() {
                 <div
                   key={r.id}
                   onClick={() => setSelectedReg(selectedReg?.id === r.id ? null : r)}
-                  className={`p-4 transition-all ${newIds.has(r.id) ? "animate-pulse bg-[#C5A55A]/10" : selectedReg?.id === r.id ? "bg-[#C5A55A]/5" : ""}`}
+                  className={`p-4 transition-all ${newIds.has(r.id) ? "animate-pulse bg-[#A34BF5]/10" : selectedReg?.id === r.id ? "bg-[#A34BF5]/5" : ""}`}
                 >
                   <div className="flex items-start justify-between">
                     <div className="flex items-center gap-2.5">
-                      <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#C5A55A]/10 text-xs font-bold text-[#C5A55A]">
+                      <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#A34BF5]/10 text-xs font-bold text-[#A34BF5]">
                         {r.firstName[0]}{r.lastName[0]}
                       </div>
                       <div>
@@ -632,9 +632,9 @@ export default function AdminPage() {
                       )}
                     </div>
                   </div>
-                  <a href={`mailto:${r.email}`} onClick={(e) => e.stopPropagation()} className="mt-1.5 block text-sm text-[#C5A55A]/70">{r.email}</a>
+                  <a href={`mailto:${r.email}`} onClick={(e) => e.stopPropagation()} className="mt-1.5 block text-sm text-[#A34BF5]/70">{r.email}</a>
                   <div className="mt-2 flex flex-wrap gap-x-3 gap-y-1 text-xs text-white/30">
-                    <span className={`rounded-full px-2 py-0.5 text-[10px] font-semibold ${r.type === "etudiant" ? "bg-blue-500/10 text-blue-400" : "bg-[#C5A55A]/10 text-[#C5A55A]"}`}>
+                    <span className={`rounded-full px-2 py-0.5 text-[10px] font-semibold ${r.type === "etudiant" ? "bg-blue-500/10 text-blue-400" : "bg-[#A34BF5]/10 text-[#A34BF5]"}`}>
                       {r.type === "etudiant" ? "Étudiant" : "Entreprise"}
                     </span>
                     {r.type === "etudiant" ? r.school && <span>{r.school}</span> : r.company && <span>{r.company}</span>}
@@ -661,16 +661,16 @@ export default function AdminPage() {
 
         {/* Detail panel — desktop */}
         {selectedReg && (
-          <div className="mt-4 hidden rounded-xl border border-[#C5A55A]/20 bg-[#C5A55A]/[0.03] p-5 sm:block sm:p-6">
+          <div className="mt-4 hidden rounded-xl border border-[#A34BF5]/20 bg-[#A34BF5]/[0.03] p-5 sm:block sm:p-6">
             <div className="flex items-start justify-between">
               <div className="flex items-center gap-3">
-                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#C5A55A]/10 text-lg font-bold text-[#C5A55A]">
+                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#A34BF5]/10 text-lg font-bold text-[#A34BF5]">
                   {selectedReg.firstName[0]}{selectedReg.lastName[0]}
                 </div>
                 <div>
                   <h3 className="text-lg font-bold text-white">{selectedReg.firstName} {selectedReg.lastName}</h3>
                   <p className="text-sm text-white/40">
-                    <span className={`mr-2 rounded-full px-2 py-0.5 text-[10px] font-semibold ${selectedReg.type === "etudiant" ? "bg-blue-500/10 text-blue-400" : "bg-[#C5A55A]/10 text-[#C5A55A]"}`}>
+                    <span className={`mr-2 rounded-full px-2 py-0.5 text-[10px] font-semibold ${selectedReg.type === "etudiant" ? "bg-blue-500/10 text-blue-400" : "bg-[#A34BF5]/10 text-[#A34BF5]"}`}>
                       {selectedReg.type === "etudiant" ? "Étudiant" : "Entreprise"}
                     </span>
                     {selectedReg.type === "etudiant"
@@ -693,7 +693,7 @@ export default function AdminPage() {
             <div className="mt-4 grid gap-4 sm:grid-cols-3">
               <div>
                 <p className="text-[10px] font-semibold uppercase tracking-widest text-white/25">Email</p>
-                <a href={`mailto:${selectedReg.email}`} className="mt-1 block text-sm text-[#C5A55A]">{selectedReg.email}</a>
+                <a href={`mailto:${selectedReg.email}`} className="mt-1 block text-sm text-[#A34BF5]">{selectedReg.email}</a>
               </div>
               <div>
                 <p className="text-[10px] font-semibold uppercase tracking-widest text-white/25">Date d&apos;inscription</p>
