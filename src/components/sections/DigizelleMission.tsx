@@ -4,6 +4,7 @@ import Image from "next/image";
 import { Container } from "@/components/ui/Container";
 import { SectionTitle } from "@/components/ui/SectionTitle";
 import { FadeIn } from "@/components/animations/FadeIn";
+import { Button } from "@/components/ui/Button";
 
 export function DigizelleMission() {
   return (
@@ -37,6 +38,11 @@ export function DigizelleMission() {
               stimulant et bienveillant, permettant à chacun de développer son potentiel
               tout en contribuant à des projets concrets et à fort impact.
             </p>
+            <div className="mt-6 sm:mt-8">
+              <Button href="#" variant="outline" size="md">
+                En savoir plus
+              </Button>
+            </div>
           </FadeIn>
         </div>
       </Container>
