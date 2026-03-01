@@ -2,7 +2,6 @@ import { NextRequest, NextResponse } from "next/server";
 import { getDb, initDb } from "@/lib/db";
 import { sendConfirmationEmail } from "@/lib/email";
 
-const MAX_CAPACITY = 50;
 
 function validateEmail(email: string): boolean {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -51,19 +50,6 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Check capacity
-    const countResult = await sql`SELECT COUNT(*)::int AS total FROM registrations`;
-    const total = countResult[0].total;
-
-    if (total >= MAX_CAPACITY) {
-      return NextResponse.json(
-        {
-          success: false,
-          errors: ["Désolé, toutes les places sont prises. Contactez-nous pour être sur liste d'attente."],
-        },
-        { status: 403 }
-      );
-    }
 
     const cleanFirstName = firstName.trim();
     const cleanLastName = lastName.trim();
@@ -168,7 +154,6 @@ export async function GET(req: NextRequest) {
 
       return NextResponse.json({
         total,
-        spotsLeft: MAX_CAPACITY - total,
         registrations,
       });
     }
@@ -176,11 +161,10 @@ export async function GET(req: NextRequest) {
     // Public: only return counts
     return NextResponse.json({
       total,
-      spotsLeft: MAX_CAPACITY - total,
     });
   } catch (err) {
     console.error("GET registrations error:", err);
-    return NextResponse.json({ total: 0, spotsLeft: MAX_CAPACITY });
+    return NextResponse.json({ total: 0 });
   }
 }
 

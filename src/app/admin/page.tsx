@@ -24,7 +24,6 @@ type SortKey = "name" | "email" | "company" | "date";
 type SortDir = "asc" | "desc";
 
 const REFRESH_INTERVAL = 5000;
-const MAX_CAPACITY = 50;
 
 export default function AdminPage() {
   const [token, setToken] = useState("");
@@ -211,11 +210,6 @@ export default function AdminPage() {
       }
     });
 
-  const fillPercent = Math.round((total / MAX_CAPACITY) * 100);
-  const remaining = MAX_CAPACITY - total;
-  const gaugeColor = remaining <= 10 ? "#ef4444" : remaining <= 25 ? "#f59e0b" : "#22c55e";
-  const circumference = 2 * Math.PI * 54;
-  const gaugeOffset = circumference - (fillPercent / 100) * circumference;
 
   // Recent registrations (last 24h)
   const recentCount = registrations.filter(
@@ -358,8 +352,8 @@ export default function AdminPage() {
             <button
               onClick={() => setAutoRefresh(!autoRefresh)}
               className={`flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs transition-all ${autoRefresh
-                  ? "border-green-500/30 bg-green-500/10 text-green-400"
-                  : "border-border bg-surface text-body"
+                ? "border-green-500/30 bg-green-500/10 text-green-400"
+                : "border-border bg-surface text-body"
                 }`}
             >
               <span className={`h-1.5 w-1.5 rounded-full ${autoRefresh ? "animate-pulse bg-green-400" : "bg-heading/30"}`} />
@@ -394,24 +388,12 @@ export default function AdminPage() {
         {/* Top row — Gauge + Stats */}
         <div className="mb-6 grid gap-4 sm:mb-8 sm:gap-6 lg:grid-cols-[auto_1fr]">
           {/* Circular gauge */}
-          <div className="flex items-center justify-center rounded-xl border border-border bg-surface p-6 sm:p-8">
-            <div className="relative flex flex-col items-center">
-              <svg className="h-32 w-32 -rotate-90 sm:h-40 sm:w-40" viewBox="0 0 120 120">
-                <circle cx="60" cy="60" r="54" fill="none" className="stroke-heading/10" strokeWidth="8" />
-                <circle
-                  cx="60" cy="60" r="54" fill="none"
-                  stroke={gaugeColor}
-                  strokeWidth="8"
-                  strokeLinecap="round"
-                  strokeDasharray={circumference}
-                  strokeDashoffset={gaugeOffset}
-                  className="transition-all duration-1000"
-                />
-              </svg>
-              <div className="absolute inset-0 flex flex-col items-center justify-center">
-                <span className="font-serif text-3xl font-bold sm:text-4xl" style={{ color: gaugeColor }}>{fillPercent}%</span>
-                <span className="text-[10px] uppercase tracking-wider text-body/50 sm:text-xs">rempli</span>
-              </div>
+          {/* Total Inscriptions Big Card */}
+          <div className="flex flex-col items-center justify-center rounded-xl border border-border bg-surface p-6 sm:p-8">
+            <div className="text-center">
+              <p className="text-[10px] font-semibold uppercase tracking-widest text-body/50 sm:text-xs">Total Inscriptions</p>
+              <p className="mt-2 font-serif text-5xl font-bold text-purple sm:text-6xl">{total}</p>
+              <p className="mt-2 text-xs text-body/50">Digizelle Impact 2026</p>
             </div>
           </div>
 
@@ -476,23 +458,6 @@ export default function AdminPage() {
           </div>
         </div>
 
-        {/* Progress bar */}
-        <div className="mb-6 rounded-xl border border-border bg-surface p-4 sm:mb-8 sm:p-5">
-          <div className="flex items-center justify-between text-xs">
-            <span className="font-semibold text-body">Inscriptions</span>
-            <span className="font-bold" style={{ color: gaugeColor }}>{total} inscrits</span>
-          </div>
-          <div className="mt-2.5 h-3 w-full overflow-hidden rounded-full bg-heading/10">
-            <div
-              className="h-full rounded-full transition-all duration-1000"
-              style={{
-                width: `${Math.min(fillPercent, 100)}%`,
-                background: `linear-gradient(90deg, ${gaugeColor}, ${gaugeColor}dd)`,
-                boxShadow: `0 0 12px ${gaugeColor}40`,
-              }}
-            />
-          </div>
-        </div>
 
         {/* Toolbar */}
         <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
@@ -573,10 +538,10 @@ export default function AdminPage() {
                       key={r.id}
                       onClick={() => setSelectedReg(selectedReg?.id === r.id ? null : r)}
                       className={`cursor-pointer transition-all ${newIds.has(r.id)
-                          ? "animate-pulse bg-purple/10"
-                          : selectedReg?.id === r.id
-                            ? "bg-purple/5"
-                            : "hover:bg-surface"
+                        ? "animate-pulse bg-purple/10"
+                        : selectedReg?.id === r.id
+                          ? "bg-purple/5"
+                          : "hover:bg-surface"
                         }`}
                     >
                       <td className="px-4 py-3 text-heading/20">{i + 1}</td>
