@@ -222,80 +222,100 @@ export async function sendConfirmationEmail(data: ConfirmationEmailData) {
   const html = buildConfirmationEmailHtml(data);
   const text = `Bonjour ${data.firstName} ${data.lastName}, votre inscription au ${EVENT.name} est confirmée. Rendez-vous le ${EVENT.displayDate} à ${EVENT.location}.`;
 
-  if (data.to.toLowerCase().endsWith('@epitech.digital')) {
-    console.log("Routage via OVH SMTP (Nodemailer) pour :", data.to);
+  const isEpitech = data.to.toLowerCase().endsWith('@epitech.digital');
 
-    if (!process.env.SMTP_KEY) {
-      throw new Error("SMTP_KEY n'est pas configuré pour l'envoi OVH !");
+  if (isEpitech) {
+    console.log(`[Email-Hybrid] Détection Epitech : Routage via OVH SMTP pour ${data.to}`);
+
+    const smtpKey = process.env.SMTP_KEY;
+    const smtpUser = process.env.SMTP_USER || "contact@digizelle.fr";
+    const smtpHost = process.env.SMTP_HOST || "ssl0.ovh.net";
+    const smtpPort = Number(process.env.SMTP_PORT) || 465;
+
+    if (!smtpKey) {
+      console.error("[Email-Hybrid] ERREUR : SMTP_KEY manquante !");
+      // On ne jette pas d'erreur ici, on tente le secours Resend
+      console.warn("[Email-Hybrid] Tentative de secours via Resend...");
+      return await sendViaResend(data, html, text);
     }
 
     const transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST || "ssl0.ovh.net",
-      port: Number(process.env.SMTP_PORT) || 465,
-      secure: true, // true for 465, false for other ports
+      host: smtpHost,
+      port: smtpPort,
+      secure: smtpPort === 465,
       auth: {
-        user: process.env.SMTP_USER || "contact@digizelle.fr",
-        pass: process.env.SMTP_KEY,
-      }
+        user: smtpUser,
+        pass: smtpKey,
+      },
+      connectionTimeout: 5000,
+      greetingTimeout: 5000,
+      socketTimeout: 10000,
     });
 
-    // Wrap in promise for Vercel
-    await new Promise((resolve, reject) => {
-      transporter.sendMail({
-        from: `"Digizelle" <${process.env.SMTP_FROM || "contact@digizelle.fr"}>`,
-        to: data.to,
-        replyTo: "contact@digizelle.fr",
-        subject: `Inscription confirmée — ${EVENT.name}`,
-        html,
-        text,
-        attachments: [
-          {
-            filename: 'logo.png',
-            content: Buffer.from(LOGO_BASE64, 'base64'),
-            cid: 'digizelleLogo'
-          }
-        ]
-      }, (err, info) => {
-        if (err) {
-          console.error("Erreur OVH/Nodemailer:", err);
-          reject(err);
-        } else {
-          console.log(`Email envoyé avec succès via OVH à ${data.to}`);
-          resolve(info);
-        }
+    try {
+      console.log(`[Email-Hybrid] Tentative SMTP ${smtpHost}:${smtpPort}...`);
+
+      const info = await new Promise((resolve, reject) => {
+        transporter.sendMail({
+          from: `"Digizelle" <${process.env.SMTP_FROM || smtpUser}>`,
+          to: data.to,
+          replyTo: "contact@digizelle.fr",
+          subject: `Confirmation d'inscription — ${EVENT.name}`,
+          html,
+          text,
+          attachments: [
+            {
+              filename: 'logo.png',
+              content: Buffer.from(LOGO_BASE64, 'base64'),
+              cid: 'digizelleLogo'
+            }
+          ]
+        }, (err, info) => {
+          if (err) reject(err);
+          else resolve(info);
+        });
       });
-    });
+
+      console.log(`[Email-Hybrid] Succès OVH pour ${data.to}. MessageId:`, (info as any).messageId);
+    } catch (err: any) {
+      console.error("[Email-Hybrid] ÉCHEC OVH/SMTP :", err.message || err);
+      console.warn("[Email-Hybrid] Tentative de secours via Resend après échec SMTP...");
+      await sendViaResend(data, html, text);
+    }
 
   } else {
-    console.log("Routage via Resend API pour :", data.to);
-
-    const resendApiKey = process.env.RESEND_API_KEY;
-    if (!resendApiKey) {
-      throw new Error("RESEND_API_KEY is not set in environment variables");
-    }
-
-    const resend = new Resend(resendApiKey);
-
-    const { error } = await resend.emails.send({
-      from: `"Digizelle" <${process.env.SMTP_FROM || "contact@digizelle.fr"}>`,
-      to: data.to,
-      replyTo: "contact@digizelle.fr",
-      subject: `Inscription confirmée — ${EVENT.name}`,
-      html,
-      text,
-      attachments: [
-        {
-          filename: 'logo.png',
-          content: Buffer.from(LOGO_BASE64, 'base64'),
-          contentId: 'digizelleLogo'
-        }
-      ]
-    });
-
-    if (error) {
-      console.error("Resend API Error:", error);
-      throw new Error(error.message);
-    }
-    console.log(`Email envoyé avec succès via Resend à ${data.to}`);
+    await sendViaResend(data, html, text);
   }
+}
+
+async function sendViaResend(data: ConfirmationEmailData, html: string, text: string) {
+  const resendApiKey = process.env.RESEND_API_KEY;
+  if (!resendApiKey) {
+    throw new Error("RESEND_API_KEY is not set in environment variables");
+  }
+
+  const resend = new Resend(resendApiKey);
+  console.log(`[Email-Resend] Envoi vers ${data.to} via API...`);
+
+  const { error } = await resend.emails.send({
+    from: `"Digizelle" <${process.env.SMTP_FROM || "contact@digizelle.fr"}>`,
+    to: data.to,
+    replyTo: "contact@digizelle.fr",
+    subject: `Confirmation d'inscription — ${EVENT.name}`,
+    html,
+    text,
+    attachments: [
+      {
+        filename: 'logo.png',
+        content: Buffer.from(LOGO_BASE64, 'base64'),
+        contentId: 'digizelleLogo'
+      }
+    ]
+  });
+
+  if (error) {
+    console.error("[Email-Resend] API Error:", error);
+    throw new Error(error.message);
+  }
+  console.log(`[Email-Resend] Succès Resend pour ${data.to}`);
 }
