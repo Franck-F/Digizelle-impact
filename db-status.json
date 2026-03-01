@@ -1,0 +1,42 @@
+[
+  {
+    "id": "a0e98680-5c01-4198-915f-3746926bd5b8",
+    "first_name": "Franck",
+    "last_name": "Dilane",
+    "email": "franckfambou@gmail.com",
+    "email_status": "sent",
+    "email_provider": "resend",
+    "email_error": "",
+    "registered_at": "2026-03-01T18:02:49.830Z"
+  },
+  {
+    "id": "b074bbf8-2db7-45df-8232-bd1b30d74a25",
+    "first_name": "Franck",
+    "last_name": "Dilane",
+    "email": "franck-dilane1.fambou@epitech.digital",
+    "email_status": "sent",
+    "email_provider": "ovh",
+    "email_error": "",
+    "registered_at": "2026-03-01T17:58:19.996Z"
+  },
+  {
+    "id": "28026a25-6f95-47ce-a6b1-6e76eaaa3c8b",
+    "first_name": "Bleuenn",
+    "last_name": "Cloteaux",
+    "email": "bleuenn.cloteaux900@gmail.com",
+    "email_status": "pending",
+    "email_provider": "none",
+    "email_error": "",
+    "registered_at": "2026-03-01T07:50:51.071Z"
+  },
+  {
+    "id": "d25db836-568c-4ce7-917e-7e3d583f09d0",
+    "first_name": "Priscillia",
+    "last_name": "MEZA",
+    "email": "priscilliamezasamira@gmail.com",
+    "email_status": "pending",
+    "email_provider": "none",
+    "email_error": "",
+    "registered_at": "2026-03-01T07:35:17.294Z"
+  }
+]

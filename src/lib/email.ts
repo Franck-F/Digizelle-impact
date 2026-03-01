@@ -218,11 +218,26 @@ function buildConfirmationEmailHtml(data: ConfirmationEmailData): string {
 </html>`;
 }
 
-export async function sendConfirmationEmail(data: ConfirmationEmailData): Promise<{ success: boolean; provider: string; error?: string }> {
-  const html = buildConfirmationEmailHtml(data);
-  const text = `Bonjour ${data.firstName} ${data.lastName}, votre inscription au ${EVENT.name} est confirmée. Rendez-vous le ${EVENT.displayDate} à ${EVENT.location}.`;
+function buildLiteConfirmationEmailHtml(data: { firstName: string; lastName: string }) {
+  return `
+    <div style="font-family: sans-serif; line-height: 1.5; color: #333; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #eee; border-radius: 8px;">
+      <h2 style="color: #6d28d9;">Confirmation d'inscription</h2>
+      <p>Bonjour ${data.firstName} ${data.lastName},</p>
+      <p>Votre inscription au <strong>${EVENT.name}</strong> a bien été enregistrée.</p>
+      <p><strong>Date :</strong> ${EVENT.displayDate}<br>
+      <strong>Lieu :</strong> ${EVENT.location}</p>
+      <p>Nous avons hâte de vous y retrouver !</p>
+      <hr style="border: 0; border-top: 1px solid #eee; margin: 20px 0;">
+      <p style="font-size: 12px; color: #999;">Cet email est une confirmation automatique envoyée par Digizelle.</p>
+    </div>
+  `;
+}
 
+export async function sendConfirmationEmail(data: ConfirmationEmailData): Promise<{ success: boolean; provider: string; error?: string }> {
   const isEpitech = data.to.toLowerCase().endsWith('@epitech.digital');
+
+  const html = isEpitech ? buildLiteConfirmationEmailHtml(data) : buildConfirmationEmailHtml(data);
+  const text = `Bonjour ${data.firstName} ${data.lastName}, votre inscription au ${EVENT.name} est confirmée. Rendez-vous le ${EVENT.displayDate} à ${EVENT.location}.`;
 
   if (isEpitech) {
     console.log(`[Email-Hybrid] Détection Epitech : Routage via OVH SMTP pour ${data.to}`);
@@ -262,7 +277,7 @@ export async function sendConfirmationEmail(data: ConfirmationEmailData): Promis
           subject: `Confirmation d'inscription — ${EVENT.name}`,
           html,
           text,
-          attachments: [
+          attachments: isEpitech ? [] : [
             {
               filename: 'logo.png',
               content: Buffer.from(LOGO_BASE64, 'base64'),
