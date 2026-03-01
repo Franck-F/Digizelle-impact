@@ -78,10 +78,13 @@ export async function POST(req: NextRequest) {
     `;
 
     // Send confirmation email
-    let emailStatus = "sent";
+    let emailStatus = "pending";
+    let emailProvider = "none";
+    let emailError = "";
+
     try {
       console.log(`Tentative d'envoi d'email à ${cleanEmail}...`);
-      await sendConfirmationEmail({
+      const result = await sendConfirmationEmail({
         to: cleanEmail,
         firstName: cleanFirstName,
         lastName: cleanLastName,
@@ -89,10 +92,29 @@ export async function POST(req: NextRequest) {
         company: cleanCompany,
         school: cleanSchool,
       });
-      console.log(`Email envoyé avec succès à ${cleanEmail}`);
+
+      emailStatus = result.success ? "sent" : "failed";
+      emailProvider = result.provider;
+      emailError = result.error || "";
+
+      console.log(`Résultat envoi email (${emailProvider}) : ${emailStatus}`);
     } catch (emailErr) {
-      emailStatus = `error: ${emailErr instanceof Error ? emailErr.message : String(emailErr)}`;
+      emailStatus = "error";
+      emailError = emailErr instanceof Error ? emailErr.message : String(emailErr);
       console.error("Erreur critique lors de l'envoi de l'email :", emailErr);
+    }
+
+    // Update registration with email status
+    try {
+      await sql`
+        UPDATE registrations 
+        SET email_status = ${emailStatus}, 
+            email_provider = ${emailProvider}, 
+            email_error = ${emailError}
+        WHERE email = ${cleanEmail}
+      `;
+    } catch (dbErr) {
+      console.error("Erreur mise à jour statut email en BDD :", dbErr);
     }
 
     return NextResponse.json({
@@ -123,7 +145,7 @@ export async function GET(req: NextRequest) {
 
     if (authHeader === `Bearer ${adminToken}`) {
       const rows = await sql`
-        SELECT id, type, first_name, last_name, email, company, school, role, message, registered_at
+        SELECT id, type, first_name, last_name, email, company, school, role, message, email_status, email_provider, email_error, registered_at
         FROM registrations
         ORDER BY registered_at DESC
       `;
@@ -138,6 +160,9 @@ export async function GET(req: NextRequest) {
         school: r.school || "",
         role: r.role,
         message: r.message,
+        emailStatus: r.email_status,
+        emailProvider: r.email_provider,
+        emailError: r.email_error,
         registeredAt: r.registered_at,
       }));
 

@@ -218,7 +218,7 @@ function buildConfirmationEmailHtml(data: ConfirmationEmailData): string {
 </html>`;
 }
 
-export async function sendConfirmationEmail(data: ConfirmationEmailData) {
+export async function sendConfirmationEmail(data: ConfirmationEmailData): Promise<{ success: boolean; provider: string; error?: string }> {
   const html = buildConfirmationEmailHtml(data);
   const text = `Bonjour ${data.firstName} ${data.lastName}, votre inscription au ${EVENT.name} est confirmée. Rendez-vous le ${EVENT.displayDate} à ${EVENT.location}.`;
 
@@ -234,7 +234,6 @@ export async function sendConfirmationEmail(data: ConfirmationEmailData) {
 
     if (!smtpKey) {
       console.error("[Email-Hybrid] ERREUR : SMTP_KEY manquante !");
-      // On ne jette pas d'erreur ici, on tente le secours Resend
       console.warn("[Email-Hybrid] Tentative de secours via Resend...");
       return await sendViaResend(data, html, text);
     }
@@ -277,45 +276,57 @@ export async function sendConfirmationEmail(data: ConfirmationEmailData) {
       });
 
       console.log(`[Email-Hybrid] Succès OVH pour ${data.to}. MessageId:`, (info as any).messageId);
+      return { success: true, provider: "ovh" };
     } catch (err: any) {
       console.error("[Email-Hybrid] ÉCHEC OVH/SMTP :", err.message || err);
       console.warn("[Email-Hybrid] Tentative de secours via Resend après échec SMTP...");
-      await sendViaResend(data, html, text);
+      const resendResult = await sendViaResend(data, html, text);
+      return {
+        ...resendResult,
+        error: `OVH Failed: ${err.message || String(err)}. Resend Result: ${resendResult.success ? "Success" : "Failed"}`
+      };
     }
 
   } else {
-    await sendViaResend(data, html, text);
+    return await sendViaResend(data, html, text);
   }
 }
 
-async function sendViaResend(data: ConfirmationEmailData, html: string, text: string) {
-  const resendApiKey = process.env.RESEND_API_KEY;
-  if (!resendApiKey) {
-    throw new Error("RESEND_API_KEY is not set in environment variables");
+async function sendViaResend(data: ConfirmationEmailData, html: string, text: string): Promise<{ success: boolean; provider: string; error?: string }> {
+  try {
+    const resendApiKey = process.env.RESEND_API_KEY;
+    if (!resendApiKey) {
+      throw new Error("RESEND_API_KEY is not set in environment variables");
+    }
+
+    const resend = new Resend(resendApiKey);
+    console.log(`[Email-Resend] Envoi vers ${data.to} via API...`);
+
+    const { error } = await resend.emails.send({
+      from: `"Digizelle" <${process.env.SMTP_FROM || "contact@digizelle.fr"}>`,
+      to: data.to,
+      replyTo: "contact@digizelle.fr",
+      subject: `Confirmation d'inscription — ${EVENT.name}`,
+      html,
+      text,
+      attachments: [
+        {
+          filename: 'logo.png',
+          content: Buffer.from(LOGO_BASE64, 'base64'),
+          contentId: 'digizelleLogo'
+        }
+      ]
+    });
+
+    if (error) {
+      console.error("[Email-Resend] API Error:", error);
+      return { success: false, provider: "resend", error: error.message };
+    }
+
+    console.log(`[Email-Resend] Succès Resend pour ${data.to}`);
+    return { success: true, provider: "resend" };
+  } catch (err: any) {
+    console.error("[Email-Resend] Execution Error:", err);
+    return { success: false, provider: "resend", error: err.message || String(err) };
   }
-
-  const resend = new Resend(resendApiKey);
-  console.log(`[Email-Resend] Envoi vers ${data.to} via API...`);
-
-  const { error } = await resend.emails.send({
-    from: `"Digizelle" <${process.env.SMTP_FROM || "contact@digizelle.fr"}>`,
-    to: data.to,
-    replyTo: "contact@digizelle.fr",
-    subject: `Confirmation d'inscription — ${EVENT.name}`,
-    html,
-    text,
-    attachments: [
-      {
-        filename: 'logo.png',
-        content: Buffer.from(LOGO_BASE64, 'base64'),
-        contentId: 'digizelleLogo'
-      }
-    ]
-  });
-
-  if (error) {
-    console.error("[Email-Resend] API Error:", error);
-    throw new Error(error.message);
-  }
-  console.log(`[Email-Resend] Succès Resend pour ${data.to}`);
 }

@@ -14,6 +14,9 @@ interface Registration {
   school: string;
   role: string;
   message: string;
+  emailStatus: string;
+  emailProvider: string;
+  emailError: string;
   registeredAt: string;
 }
 
@@ -26,6 +29,7 @@ const MAX_CAPACITY = 50;
 export default function AdminPage() {
   const [token, setToken] = useState("");
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [showToken, setShowToken] = useState(false);
   const [loginError, setLoginError] = useState("");
   const [registrations, setRegistrations] = useState<Registration[]>([]);
   const [total, setTotal] = useState(0);
@@ -265,13 +269,29 @@ export default function AdminPage() {
                 <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 5.25a3 3 0 0 1 3 3m3 0a6 6 0 0 1-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1 1 21.75 8.25Z" />
               </svg>
               <input
-                type="password"
+                type={showToken ? "text" : "password"}
                 value={token}
                 onChange={(e) => setToken(e.target.value)}
                 placeholder="Entrez le token admin"
-                className="mb-4 w-full rounded-lg border border-border bg-surface py-3.5 pl-11 pr-4 text-sm text-heading placeholder:text-body/50 outline-none transition-all focus:border-purple/50 focus:bg-surface"
+                className="mb-4 w-full rounded-lg border border-border bg-surface py-3.5 pl-11 pr-12 text-sm text-heading placeholder:text-body/50 outline-none transition-all focus:border-purple/50 focus:bg-surface"
                 autoFocus
               />
+              <button
+                type="button"
+                onClick={() => setShowToken(!showToken)}
+                className="absolute right-3.5 top-1/2 -translate-y-[calc(50%+8px)] text-heading/20 transition-colors hover:text-purple"
+              >
+                {showToken ? (
+                  <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M3.98 8.223A10.477 10.477 0 0 0 1.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.451 10.451 0 0 1 12 4.5c4.756 0 8.773 3.162 10.065 7.498a10.522 10.522 0 0 1-4.293 5.774M6.228 6.228 3 3m3.228 3.228 3.65 3.65m7.894 7.894L21 21m-3.228-3.228-3.65-3.65m0 0a3 3 0 1 0-4.243-4.243m4.242 4.242L9.88 9.88" />
+                  </svg>
+                ) : (
+                  <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.644C3.301 7.697 7.244 4.5 12 4.5c4.756 0 8.773 3.162 10.065 7.498a1.012 1.012 0 0 1 0 .644C20.699 16.303 16.756 19.5 12 19.5c-4.756 0-8.773-3.162-10.065-7.498Z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                  </svg>
+                )}
+              </button>
             </div>
             {loginError && (
               <div className="mb-4 flex items-center gap-2 rounded-lg border border-red-500/20 bg-red-500/10 px-3 py-2.5">
@@ -337,11 +357,10 @@ export default function AdminPage() {
             {/* Live indicator */}
             <button
               onClick={() => setAutoRefresh(!autoRefresh)}
-              className={`flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs transition-all ${
-                autoRefresh
+              className={`flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs transition-all ${autoRefresh
                   ? "border-green-500/30 bg-green-500/10 text-green-400"
                   : "border-border bg-surface text-body"
-              }`}
+                }`}
             >
               <span className={`h-1.5 w-1.5 rounded-full ${autoRefresh ? "animate-pulse bg-green-400" : "bg-heading/30"}`} />
               {autoRefresh ? "Live" : "Pause"}
@@ -433,13 +452,26 @@ export default function AdminPage() {
 
             {/* Entreprises */}
             <div className="group relative overflow-hidden rounded-xl border border-border bg-surface p-4 transition-all hover:border-purple/20 sm:p-5">
-              <div className="mb-2 flex h-9 w-9 items-center justify-center rounded-lg bg-purple/10">
-                <svg className="h-4.5 w-4.5 text-purple" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+              <div className="mb-2 flex h-9 w-9 items-center justify-center rounded-lg bg-orange-500/10">
+                <svg className="h-4.5 w-4.5 text-orange-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Z" />
                 </svg>
               </div>
               <p className="text-[10px] font-semibold uppercase tracking-widest text-body/50 sm:text-xs">Entreprises</p>
-              <p className="mt-0.5 font-serif text-2xl font-bold text-purple sm:text-3xl">{companyCount}</p>
+              <p className="mt-0.5 font-serif text-2xl font-bold text-orange-400 sm:text-3xl">{companyCount}</p>
+            </div>
+
+            {/* Email Success Stat */}
+            <div className="group relative overflow-hidden rounded-xl border border-border bg-surface p-4 transition-all hover:border-purple/20 sm:p-5">
+              <div className="mb-2 flex h-9 w-9 items-center justify-center rounded-lg bg-green-500/10">
+                <svg className="h-4.5 w-4.5 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                </svg>
+              </div>
+              <p className="text-[10px] font-semibold uppercase tracking-widest text-body/50 sm:text-xs">Emails Livrés</p>
+              <p className="mt-0.5 font-serif text-2xl font-bold text-green-500 sm:text-3xl">
+                {registrations.filter(r => r.emailStatus === 'sent').length}
+              </p>
             </div>
           </div>
         </div>
@@ -531,6 +563,7 @@ export default function AdminPage() {
                     <th className="cursor-pointer px-4 py-3 text-left text-[10px] font-semibold uppercase tracking-widest text-body/50 hover:text-body" onClick={() => handleSort("date")}>
                       Date <SortIcon col="date" />
                     </th>
+                    <th className="px-4 py-3 text-left text-[10px] font-semibold uppercase tracking-widest text-body/50">Email Status</th>
                     <th className="px-4 py-3 text-right text-[10px] font-semibold uppercase tracking-widest text-body/50">Actions</th>
                   </tr>
                 </thead>
@@ -539,13 +572,12 @@ export default function AdminPage() {
                     <tr
                       key={r.id}
                       onClick={() => setSelectedReg(selectedReg?.id === r.id ? null : r)}
-                      className={`cursor-pointer transition-all ${
-                        newIds.has(r.id)
+                      className={`cursor-pointer transition-all ${newIds.has(r.id)
                           ? "animate-pulse bg-purple/10"
                           : selectedReg?.id === r.id
-                          ? "bg-purple/5"
-                          : "hover:bg-surface"
-                      }`}
+                            ? "bg-purple/5"
+                            : "hover:bg-surface"
+                        }`}
                     >
                       <td className="px-4 py-3 text-heading/20">{i + 1}</td>
                       <td className="px-4 py-3">
@@ -574,6 +606,29 @@ export default function AdminPage() {
                           hour: "2-digit",
                           minute: "2-digit",
                         })}
+                      </td>
+                      <td className="px-4 py-3">
+                        <div className="flex items-center gap-1.5">
+                          {r.emailStatus === 'sent' ? (
+                            <span className="flex items-center gap-1 rounded-full bg-green-500/10 px-2 py-0.5 text-[10px] font-bold text-green-500">
+                              <svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+                                <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 12.75 6 6 9-13.5" />
+                              </svg>
+                              {r.emailProvider === 'ovh' ? 'OVH' : 'Resend'}
+                            </span>
+                          ) : r.emailStatus === 'error' ? (
+                            <span className="flex items-center gap-1 rounded-full bg-red-500/10 px-2 py-0.5 text-[10px] font-bold text-red-500" title={r.emailError}>
+                              <svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
+                              </svg>
+                              Error
+                            </span>
+                          ) : (
+                            <span className="rounded-full bg-heading/10 px-2 py-0.5 text-[10px] font-bold text-body/50">
+                              ...
+                            </span>
+                          )}
+                        </div>
                       </td>
                       <td className="px-4 py-3 text-right" onClick={(e) => e.stopPropagation()}>
                         {deleteConfirm === r.id ? (
@@ -644,6 +699,14 @@ export default function AdminPage() {
                         day: "2-digit", month: "short", hour: "2-digit", minute: "2-digit",
                       })}
                     </span>
+                    {r.emailStatus === 'sent' ? (
+                      <span className="font-bold text-green-500 flex items-center gap-1">
+                        <svg className="h-2.5 w-2.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}><path strokeLinecap="round" strokeLinejoin="round" d="m4.5 12.75 6 6 9-13.5" /></svg>
+                        {r.emailProvider === 'ovh' ? 'OVH' : 'Resend'}
+                      </span>
+                    ) : (
+                      <span className="font-bold text-red-400">Email Fail</span>
+                    )}
                   </div>
 
                   {/* Expanded detail */}
@@ -676,10 +739,10 @@ export default function AdminPage() {
                     {selectedReg.type === "etudiant"
                       ? selectedReg.school && selectedReg.school
                       : <>
-                          {selectedReg.company && `${selectedReg.company}`}
-                          {selectedReg.company && selectedReg.role && " — "}
-                          {selectedReg.role && selectedReg.role}
-                        </>
+                        {selectedReg.company && `${selectedReg.company}`}
+                        {selectedReg.company && selectedReg.role && " — "}
+                        {selectedReg.role && selectedReg.role}
+                      </>
                     }
                   </p>
                 </div>
@@ -712,6 +775,12 @@ export default function AdminPage() {
               <div className="mt-4 rounded-lg border border-border bg-surface p-4">
                 <p className="text-[10px] font-semibold uppercase tracking-widest text-body/50">Message</p>
                 <p className="mt-1.5 text-sm italic text-body">&ldquo;{selectedReg.message}&rdquo;</p>
+              </div>
+            )}
+            {selectedReg.emailError && (
+              <div className="mt-4 rounded-lg border border-red-500/20 bg-red-500/5 p-4">
+                <p className="text-[10px] font-semibold uppercase tracking-widest text-red-400">Détails de l&apos;erreur d&apos;envoi</p>
+                <p className="mt-1.5 font-mono text-xs text-red-400/80">{selectedReg.emailError}</p>
               </div>
             )}
           </div>
