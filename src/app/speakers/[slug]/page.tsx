@@ -98,7 +98,7 @@ export default async function SpeakerPage({ params }: Props) {
               <h2 className="mb-3 font-serif text-lg font-semibold text-heading sm:text-xl">
                 Biographie
               </h2>
-              <p className="text-sm leading-relaxed text-body sm:text-base">{speaker.bio}</p>
+              <p className="whitespace-pre-wrap text-sm leading-relaxed text-body sm:text-base">{speaker.bio}</p>
             </div>
 
             {/* Social links */}
