@@ -2,7 +2,7 @@ export const EVENT = {
   name: "Digizelle Impact Event 2026",
   tagline: "Leadership & Innovation : construire l'avenir ensemble",
   motto: "LEADERSHIP. EXCELLENCE. VISION.",
-  date: "2026-03-13T18:30:00",
+  date: "2026-03-13T18:00:00",
   displayDate: "13 Mars 2026",
   location: "Epitech Paris",
   address: "24 Rue Pasteur, 94270 Le Kremlin-Bicêtre",

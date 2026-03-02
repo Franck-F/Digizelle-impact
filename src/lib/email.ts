@@ -103,7 +103,7 @@ function buildConfirmationEmailHtml(data: ConfirmationEmailData): string {
                               <td>
                                 <span style="font-size: 15px; color: #24325F; font-weight: 600;">${escapeHtml(EVENT.displayDate)}</span>
                                 <br />
-                                <span style="font-size: 13px; color: #6B7280;">Accueil à partir de 18h30</span>
+                                <span style="font-size: 13px; color: #6B7280;">Accueil à partir de 18h00</span>
                               </td>
                             </tr>
                           </table>
@@ -154,14 +154,14 @@ function buildConfirmationEmailHtml(data: ConfirmationEmailData): string {
                     <table role="presentation" cellpadding="0" cellspacing="0" width="100%">
                       <tr>
                         <td style="padding: 12px 16px; border-left: 3px solid #7301FF; background-color: #FAFAFA; border-radius: 0 8px 8px 0; margin-bottom: 8px;">
-                          <span style="font-size: 13px; color: #7301FF; font-weight: 700;">18h30</span>
+                          <span style="font-size: 13px; color: #7301FF; font-weight: 700;">18h00</span>
                           <span style="font-size: 14px; color: #24325F; font-weight: 600;"> — Ouverture & Accueil</span>
                         </td>
                       </tr>
                       <tr><td style="height: 8px;"></td></tr>
                       <tr>
                         <td style="padding: 12px 16px; border-left: 3px solid #7301FF; background-color: #FAFAFA; border-radius: 0 8px 8px 0;">
-                          <span style="font-size: 13px; color: #7301FF; font-weight: 700;">18h40</span>
+                          <span style="font-size: 13px; color: #7301FF; font-weight: 700;">18h10</span>
                           <span style="font-size: 14px; color: #24325F; font-weight: 600;"> — Keynote & Table Ronde</span>
                         </td>
                       </tr>
@@ -224,7 +224,7 @@ function buildLiteConfirmationEmailHtml(data: { firstName: string; lastName: str
       <h2 style="color: #6d28d9;">Confirmation d'inscription</h2>
       <p>Bonjour ${data.firstName} ${data.lastName},</p>
       <p>Votre inscription au <strong>${EVENT.name}</strong> a bien été enregistrée.</p>
-      <p><strong>Date :</strong> ${EVENT.displayDate}<br>
+      <p><strong>Date :</strong> ${EVENT.displayDate} à 18h00<br>
       <strong>Lieu :</strong> ${EVENT.location}</p>
       <p>Nous avons hâte de vous y retrouver !</p>
       <hr style="border: 0; border-top: 1px solid #eee; margin: 20px 0;">

@@ -2,14 +2,14 @@ import { ProgrammeItem } from "../types";
 
 export const programme: ProgrammeItem[] = [
   {
-    time: "18h30",
+    time: "18h00",
     title: "Ouverture Officielle",
     description:
       "Dans un monde en transformation rapide, le leadership ne se définit plus par le genre, mais par la vision. Innovation, Responsabilité, Accès aux opportunités.",
     type: "opening",
   },
   {
-    time: "18h40",
+    time: "18h10",
     title: "Intervention : Laura Hassan",
     description:
       "Keynote inspirante sur le leadership et l'innovation dans le paysage technologique et éducatif actuel, par la Directrice Générale d'Epitech.",
@@ -17,7 +17,7 @@ export const programme: ProgrammeItem[] = [
     type: "talk",
   },
   {
-    time: "18h50",
+    time: "18h20",
     title: "Table Ronde : Leadership, innovation et responsabilité dans la tech",
     description:
       "Un échange riche avec des intervenants de X-HEC Entrepreneurs, Allianz Technology, Epitech, Microsoft et New Deal Founders autour des enjeux du leadership et de l'innovation responsable.",

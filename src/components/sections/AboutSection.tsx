@@ -47,7 +47,7 @@ export function AboutSection() {
       <Container>
         <SectionTitle
           label="L'événement"
-          title="Les 4 Piliers de Contenu"
+          title="Au cœur de l'échange"
           description={EVENT.description}
         />
 
@@ -57,17 +57,17 @@ export function AboutSection() {
           </blockquote>
         </FadeIn>
 
-        <StaggerContainer className="grid gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-4 lg:gap-8">
+        <StaggerContainer className="mx-auto grid max-w-5xl gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-4 lg:gap-6">
           {PILLARS.map((pillar) => (
             <StaggerItem key={pillar.title}>
-              <div className="group rounded-sm border border-border bg-cream p-6 transition-all duration-300 hover:border-purple hover:shadow-lg sm:p-8">
+              <div className="group h-full rounded-sm border border-border bg-cream p-5 transition-all duration-300 hover:border-purple hover:shadow-lg sm:p-6">
                 <div className="mb-3 text-purple transition-colors group-hover:text-heading sm:mb-4">
                   {pillarIcons[pillar.icon]}
                 </div>
-                <h3 className="mb-2 font-serif text-lg font-semibold text-heading sm:text-xl">
+                <h3 className="mb-2 font-serif text-base font-semibold text-heading sm:text-lg">
                   {pillar.title}
                 </h3>
-                <p className="text-sm leading-relaxed text-body">
+                <p className="text-xs leading-relaxed text-body sm:text-sm">
                   {pillar.description}
                 </p>
               </div>

@@ -15,7 +15,7 @@ export function SpeakerGrid({ speakers, limit }: SpeakerGridProps) {
   return (
     <StaggerContainer className="grid gap-4 grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 sm:gap-6">
       {displaySpeakers.map((speaker, index) => (
-        <StaggerItem key={speaker.id}>
+        <StaggerItem key={speaker.id} className="h-full">
           <SpeakerCard speaker={speaker} featured={index === 0} />
         </StaggerItem>
       ))}

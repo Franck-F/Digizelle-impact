@@ -13,7 +13,7 @@ export function SpeakerCard({ speaker, featured = false }: SpeakerCardProps) {
   return (
     <Link
       href={`/speakers/${speaker.slug}`}
-      className="group block overflow-hidden rounded-sm bg-surface transition-all duration-300 hover:shadow-xl"
+      className="group flex h-full flex-col overflow-hidden rounded-sm bg-surface transition-all duration-300 hover:shadow-xl"
     >
       {/* Image */}
       <div className="relative aspect-[3/4] overflow-hidden bg-cream-dark">
@@ -22,7 +22,7 @@ export function SpeakerCard({ speaker, featured = false }: SpeakerCardProps) {
             src={speaker.image}
             alt={speaker.name}
             fill
-            className="object-cover transition-transform duration-500 group-hover:scale-105"
+            className="object-cover object-center transition-transform duration-500 group-hover:scale-105"
           />
         ) : (
           <div className="flex h-full items-center justify-center">
@@ -45,7 +45,7 @@ export function SpeakerCard({ speaker, featured = false }: SpeakerCardProps) {
       </div>
 
       {/* Info */}
-      <div className="p-4 sm:p-5">
+      <div className="flex flex-grow flex-col p-4 sm:p-5">
         <h3 className="font-serif text-lg font-semibold text-heading transition-colors group-hover:text-purple sm:text-xl">
           {speaker.name}
         </h3>
