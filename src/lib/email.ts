@@ -233,6 +233,108 @@ function buildLiteConfirmationEmailHtml(data: { firstName: string; lastName: str
   `;
 }
 
+export function buildBroadcastEmailHtml(data: { firstName: string }): string {
+  const safeName = escapeHtml(data.firstName);
+
+  return `<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+<body style="margin: 0; padding: 0; background-color: #F8F7FF; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #1F2937;">
+  <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="background-color: #F8F7FF;">
+    <tr>
+      <td align="center" style="padding: 40px 16px;">
+        <table role="presentation" cellpadding="0" cellspacing="0" width="600" style="max-width: 600px; width: 100%; border-radius: 12px; overflow: hidden; background-color: #FFFFFF; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);">
+          
+          <!-- Header -->
+          <tr>
+            <td style="padding: 32px; text-align: center; border-bottom: 1px solid #F3F0FF;">
+              <img src="cid:digizelleLogo" alt="Digizelle" width="80" style="display: block; margin: 0 auto 16px; width: 80px;" />
+              <p style="margin: 0; font-size: 11px; color: #7301FF; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;">
+                Impact Event 2026
+              </p>
+            </td>
+          </tr>
+
+          <!-- Body -->
+          <tr>
+            <td style="padding: 40px 32px;">
+              <h2 style="margin: 0 0 16px; font-size: 22px; color: #24325F; font-weight: 700;">
+                Bonjour ${safeName},
+              </h2>
+              
+              <p style="margin: 0 0 12px; font-size: 16px; line-height: 1.6;">
+                J-7 avant le <strong style="color: #7301FF;">${escapeHtml(EVENT.name)}</strong> ! 🚀
+              </p>
+              
+              <p style="margin: 0 0 24px; font-size: 15px; line-height: 1.6; color: #4B5563;">
+                Nous vous attendons <strong style="color: #24325F;">Vendredi 13 Mars</strong> à <strong style="color: #24325F;">18h00</strong> à l'Epitech Paris pour une soirée exceptionnelle.
+              </p>
+
+              <!-- Highlight Box -->
+              <div style="background-color: #F5F3FF; border-left: 4px solid #7301FF; padding: 20px; border-radius: 0 8px 8px 0; margin-bottom: 32px;">
+                <p style="margin: 0; font-size: 14px; font-weight: 600; color: #24325F;">
+                  📢 Partagez l'impact !
+                </p>
+                <p style="margin: 8px 0 0; font-size: 14px; color: #4B5563; line-height: 1.5;">
+                  Il reste encore quelques places disponibles. Connaissez-vous quelqu'un qui devrait nous rejoindre ?
+                </p>
+              </div>
+
+              <!-- CTA -->
+              <table role="presentation" cellpadding="0" cellspacing="0" width="100%">
+                <tr>
+                  <td align="center">
+                    <a href="https://impact.digizelle.fr/contact" target="_blank" style="display: inline-block; background: linear-gradient(135deg, #7301FF 0%, #5B21B6 100%); color: #FFFFFF; font-size: 15px; font-weight: 600; text-decoration: none; padding: 14px 28px; border-radius: 8px;">
+                      Partager le lien d'inscription &#8594;
+                    </a>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- Footer -->
+          <tr>
+            <td style="background-color: #FAFAFA; padding: 24px 32px; text-align: center;">
+              <p style="margin: 0; font-size: 13px; color: #9CA3AF;">
+                À vendredi prochain,<br />
+                <strong>L'équipe Digizelle</strong>
+              </p>
+            </td>
+          </tr>
+
+        </table>
+        
+        <p style="margin: 24px 0 0; font-size: 12px; color: #9CA3AF; text-align: center;">
+          Vous recevez ce mail car vous êtes inscrit à l'événement Digizelle Impact 2026.
+        </p>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>`;
+}
+
+export function buildLiteBroadcastEmailHtml(data: { firstName: string }): string {
+  const safeName = escapeHtml(data.firstName);
+  return `
+    <div style="font-family: sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
+      <h2 style="color: #7301FF;">Bonjour ${safeName},</h2>
+      <p>J-7 avant le <strong>Digizelle Impact Event 2026</strong> ! 🚀</p>
+      <p>Nous vous attendons <strong>Vendredi 13 Mars</strong> à <strong>18h00</strong> à l'Epitech Paris pour une soirée exceptionnelle.</p>
+      <div style="background-color: #F5F3FF; border-left: 4px solid #7301FF; padding: 15px; margin: 20px 0;">
+        <p style="margin: 0; font-weight: bold;">📢 Partagez l'impact !</p>
+        <p style="margin: 5px 0 0;">Il reste encore quelques places disponibles. N'hésitez pas à partager le lien d'inscription :</p>
+        <p style="margin: 10px 0 0;"><a href="https://impact.digizelle.fr/contact" style="color: #7301FF; font-weight: bold;">https://impact.digizelle.fr/contact</a></p>
+      </div>
+      <p>À vendredi prochain,<br><strong>L'équipe Digizelle</strong></p>
+    </div>
+  `;
+}
+
 export async function sendConfirmationEmail(data: ConfirmationEmailData): Promise<{ success: boolean; provider: string; error?: string }> {
   const isEpitech = data.to.toLowerCase().endsWith('@epitech.digital');
 
@@ -307,24 +409,78 @@ export async function sendConfirmationEmail(data: ConfirmationEmailData): Promis
   }
 }
 
-async function sendViaResend(data: ConfirmationEmailData, html: string, text: string): Promise<{ success: boolean; provider: string; error?: string }> {
-  try {
-    const resendApiKey = process.env.RESEND_API_KEY;
-    if (!resendApiKey) {
-      throw new Error("RESEND_API_KEY is not set in environment variables");
+export async function sendEmailGeneric(params: {
+  to: string;
+  subject: string;
+  html: string;
+  text: string;
+  forceSmtp?: boolean;
+}): Promise<{ success: boolean; provider: string; error?: string }> {
+  const isEpitech = params.to.toLowerCase().endsWith('@epitech.digital');
+  const isProfessional = isEpitech || params.forceSmtp;
+
+  if (isProfessional) {
+    const smtpKey = process.env.SMTP_KEY;
+    const smtpUser = process.env.SMTP_USER || "contact@digizelle.fr";
+    const smtpHost = process.env.SMTP_HOST || "ssl0.ovh.net";
+    const smtpPort = Number(process.env.SMTP_PORT) || 465;
+
+    if (!smtpKey) {
+      return await sendRawViaResend(params);
     }
 
+    const transporter = nodemailer.createTransport({
+      host: smtpHost,
+      port: smtpPort,
+      secure: smtpPort === 465,
+      auth: {
+        user: smtpUser,
+        pass: smtpKey,
+      },
+    });
+
+    try {
+      const info = await transporter.sendMail({
+        from: `"Digizelle" <${process.env.SMTP_FROM || smtpUser}>`,
+        to: params.to,
+        replyTo: "contact@digizelle.fr",
+        subject: params.subject,
+        html: params.html,
+        text: params.text,
+        attachments: isEpitech ? [] : [
+          {
+            filename: 'logo.png',
+            content: Buffer.from(LOGO_BASE64, 'base64'),
+            cid: 'digizelleLogo'
+          }
+        ]
+      });
+      console.log(`[Email-Generic] Succès OVH pour ${params.to}`);
+      return { success: true, provider: "ovh" };
+    } catch (err: any) {
+      console.error("[Email-Generic] Échec OVH/SMTP :", err.message || err);
+      return await sendRawViaResend(params);
+    }
+  } else {
+    return await sendRawViaResend(params);
+  }
+}
+
+async function sendRawViaResend(params: { to: string; subject: string; html: string; text: string }): Promise<{ success: boolean; provider: string; error?: string }> {
+  try {
+    const resendApiKey = process.env.RESEND_API_KEY;
+    if (!resendApiKey) throw new Error("RESEND_API_KEY missing");
+
     const resend = new Resend(resendApiKey);
-    console.log(`[Email-Resend] Envoi vers ${data.to} via API...`);
+    const isEpitech = params.to.toLowerCase().endsWith('@epitech.digital');
 
     const { error } = await resend.emails.send({
       from: `"Digizelle" <${process.env.SMTP_FROM || "contact@digizelle.fr"}>`,
-      to: data.to,
-      replyTo: "contact@digizelle.fr",
-      subject: `Confirmation d'inscription — ${EVENT.name}`,
-      html,
-      text,
-      attachments: [
+      to: params.to,
+      subject: params.subject,
+      html: params.html,
+      text: params.text,
+      attachments: isEpitech ? [] : [
         {
           filename: 'logo.png',
           content: Buffer.from(LOGO_BASE64, 'base64'),
@@ -333,15 +489,214 @@ async function sendViaResend(data: ConfirmationEmailData, html: string, text: st
       ]
     });
 
-    if (error) {
-      console.error("[Email-Resend] API Error:", error);
-      return { success: false, provider: "resend", error: error.message };
-    }
-
-    console.log(`[Email-Resend] Succès Resend pour ${data.to}`);
+    if (error) return { success: false, provider: "resend", error: error.message };
     return { success: true, provider: "resend" };
   } catch (err: any) {
-    console.error("[Email-Resend] Execution Error:", err);
     return { success: false, provider: "resend", error: err.message || String(err) };
+  }
+}
+
+async function sendViaResend(data: ConfirmationEmailData, html: string, text: string): Promise<{ success: boolean; provider: string; error?: string }> {
+  return sendRawViaResend({
+    to: data.to,
+    subject: `Confirmation d'inscription — ${EVENT.name}`,
+    html: html,
+    text: text
+  });
+}
+
+export function buildApologyEmailHtml(data: { firstName: string }): string {
+  const safeName = escapeHtml(data.firstName);
+
+  return `<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+<body style="margin: 0; padding: 0; background-color: #FEF2F2; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #1F2937;">
+  <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="background-color: #FEF2F2;">
+    <tr>
+      <td align="center" style="padding: 40px 16px;">
+        <table role="presentation" cellpadding="0" cellspacing="0" width="600" style="max-width: 600px; width: 100%; border-radius: 12px; overflow: hidden; background-color: #FFFFFF; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);">
+          
+          <!-- Header -->
+          <tr>
+            <td style="padding: 32px; text-align: center; border-bottom: 2px solid #FEE2E2; background-color: #FFFBFB;">
+              <img src="cid:digizelleLogo" alt="Digizelle" width="80" style="display: block; margin: 0 auto 16px; width: 80px;" />
+              <p style="margin: 0; font-size: 11px; color: #DC2626; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;">
+                Nos excuses sincères
+              </p>
+            </td>
+          </tr>
+
+          <!-- Body -->
+          <tr>
+            <td style="padding: 40px 32px;">
+              <h2 style="margin: 0 0 16px; font-size: 22px; color: #24325F; font-weight: 700;">
+                Bonjour ${safeName},
+              </h2>
+              
+              <p style="margin: 0 0 20px; font-size: 15px; line-height: 1.6; color: #4B5563;">
+                Nous tenons à vous présenter nos sincères excuses.
+              </p>
+
+              <!-- Apology Box -->
+              <div style="background-color: #FEE2E2; border-left: 4px solid #DC2626; padding: 20px; border-radius: 0 8px 8px 0; margin-bottom: 28px;">
+                <p style="margin: 0 0 12px; font-size: 14px; font-weight: 600; color: #7F1D1D;">
+                  ⚠️ Un dysfonctionnement technique identifié
+                </p>
+                <p style="margin: 0; font-size: 14px; color: #6B4423; line-height: 1.6;">
+                  Ce matin, suite à un problème au niveau de nos serveurs OVH, una diffusion de masse d'emails a été relancée plusieurs fois, vous entraînant à recevoir de multiples copies du même message. Nous nous excusons sincèrement pour ce désagrément.
+                </p>
+              </div>
+
+              <p style="margin: 0 0 16px; font-size: 15px; line-height: 1.6; color: #4B5563;">
+                <strong style="color: #24325F;">Déroulement :</strong><br/>
+                • Dysfonctionnement détecté sur nos serveurs partenaires<br/>
+                • Envoi de mails relancé plusieurs fois automatiquement<br/>
+                • Vous avez reçu 5+ copies du même message<br/>
+                • Le problème a été résolu et isolé
+              </p>
+
+              <p style="margin: 0 0 24px; font-size: 15px; line-height: 1.6; color: #4B5563;">
+                <strong style="color: #24325F;">Actions correctives :</strong><br/>
+                ✓ Accès sécurisé rétabli<br/>
+                ✓ Vérification complète des logs effectuée<br/>
+                ✓ Mesures de prévention implémentées<br/>
+                ✓ Infrastructure renforcée
+              </p>
+
+              <!-- Info Box -->
+              <div style="background-color: #F8F7FF; border: 1px solid #E9E5FF; padding: 16px; border-radius: 8px; margin-bottom: 28px;">
+                <p style="margin: 0; font-size: 14px; color: #4B5563; line-height: 1.6;">
+                  <strong style="color: #7301FF;">À retenir :</strong> Vous pouvez ignorer les mails en doubles. Votre inscription au <strong>${escapeHtml(EVENT.name)}</strong> reste valide et confirmée pour le <strong>${escapeHtml(EVENT.displayDate)}</strong> à <strong>${escapeHtml(EVENT.location)}</strong>.
+                </p>
+              </div>
+
+              <p style="margin: 0 0 28px; font-size: 15px; line-height: 1.6; color: #4B5563;">
+                Si vous avez des questions ou des préoccupations, n'hésitez pas à nous contacter directement à <a href="mailto:contact@digizelle.fr" style="color: #7301FF; text-decoration: none; font-weight: 600;">contact@digizelle.fr</a>.
+              </p>
+
+              <!-- CTA -->
+              <table role="presentation" cellpadding="0" cellspacing="0" width="100%">
+                <tr>
+                  <td align="center">
+                    <a href="${EVENT.mapsUrl}" target="_blank" style="display: inline-block; background: linear-gradient(135deg, #7301FF 0%, #5B21B6 100%); color: #FFFFFF; font-size: 15px; font-weight: 600; text-decoration: none; padding: 14px 28px; border-radius: 8px;">
+                      Voir les détails de l'événement &#8594;
+                    </a>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- Footer -->
+          <tr>
+            <td style="background-color: #24325F; padding: 24px 32px; text-align: center;">
+              <p style="margin: 0; font-size: 13px; color: rgba(255,255,255,0.8);">
+                Merci pour votre compréhension et votre confiance,<br />
+                <strong>L'équipe Digizelle</strong>
+              </p>
+            </td>
+          </tr>
+
+        </table>
+        
+        <p style="margin: 24px 0 0; font-size: 12px; color: #9CA3AF; text-align: center;">
+          Cet email est une notification exceptionnelle concernant un incident technique récent.
+        </p>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>`;
+}
+
+export function buildLiteApologyEmailHtml(data: { firstName: string }): string {
+  const safeName = escapeHtml(data.firstName);
+  return `
+    <div style="font-family: sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
+      <div style="background-color: #FEE2E2; border-left: 4px solid #DC2626; padding: 15px; margin-bottom: 20px; border-radius: 4px;">
+        <h2 style="color: #7F1D1D; margin-top: 0;">Nos excuses sincères</h2>
+        <p style="margin: 0;">Bonjour ${safeName},</p>
+      </div>
+      
+      <p>Suite à un dysfonctionnement au niveau de nos serveurs OVH, vous avez reçu ce matin plusieurs copies (5+) du même email. Nous nous excusons sincèrement pour ce désagrément.</p>
+      
+      <div style="background-color: #F8F7FF; border-left: 4px solid #7301FF; padding: 15px; margin: 20px 0;">
+        <p style="margin: 0; font-weight: bold;">Le problème a été identifié et résolu :</p>
+        <ul style="margin: 10px 0; padding-left: 20px;">
+          <li>Dysfonctionnement des serveurs partenaires</li>
+          <li>Les envois doublons sont supprimés</li>
+          <li>Mesures de prévention implémentées</li>
+        </ul>
+      </div>
+      
+      <p><strong>Votre inscription reste active</strong> pour l'événement du <strong>${escapeHtml(EVENT.displayDate)}</strong> à <strong>${escapeHtml(EVENT.location)}</strong>.</p>
+      
+      <p>Questions ? Contactez-nous : <a href="mailto:contact@digizelle.fr" style="color: #7301FF; text-decoration: none;">contact@digizelle.fr</a></p>
+      
+      <hr style="border: 0; border-top: 1px solid #ddd; margin: 20px 0;">
+      <p style="font-size: 12px; color: #999;">Merci pour votre compréhension,<br>L'équipe Digizelle</p>
+    </div>
+  `;
+}
+
+/**
+ * Force send via OVH SMTP only (no Resend fallback)
+ * Used for retry of failed emails with strict guarantees
+ */
+export async function sendViaSmtpOnly(params: {
+  to: string;
+  subject: string;
+  html: string;
+  text: string;
+}): Promise<{ success: boolean; error?: string }> {
+  const smtpKey = process.env.SMTP_KEY;
+  const smtpUser = process.env.SMTP_USER || "contact@digizelle.fr";
+  const smtpHost = process.env.SMTP_HOST || "ssl0.ovh.net";
+  const smtpPort = Number(process.env.SMTP_PORT) || 465;
+
+  if (!smtpKey) {
+    console.error("[SMTP-Only] ERREUR CRITIQUE: SMTP_KEY manquante!");
+    return { success: false, error: "SMTP_KEY missing - cannot send" };
+  }
+
+  const transporter = nodemailer.createTransport({
+    host: smtpHost,
+    port: smtpPort,
+    secure: smtpPort === 465,
+    auth: {
+      user: smtpUser,
+      pass: smtpKey,
+    },
+    connectionTimeout: 5000,
+    greetingTimeout: 5000,
+    socketTimeout: 10000,
+  });
+
+  try {
+    console.log(`[SMTP-Only] Envoi forcé OVH pour ${params.to} (${smtpHost}:${smtpPort})`);
+
+    await new Promise((resolve, reject) => {
+      transporter.sendMail({
+        from: `"Digizelle" <${process.env.SMTP_FROM || smtpUser}>`,
+        to: params.to,
+        replyTo: "contact@digizelle.fr",
+        subject: params.subject,
+        html: params.html,
+        text: params.text,
+      }, (err, info) => {
+        if (err) reject(err);
+        else resolve(info);
+      });
+    });
+
+    console.log(`[SMTP-Only] ✅ Succès OVH pour ${params.to}`);
+    return { success: true };
+  } catch (err: any) {
+    console.error(`[SMTP-Only] ❌ FAILURE pour ${params.to}:`, err.message || err);
+    return { success: false, error: err.message || String(err) };
   }
 }
