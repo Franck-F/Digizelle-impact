@@ -39,19 +39,19 @@ export function SpeakerCard({ speaker, featured = false }: SpeakerCardProps) {
         <div className="absolute inset-0 bg-gradient-to-t from-navy/80 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
 
         {/* Company badge */}
-        <div className="absolute right-2 top-2 rounded-sm bg-purple/90 px-2 py-0.5 text-[10px] font-medium text-white sm:right-3 sm:top-3 sm:px-3 sm:py-1 sm:text-xs">
+        <div className="absolute right-2 top-2 rounded-sm bg-purple/90 px-2 py-0.5 text-[9px] font-medium text-white sm:right-2 sm:top-2 sm:px-2 sm:py-0.5 sm:text-[10px]">
           {speaker.company}
         </div>
       </div>
 
       {/* Info */}
-      <div className="flex flex-grow flex-col p-4 sm:p-5">
-        <h3 className="font-serif text-lg font-semibold text-heading transition-colors group-hover:text-purple sm:text-xl">
+      <div className="flex flex-grow flex-col p-3 sm:p-4">
+        <h3 className="font-serif text-base font-semibold text-heading transition-colors group-hover:text-purple sm:text-lg">
           {speaker.name}
         </h3>
-        <p className="mt-1 text-xs text-body sm:text-sm">{speaker.title}</p>
+        <p className="mt-1 text-[11px] text-body sm:text-xs">{speaker.title}</p>
         {speaker.topic && (
-          <p className="mt-2 text-[10px] font-medium uppercase tracking-wider text-purple sm:mt-3 sm:text-xs">
+          <p className="mt-2 text-[9px] font-medium uppercase tracking-wider text-purple sm:mt-2 sm:text-[10px]">
             {speaker.topic}
           </p>
         )}
