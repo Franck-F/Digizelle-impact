@@ -13,6 +13,17 @@ export const speakers: Speaker[] = [
     linkedin: "https://www.linkedin.com/in/laura-hassan",
   },
   {
+    id: "6",
+    slug: "kevin-polossat",
+    name: "Kévin Polossat",
+    title: "Senior Solutions Architect",
+    company: "Amazon Web Services (AWS)",
+    bio: "Kévin Polossat est Senior Solutions Architect chez Amazon Web Services (AWS), basé à Courbevoie en Île-de-France. Il accompagne les entreprises sur les enjeux d'architecture cloud et de transformation applicative.\n\nChez AWS depuis 2019, il a évolué des rôles d'Associate Solutions Architect à Senior Solutions Architect. Avant cela, il a travaillé comme Software Developer chez Tellmeplus, où il a contribué à la migration d'une architecture monolithique vers des microservices et à l'introduction de Kafka pour la communication en streaming.\n\nDiplômé d'Epitech et titulaire d'un Master of Science en Information Technology de The Hong Kong University of Science and Technology, il combine expertise technique et vision pragmatique autour du cloud, de la data et des architectures distribuées.",
+    image: "/images/speakers/kevin-polossat.jpg",
+    topic: "Architecture cloud, microservices et transformation applicative",
+    linkedin: "https://www.linkedin.com/in/k%C3%A9vin-polossat/",
+  },
+  {
     id: "2",
     slug: "melissa-sari",
     name: "Mélissa Sari",
@@ -55,17 +66,6 @@ export const speakers: Speaker[] = [
     image: "/images/speakers/luc-olivier-final.jpg",
     topic: "Finance, entrepreneuriat & accès aux opportunités",
     linkedin: "https://www.linkedin.com/in/luc-olivier-yebga",
-  },
-  {
-    id: "6",
-    slug: "kevin-polossat",
-    name: "Kévin Polossat",
-    title: "Senior Solutions Architect",
-    company: "Amazon Web Services (AWS)",
-    bio: "Kévin Polossat est Senior Solutions Architect chez Amazon Web Services (AWS), basé à Courbevoie en Île-de-France. Il accompagne les entreprises sur les enjeux d'architecture cloud et de transformation applicative.\n\nChez AWS depuis 2019, il a évolué des rôles d'Associate Solutions Architect à Senior Solutions Architect. Avant cela, il a travaillé comme Software Developer chez Tellmeplus, où il a contribué à la migration d'une architecture monolithique vers des microservices et à l'introduction de Kafka pour la communication en streaming.\n\nDiplômé d'Epitech et titulaire d'un Master of Science en Information Technology de The Hong Kong University of Science and Technology, il combine expertise technique et vision pragmatique autour du cloud, de la data et des architectures distribuées.",
-    image: "/images/speakers/kevin-polossat.jpg",
-    topic: "Architecture cloud, microservices et transformation applicative",
-    linkedin: "https://www.linkedin.com/in/k%C3%A9vin-polossat/",
   },
 ];
 
