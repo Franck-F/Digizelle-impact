@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback, useRef } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 
 interface Registration {
@@ -24,6 +25,21 @@ type SortKey = "name" | "email" | "company" | "date";
 type SortDir = "asc" | "desc";
 
 const REFRESH_INTERVAL = 5000;
+
+function normalizeSchoolName(rawSchool: string): string {
+  const school = rawSchool.trim();
+  if (!school) return school;
+
+  const lowerSchool = school.toLowerCase();
+  if (lowerSchool === "epita") {
+    return "Epita";
+  }
+  if (lowerSchool === "epitech" || lowerSchool === "epitech paris") {
+    return "Epitech";
+  }
+
+  return school;
+}
 
 export default function AdminPage() {
   const [token, setToken] = useState("");
@@ -223,6 +239,41 @@ export default function AdminPage() {
   const studentCount = registrations.filter((r) => r.type === "etudiant").length;
   const companyCount = registrations.filter((r) => r.type !== "etudiant").length;
 
+  const schoolCounts = registrations
+    .filter((r) => r.type === "etudiant" && (r.school || "").trim().length > 0)
+    .reduce<Record<string, number>>((acc, r) => {
+      const school = normalizeSchoolName(r.school);
+      acc[school] = (acc[school] || 0) + 1;
+      return acc;
+    }, {});
+
+  const totalStudentWithSchool = Object.values(schoolCounts).reduce((sum, count) => sum + count, 0);
+
+  const topSchools = Object.entries(schoolCounts)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 5)
+    .map(([school, count]) => ({
+      school,
+      count,
+      percentage: totalStudentWithSchool > 0 ? (count / totalStudentWithSchool) * 100 : 0,
+    }));
+
+  const getBarWidthClass = (percentage: number) => {
+    if (percentage >= 100) return "w-full";
+    if (percentage >= 92) return "w-11/12";
+    if (percentage >= 83) return "w-10/12";
+    if (percentage >= 75) return "w-9/12";
+    if (percentage >= 67) return "w-8/12";
+    if (percentage >= 58) return "w-7/12";
+    if (percentage >= 50) return "w-6/12";
+    if (percentage >= 42) return "w-5/12";
+    if (percentage >= 33) return "w-4/12";
+    if (percentage >= 25) return "w-3/12";
+    if (percentage >= 17) return "w-2/12";
+    if (percentage > 0) return "w-1/12";
+    return "w-0";
+  };
+
   // Login screen
   if (!isAuthenticated) {
     return (
@@ -273,6 +324,8 @@ export default function AdminPage() {
               <button
                 type="button"
                 onClick={() => setShowToken(!showToken)}
+                aria-label={showToken ? "Masquer le token" : "Afficher le token"}
+                title={showToken ? "Masquer le token" : "Afficher le token"}
                 className="absolute right-3.5 top-1/2 -translate-y-[calc(50%+8px)] text-heading/20 transition-colors hover:text-purple"
               >
                 {showToken ? (
@@ -362,6 +415,13 @@ export default function AdminPage() {
 
             <ThemeToggle />
 
+            <Link
+              href="/admin/dashboard"
+              className="rounded-lg border border-border px-3 py-1.5 text-xs text-body transition-all hover:border-purple/30 hover:text-purple"
+            >
+              Dashboard
+            </Link>
+
             {/* Event date */}
             <span className="hidden rounded-full border border-purple/20 bg-purple/10 px-3 py-1.5 text-xs text-purple sm:block">
               13 Mars 2026
@@ -373,6 +433,8 @@ export default function AdminPage() {
                 setIsAuthenticated(false);
                 setToken("");
               }}
+              aria-label="Se déconnecter"
+              title="Se déconnecter"
               className="rounded-lg border border-border px-3 py-1.5 text-xs text-body transition-all hover:border-red-500/30 hover:bg-red-500/5 hover:text-red-400"
             >
               <svg className="h-4 w-4 sm:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
@@ -456,6 +518,40 @@ export default function AdminPage() {
               </p>
             </div>
           </div>
+        </div>
+
+        <div className="mb-6 rounded-xl border border-border bg-surface p-4 sm:mb-8 sm:p-5">
+          <div className="mb-4 flex items-center justify-between">
+            <h2 className="text-sm font-semibold text-heading sm:text-base">Écoles les plus présentes</h2>
+            <span className="text-[10px] uppercase tracking-widest text-body/50 sm:text-xs">
+              % sur étudiants
+            </span>
+          </div>
+
+          {topSchools.length === 0 ? (
+            <p className="text-sm text-body/60">Aucune école renseignée pour le moment.</p>
+          ) : (
+            <div className="space-y-3">
+              {topSchools.map(({ school, count, percentage }) => (
+                <div key={school}>
+                  <div className="mb-1 flex items-center justify-between gap-3">
+                    <p className="truncate text-xs font-medium text-heading sm:text-sm">{school}</p>
+                    <p className="text-xs font-semibold text-purple sm:text-sm">{percentage.toFixed(1)}%</p>
+                  </div>
+                  <div className="h-2 w-full overflow-hidden rounded-full bg-cream-dark">
+                    <div className={`h-full rounded-full bg-purple ${getBarWidthClass(percentage)}`} />
+                  </div>
+                  <p className="mt-1 text-[10px] text-body/60 sm:text-xs">
+                    {count} inscription{count > 1 ? "s" : ""}
+                  </p>
+                </div>
+              ))}
+            </div>
+          )}
+
+          <p className="mt-4 text-[10px] text-body/50 sm:text-xs">
+            Base de calcul : {totalStudentWithSchool} étudiant{totalStudentWithSchool > 1 ? "s" : ""} avec école renseignée.
+          </p>
         </div>
 
 
@@ -644,7 +740,12 @@ export default function AdminPage() {
                           <button onClick={() => setDeleteConfirm(null)} className="rounded-md px-2 py-1 text-xs text-body/50">Non</button>
                         </div>
                       ) : (
-                        <button onClick={() => setDeleteConfirm(r.id)} className="text-heading/15 hover:text-red-400">
+                        <button
+                          onClick={() => setDeleteConfirm(r.id)}
+                          aria-label="Confirmer la suppression"
+                          title="Supprimer"
+                          className="text-heading/15 hover:text-red-400"
+                        >
                           <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                             <path strokeLinecap="round" strokeLinejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
                           </svg>
@@ -712,7 +813,12 @@ export default function AdminPage() {
                   </p>
                 </div>
               </div>
-              <button onClick={() => setSelectedReg(null)} className="rounded-md p-1 text-heading/20 hover:text-body">
+              <button
+                onClick={() => setSelectedReg(null)}
+                aria-label="Fermer le détail"
+                title="Fermer le détail"
+                className="rounded-md p-1 text-heading/20 hover:text-body"
+              >
                 <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
                 </svg>

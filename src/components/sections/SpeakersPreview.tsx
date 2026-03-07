@@ -17,7 +17,7 @@ export function SpeakersPreview() {
           description="Des leaders d'exception de Microsoft, Epitech, Allianz, X-HEC Entrepreneurs et New Deal Founders."
         />
 
-        <SpeakerGrid speakers={speakers} limit={5} />
+        <SpeakerGrid speakers={speakers} limit={6} compact />
 
         <FadeIn delay={0.3}>
           <div className="mt-10 text-center sm:mt-12">
