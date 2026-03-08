@@ -18,6 +18,8 @@ export async function initDb() {
       school VARCHAR(200) DEFAULT '',
       role VARCHAR(200) DEFAULT '',
       message TEXT DEFAULT '',
+      added_manually BOOLEAN DEFAULT FALSE,
+      present_at TIMESTAMPTZ,
       email_status VARCHAR(50) DEFAULT 'pending',
       email_provider VARCHAR(50) DEFAULT 'none',
       email_error TEXT DEFAULT '',
@@ -27,6 +29,8 @@ export async function initDb() {
   // Add columns for existing tables
   await sql`ALTER TABLE registrations ADD COLUMN IF NOT EXISTS type VARCHAR(20) DEFAULT 'entreprise'`;
   await sql`ALTER TABLE registrations ADD COLUMN IF NOT EXISTS school VARCHAR(200) DEFAULT ''`;
+  await sql`ALTER TABLE registrations ADD COLUMN IF NOT EXISTS added_manually BOOLEAN DEFAULT FALSE`;
+  await sql`ALTER TABLE registrations ADD COLUMN IF NOT EXISTS present_at TIMESTAMPTZ`;
   await sql`ALTER TABLE registrations ADD COLUMN IF NOT EXISTS email_status VARCHAR(50) DEFAULT 'pending'`;
   await sql`ALTER TABLE registrations ADD COLUMN IF NOT EXISTS email_provider VARCHAR(50) DEFAULT 'none'`;
   await sql`ALTER TABLE registrations ADD COLUMN IF NOT EXISTS email_error TEXT DEFAULT ''`;

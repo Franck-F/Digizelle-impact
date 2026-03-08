@@ -282,6 +282,12 @@ export default function AdminDashboardPage() {
             >
               Back office
             </Link>
+            <Link
+              href="/admin/checkin"
+              className="rounded-lg border border-border bg-surface px-3 py-1.5 text-xs text-body transition-all hover:border-purple/30 hover:text-purple"
+            >
+              Check-in
+            </Link>
             <ThemeToggle />
           </div>
         </div>

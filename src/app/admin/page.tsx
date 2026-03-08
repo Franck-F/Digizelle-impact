@@ -37,7 +37,7 @@ function normalizeSchoolName(rawSchool: string): string {
   if (lowerSchool === "epitech" || lowerSchool === "epitech paris") {
     return "Epitech";
   }
-  if (lowerSchool === "skema" || lowerSchool === "skema business school" || lowerSchool === "skema business school") {
+  if (lowerSchool === "skema" || lowerSchool === "skema business school") {
     return "Skema Business School";
   }
   if (lowerSchool === "hec" || lowerSchool === "hec paris") {
@@ -426,6 +426,13 @@ export default function AdminPage() {
               className="rounded-lg border border-border px-3 py-1.5 text-xs text-body transition-all hover:border-purple/30 hover:text-purple"
             >
               Dashboard
+            </Link>
+
+            <Link
+              href="/admin/checkin"
+              className="rounded-lg border border-border px-3 py-1.5 text-xs text-body transition-all hover:border-purple/30 hover:text-purple"
+            >
+              Check-in
             </Link>
 
             {/* Event date */}

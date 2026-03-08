@@ -6,11 +6,12 @@ import { SectionTitle } from "@/components/ui/SectionTitle";
 import { FadeIn, StaggerContainer, StaggerItem } from "@/components/animations/FadeIn";
 
 const strategicPartners = [
-  { name: "Epitech", linkedin: "https://www.linkedin.com/school/epitech/" },
+  { name: "Epitech", linkedin: "https://www.linkedin.com/school/epitech---european-institute-of-technology/" },
   { name: "Microsoft", linkedin: "https://www.linkedin.com/company/microsoft/" },
+  { name: "AWS", linkedin: "https://www.linkedin.com/company/amazon-web-services/" },
   { name: "Allianz", linkedin: "https://www.linkedin.com/company/allianz/" },
   { name: "X-HEC", linkedin: "https://www.linkedin.com/company/x-hec-entrepreneurs/" },
-  { name: "New Deal Founders", linkedin: "https://www.linkedin.com/company/new-deal-founders/" },
+  { name: "New Deal Founders", linkedin: "https://www.linkedin.com/company/newdeal-founders/" },
 ];
 
 export function SponsorsSection() {
