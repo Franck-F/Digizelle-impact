@@ -40,6 +40,9 @@ function normalizeSchoolName(rawSchool: string): string {
   if (lowerSchool === "skema" || lowerSchool === "skema business school" || lowerSchool === "skema business school") {
     return "Skema Business School";
   }
+  if (lowerSchool === "hec" || lowerSchool === "hec paris") {
+    return "HEC Paris";
+  }
 
   return school;
 }

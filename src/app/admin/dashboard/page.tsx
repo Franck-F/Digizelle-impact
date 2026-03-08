@@ -31,6 +31,7 @@ function normalizeSchoolName(rawSchool: string): string {
   if (lowerSchool === "epita") return "Epita";
   if (lowerSchool === "epitech" || lowerSchool === "epitech paris") return "Epitech";
   if (lowerSchool === "skema" || lowerSchool === "skema business school") return "Skema Business School";
+  if (lowerSchool === "hec" || lowerSchool === "hec paris") return "HEC Paris";
 
   return school;
 }
@@ -73,6 +74,7 @@ export default function AdminDashboardPage() {
   const [lastRefresh, setLastRefresh] = useState<Date | null>(null);
   const [autoRefresh, setAutoRefresh] = useState(true);
   const [showAllSchools, setShowAllSchools] = useState(false);
+  const [showAllCompanies, setShowAllCompanies] = useState(false);
 
   const fetchRegistrations = useCallback(async () => {
     const storedToken = sessionStorage.getItem("admin-token");
@@ -333,14 +335,26 @@ export default function AdminDashboardPage() {
           </section>
 
           <section className="rounded-xl border border-border bg-surface p-4 sm:p-5">
-            <h2 className="text-sm font-semibold text-heading sm:text-base">Répartition complète des entreprises</h2>
-            <p className="mt-1 text-xs text-body/60">Toutes les entreprises avec au moins une inscription</p>
+            <div className="flex items-start justify-between gap-3">
+              <div>
+                <h2 className="text-sm font-semibold text-heading sm:text-base">Répartition des entreprises</h2>
+                <p className="mt-1 text-xs text-body/60">Entreprises avec au moins une inscription</p>
+              </div>
+              {metrics.topCompanies.length > 6 && (
+                <button
+                  onClick={() => setShowAllCompanies(!showAllCompanies)}
+                  className="shrink-0 rounded-lg border border-border bg-cream px-3 py-1.5 text-xs font-medium text-purple transition-all hover:bg-cream-dark"
+                >
+                  {showAllCompanies ? "Voir moins" : "Voir tout"}
+                </button>
+              )}
+            </div>
 
             {metrics.topCompanies.length === 0 ? (
               <p className="mt-4 text-sm text-body/60">Aucune donnée entreprise disponible.</p>
             ) : (
               <div className="mt-4 space-y-3">
-                {metrics.topCompanies.map((item) => (
+                {(showAllCompanies ? metrics.topCompanies : metrics.topCompanies.slice(0, 6)).map((item) => (
                   <div key={item.label}>
                     <div className="mb-1 flex items-center justify-between gap-3">
                       <p className="truncate text-xs font-medium text-heading sm:text-sm">{item.label}</p>
