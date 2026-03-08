@@ -37,6 +37,9 @@ function normalizeSchoolName(rawSchool: string): string {
   if (lowerSchool === "epitech" || lowerSchool === "epitech paris") {
     return "Epitech";
   }
+  if (lowerSchool === "skema" || lowerSchool === "skema business school" || lowerSchool === "skema business school") {
+    return "Skema Business School";
+  }
 
   return school;
 }

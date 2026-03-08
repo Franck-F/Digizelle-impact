@@ -30,6 +30,7 @@ function normalizeSchoolName(rawSchool: string): string {
   const lowerSchool = school.toLowerCase();
   if (lowerSchool === "epita") return "Epita";
   if (lowerSchool === "epitech" || lowerSchool === "epitech paris") return "Epitech";
+  if (lowerSchool === "skema" || lowerSchool === "skema business school") return "Skema Business School";
 
   return school;
 }
