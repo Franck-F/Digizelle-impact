@@ -33,6 +33,9 @@ export default function AdminCheckinPage() {
   const [manualOpen, setManualOpen] = useState(false);
   const [manualSaving, setManualSaving] = useState(false);
   const [manualError, setManualError] = useState("");
+  const [confirmCheckinTarget, setConfirmCheckinTarget] = useState<CheckinRegistration | null>(null);
+  const [confirmUncheckTarget, setConfirmUncheckTarget] = useState<CheckinRegistration | null>(null);
+  const [confirmManualAdd, setConfirmManualAdd] = useState(false);
   const [manualForm, setManualForm] = useState({
     type: "entreprise",
     firstName: "",
@@ -85,6 +88,23 @@ export default function AdminCheckinPage() {
     const interval = setInterval(fetchRegistrations, REFRESH_INTERVAL);
     return () => clearInterval(interval);
   }, [isAuthenticated, autoRefresh, fetchRegistrations]);
+
+  useEffect(() => {
+    const hasOpenModal = Boolean(confirmCheckinTarget || confirmUncheckTarget || confirmManualAdd);
+    if (!hasOpenModal) return;
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key !== "Escape") return;
+      if (manualSaving || savingId) return;
+
+      setConfirmCheckinTarget(null);
+      setConfirmUncheckTarget(null);
+      setConfirmManualAdd(false);
+    };
+
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [confirmCheckinTarget, confirmUncheckTarget, confirmManualAdd, manualSaving, savingId]);
 
   const filtered = useMemo(() => {
     const query = search.trim().toLowerCase();
@@ -188,9 +208,39 @@ export default function AdminCheckinPage() {
     }
   };
 
-  const handleManualSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleUncheckin = async (id: string) => {
+    const token = sessionStorage.getItem("admin-token");
+    if (!token) return;
 
+    setSavingId(id);
+    setError("");
+
+    try {
+      const res = await fetch("/api/admin/checkin", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ action: "uncheckin", id }),
+      });
+
+      const data = await res.json();
+      if (!res.ok || !data.success) {
+        setError(data.error || "Impossible d'annuler la présence.");
+      } else {
+        setRegistrations((prev) =>
+          prev.map((r) => (r.id === id ? (data.registration as CheckinRegistration) : r))
+        );
+      }
+    } catch {
+      setError("Erreur serveur lors de l'annulation.");
+    } finally {
+      setSavingId(null);
+    }
+  };
+
+  const executeManualSubmit = async () => {
     const token = sessionStorage.getItem("admin-token");
     if (!token) return;
 
@@ -223,12 +273,18 @@ export default function AdminCheckinPage() {
           role: "",
         });
         setManualOpen(false);
+        setConfirmManualAdd(false);
       }
     } catch {
       setManualError("Erreur serveur lors de l'ajout manuel.");
     } finally {
       setManualSaving(false);
     }
+  };
+
+  const handleManualSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setConfirmManualAdd(true);
   };
 
   if (loading) {
@@ -462,17 +518,23 @@ export default function AdminCheckinPage() {
                         )}
                       </div>
 
-                      <button
-                        onClick={() => handleCheckin(item.id)}
-                        disabled={isPresent || savingId === item.id}
-                        className={`rounded-lg px-3 py-2 text-xs font-semibold transition-all ${
-                          isPresent
-                            ? "cursor-not-allowed border border-green-600/30 bg-green-500/10 text-green-700"
-                            : "bg-purple text-cream hover:bg-purple-light"
-                        }`}
-                      >
-                        {isPresent ? "Déjà présent" : savingId === item.id ? "Validation..." : "Valider présence"}
-                      </button>
+                      {isPresent ? (
+                        <button
+                          onClick={() => setConfirmUncheckTarget(item)}
+                          disabled={savingId === item.id}
+                          className="rounded-lg border border-orange-600/30 bg-orange-500/10 px-3 py-2 text-xs font-semibold text-orange-700 transition-all hover:border-orange-600/50 hover:bg-orange-500/15 disabled:cursor-not-allowed disabled:opacity-60"
+                        >
+                          {savingId === item.id ? "Annulation..." : "Annuler présence"}
+                        </button>
+                      ) : (
+                        <button
+                          onClick={() => setConfirmCheckinTarget(item)}
+                          disabled={savingId === item.id}
+                          className="rounded-lg bg-purple px-3 py-2 text-xs font-semibold text-cream transition-all hover:bg-purple-light disabled:cursor-not-allowed disabled:opacity-60"
+                        >
+                          {savingId === item.id ? "Validation..." : "Valider présence"}
+                        </button>
+                      )}
                     </div>
                   </div>
                 );
@@ -481,6 +543,99 @@ export default function AdminCheckinPage() {
           )}
         </section>
       </main>
+
+      {confirmUncheckTarget && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-heading/60 p-4">
+          <div className="w-full max-w-md rounded-xl border border-border bg-surface p-4 sm:p-5">
+            <h3 className="text-base font-semibold text-heading">Confirmer l'annulation</h3>
+            <p className="mt-2 text-sm text-body/80">
+              Annuler la présence de <span className="font-semibold text-heading">{confirmUncheckTarget.firstName} {confirmUncheckTarget.lastName}</span> ?
+            </p>
+            <p className="mt-1 text-xs text-body/60">Cette action remettra l'invité en statut non validé.</p>
+
+            <div className="mt-4 flex items-center justify-end gap-2">
+              <button
+                onClick={() => setConfirmUncheckTarget(null)}
+                disabled={savingId === confirmUncheckTarget.id}
+                className="rounded-lg border border-border bg-cream px-3 py-2 text-xs font-semibold text-body transition-all hover:border-purple/30 hover:text-purple disabled:cursor-not-allowed disabled:opacity-60"
+              >
+                Garder présent
+              </button>
+              <button
+                onClick={async () => {
+                  const id = confirmUncheckTarget.id;
+                  await handleUncheckin(id);
+                  setConfirmUncheckTarget(null);
+                }}
+                disabled={savingId === confirmUncheckTarget.id}
+                className="rounded-lg border border-orange-600/30 bg-orange-500/10 px-3 py-2 text-xs font-semibold text-orange-700 transition-all hover:border-orange-600/50 hover:bg-orange-500/15 disabled:cursor-not-allowed disabled:opacity-60"
+              >
+                {savingId === confirmUncheckTarget.id ? "Annulation..." : "Confirmer l'annulation"}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {confirmCheckinTarget && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-heading/60 p-4">
+          <div className="w-full max-w-md rounded-xl border border-border bg-surface p-4 sm:p-5">
+            <h3 className="text-base font-semibold text-heading">Confirmer la validation</h3>
+            <p className="mt-2 text-sm text-body/80">
+              Valider la présence de <span className="font-semibold text-heading">{confirmCheckinTarget.firstName} {confirmCheckinTarget.lastName}</span> ?
+            </p>
+
+            <div className="mt-4 flex items-center justify-end gap-2">
+              <button
+                onClick={() => setConfirmCheckinTarget(null)}
+                disabled={savingId === confirmCheckinTarget.id}
+                className="rounded-lg border border-border bg-cream px-3 py-2 text-xs font-semibold text-body transition-all hover:border-purple/30 hover:text-purple disabled:cursor-not-allowed disabled:opacity-60"
+              >
+                Annuler
+              </button>
+              <button
+                onClick={async () => {
+                  const id = confirmCheckinTarget.id;
+                  await handleCheckin(id);
+                  setConfirmCheckinTarget(null);
+                }}
+                disabled={savingId === confirmCheckinTarget.id}
+                className="rounded-lg bg-purple px-3 py-2 text-xs font-semibold text-cream transition-all hover:bg-purple-light disabled:cursor-not-allowed disabled:opacity-60"
+              >
+                {savingId === confirmCheckinTarget.id ? "Validation..." : "Confirmer la présence"}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {confirmManualAdd && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-heading/60 p-4">
+          <div className="w-full max-w-md rounded-xl border border-border bg-surface p-4 sm:p-5">
+            <h3 className="text-base font-semibold text-heading">Confirmer l'ajout manuel</h3>
+            <p className="mt-2 text-sm text-body/80">
+              Ajouter <span className="font-semibold text-heading">{manualForm.firstName || "-"} {manualForm.lastName || "-"}</span> et valider sa présence maintenant ?
+            </p>
+
+            <div className="mt-4 flex items-center justify-end gap-2">
+              <button
+                onClick={() => setConfirmManualAdd(false)}
+                disabled={manualSaving}
+                className="rounded-lg border border-border bg-cream px-3 py-2 text-xs font-semibold text-body transition-all hover:border-purple/30 hover:text-purple disabled:cursor-not-allowed disabled:opacity-60"
+              >
+                Revenir au formulaire
+              </button>
+              <button
+                onClick={executeManualSubmit}
+                disabled={manualSaving}
+                className="rounded-lg bg-purple px-3 py-2 text-xs font-semibold text-cream transition-all hover:bg-purple-light disabled:cursor-not-allowed disabled:opacity-60"
+              >
+                {manualSaving ? "Ajout..." : "Confirmer ajout + présence"}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

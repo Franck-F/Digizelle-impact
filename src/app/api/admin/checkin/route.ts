@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getDb, initDb } from "@/lib/db";
 
-type CheckinAction = "checkin" | "manual-add";
+type CheckinAction = "checkin" | "uncheckin" | "manual-add";
 
 function isAuthorized(req: NextRequest): boolean {
   const authHeader = req.headers.get("authorization");
@@ -108,6 +108,31 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({
         success: true,
         message: "Présence validée.",
+        registration: mapRegistration(updated[0]),
+      });
+    }
+
+    if (action === "uncheckin") {
+      const id = String(body?.id || "").trim();
+      if (!id) {
+        return NextResponse.json({ success: false, error: "ID requis" }, { status: 400 });
+      }
+
+      const updated = await sql`
+        UPDATE registrations
+        SET present_at = NULL
+        WHERE id = ${id}
+        RETURNING id, type, first_name, last_name, email, company, school, role, message,
+                  email_status, email_provider, email_error, registered_at, added_manually, present_at
+      `;
+
+      if (updated.length === 0) {
+        return NextResponse.json({ success: false, error: "Invité introuvable" }, { status: 404 });
+      }
+
+      return NextResponse.json({
+        success: true,
+        message: "Présence annulée.",
         registration: mapRegistration(updated[0]),
       });
     }
