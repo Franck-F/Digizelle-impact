@@ -10,7 +10,7 @@ import { clsx } from "clsx";
 export const metadata: Metadata = {
   title: "Programme",
   description:
-    "Découvrez le programme complet du Digizelle Impact Event 2026. Keynotes, table ronde et networking stratégique.",
+    "Découvrez le programme complet du Digizelle Impact Event 2026. Tables rondes et networking stratégique.",
 };
 
 const typeColors = {
@@ -19,6 +19,14 @@ const typeColors = {
   panel: "bg-navy text-white",
   networking: "bg-navy-light text-white",
   break: "bg-cream-dark text-heading",
+};
+
+const typeBadge = {
+  opening: "border border-purple/30 bg-cream-dark text-purple dark:text-purple-light",
+  talk: "border border-purple/30 bg-cream-dark text-purple dark:text-purple-light",
+  panel: "border border-purple/30 bg-cream-dark text-purple dark:text-purple-light",
+  networking: "border border-purple/30 bg-cream-dark text-purple dark:text-purple-light",
+  break: "border border-purple/30 bg-cream-dark text-purple dark:text-purple-light",
 };
 
 // One mascot per programme item
@@ -106,9 +114,22 @@ export default function ProgrammePage() {
                 <div className="flex-1 rounded-sm border border-border bg-surface p-4 shadow-sm sm:p-6">
                   <div className="flex items-start justify-between gap-3">
                     <div className="flex-1">
-                      <h3 className="font-serif text-lg font-semibold text-heading sm:text-xl md:text-2xl">
-                        {item.title}
-                      </h3>
+                      <div className="flex flex-wrap items-center gap-2 sm:gap-3">
+                        <h3 className="font-serif text-lg font-semibold text-heading sm:text-xl md:text-2xl">
+                          {item.title}
+                        </h3>
+                        <span
+                          className={clsx(
+                            "rounded-full px-2 py-0.5 text-[10px] font-semibold sm:text-xs",
+                            typeBadge[item.type]
+                          )}
+                        >
+                          {item.type === "opening" && "Ouverture"}
+                          {item.type === "talk" && "Keynote"}
+                          {item.type === "panel" && "Table Ronde"}
+                          {item.type === "networking" && "Networking"}
+                        </span>
+                      </div>
                       <p className="mt-2 text-sm leading-relaxed text-body sm:mt-3 sm:text-base">
                         {item.description}
                       </p>
@@ -129,7 +150,7 @@ export default function ProgrammePage() {
                       {item.speakers.map((name) => (
                         <span
                           key={name}
-                          className="rounded-sm border border-border bg-surface px-2 py-1 text-xs font-medium text-heading sm:px-3 sm:text-sm"
+                          className="rounded-full border border-purple/30 bg-cream-dark px-2.5 py-1 text-xs font-semibold text-purple dark:text-purple-light sm:px-3 sm:text-sm"
                         >
                           {name}
                         </span>

@@ -9,25 +9,19 @@ export const programme: ProgrammeItem[] = [
     type: "opening",
   },
   {
-    time: "18h10",
-    title: "Intervention : Laura Hassan",
+    time: "18h15 - 19h00",
+    title: "Table Ronde : Demain se code aujourd'hui",
     description:
-      "Keynote inspirante sur le leadership et l'innovation dans le paysage technologique et éducatif actuel, par la Directrice Générale d'Epitech.",
-    speakers: ["Laura Hassan"],
-    type: "talk",
+      "Échange autour de la vision, de la création et des leviers concrets pour construire le futur dès maintenant.",
+    speakers: ["El Mehdi NAAINIAA", "Kévin Polossat", "Mélissa Sari"],
+    type: "panel",
   },
   {
-    time: "18h20",
-    title: "Table Ronde : Leadership, innovation et responsabilité dans la tech",
+    time: "19h05 - 19h50",
+    title: "Table Ronde : L'ambition sans limites",
     description:
-      "Un échange riche avec des intervenants de X-HEC Entrepreneurs, Allianz Technology, Epitech, Microsoft et New Deal Founders autour des enjeux du leadership et de l'innovation responsable.",
-    speakers: [
-      "Audrey L. Baha Wognou",
-      "El Mehdi Naainiaa",
-      "Laura Hassan",
-      "Mélissa Sari",
-      "Luc Olivier Yebga",
-    ],
+      "Discussion inspirante sur l'ambition, le passage à l'action et l'impact sans plafond dans les parcours tech et business.",
+    speakers: ["Laura Hassan", "Audrey Ludivine Baha Wognou", "Luc Olivier Yebga"],
     type: "panel",
   },
   {

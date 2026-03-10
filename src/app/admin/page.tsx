@@ -63,6 +63,9 @@ export default function AdminPage() {
   const [sortKey, setSortKey] = useState<SortKey>("date");
   const [sortDir, setSortDir] = useState<SortDir>("desc");
   const [newIds, setNewIds] = useState<Set<string>>(new Set());
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const mobileMenuRef = useRef<HTMLDivElement | null>(null);
+  const mobileMenuButtonRef = useRef<HTMLButtonElement | null>(null);
   const prevTotalRef = useRef(0);
 
   const fetchRegistrations = useCallback(async () => {
@@ -201,6 +204,33 @@ export default function AdminPage() {
     const interval = setInterval(fetchRegistrations, REFRESH_INTERVAL);
     return () => clearInterval(interval);
   }, [isAuthenticated, autoRefresh, fetchRegistrations]);
+
+  useEffect(() => {
+    if (!mobileMenuOpen) return;
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setMobileMenuOpen(false);
+      }
+    };
+
+    const onPointerDown = (event: MouseEvent | TouchEvent) => {
+      const target = event.target as Node;
+      if (mobileMenuRef.current?.contains(target)) return;
+      if (mobileMenuButtonRef.current?.contains(target)) return;
+      setMobileMenuOpen(false);
+    };
+
+    window.addEventListener("keydown", onKeyDown);
+    document.addEventListener("mousedown", onPointerDown);
+    document.addEventListener("touchstart", onPointerDown);
+
+    return () => {
+      window.removeEventListener("keydown", onKeyDown);
+      document.removeEventListener("mousedown", onPointerDown);
+      document.removeEventListener("touchstart", onPointerDown);
+    };
+  }, [mobileMenuOpen]);
 
   // Filter + sort
   const filtered = registrations
@@ -423,14 +453,14 @@ export default function AdminPage() {
 
             <Link
               href="/admin/dashboard"
-              className="rounded-lg border border-border px-3 py-1.5 text-xs text-body transition-all hover:border-purple/30 hover:text-purple"
+              className="hidden rounded-lg border border-border px-3 py-1.5 text-xs text-body transition-all hover:border-purple/30 hover:text-purple sm:inline-flex"
             >
               Dashboard
             </Link>
 
             <Link
               href="/admin/checkin"
-              className="rounded-lg border border-border px-3 py-1.5 text-xs text-body transition-all hover:border-purple/30 hover:text-purple"
+              className="hidden rounded-lg border border-border px-3 py-1.5 text-xs text-body transition-all hover:border-purple/30 hover:text-purple sm:inline-flex"
             >
               Check-in
             </Link>
@@ -441,6 +471,24 @@ export default function AdminPage() {
             </span>
 
             <button
+              ref={mobileMenuButtonRef}
+              onClick={() => setMobileMenuOpen((v) => !v)}
+              aria-label={mobileMenuOpen ? "Fermer le menu" : "Ouvrir le menu"}
+              title={mobileMenuOpen ? "Fermer le menu" : "Ouvrir le menu"}
+              className="rounded-lg border border-border bg-surface p-2 text-body transition-all hover:border-purple/30 hover:text-purple sm:hidden"
+            >
+              {mobileMenuOpen ? (
+                <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
+                </svg>
+              ) : (
+                <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5m-16.5 5.25h16.5m-16.5 5.25h16.5" />
+                </svg>
+              )}
+            </button>
+
+            <button
               onClick={() => {
                 sessionStorage.removeItem("admin-token");
                 setIsAuthenticated(false);
@@ -448,7 +496,7 @@ export default function AdminPage() {
               }}
               aria-label="Se déconnecter"
               title="Se déconnecter"
-              className="rounded-lg border border-border px-3 py-1.5 text-xs text-body transition-all hover:border-red-500/30 hover:bg-red-500/5 hover:text-red-400"
+              className="hidden rounded-lg border border-border px-3 py-1.5 text-xs text-body transition-all hover:border-red-500/30 hover:bg-red-500/5 hover:text-red-400 sm:inline-flex"
             >
               <svg className="h-4 w-4 sm:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9" />
@@ -457,6 +505,38 @@ export default function AdminPage() {
             </button>
           </div>
         </div>
+
+        {mobileMenuOpen && (
+          <div className="mx-auto max-w-7xl px-4 pb-3 sm:hidden">
+            <div ref={mobileMenuRef} className="space-y-2 rounded-lg border border-border bg-surface p-3">
+              <Link
+                href="/admin/dashboard"
+                onClick={() => setMobileMenuOpen(false)}
+                className="block rounded-lg border border-border px-3 py-2 text-xs text-body transition-all hover:border-purple/30 hover:text-purple"
+              >
+                Dashboard
+              </Link>
+              <Link
+                href="/admin/checkin"
+                onClick={() => setMobileMenuOpen(false)}
+                className="block rounded-lg border border-border px-3 py-2 text-xs text-body transition-all hover:border-purple/30 hover:text-purple"
+              >
+                Check-in
+              </Link>
+              <button
+                onClick={() => {
+                  sessionStorage.removeItem("admin-token");
+                  setIsAuthenticated(false);
+                  setToken("");
+                  setMobileMenuOpen(false);
+                }}
+                className="w-full rounded-lg border border-border px-3 py-2 text-left text-xs text-body transition-all hover:border-red-500/30 hover:bg-red-500/5 hover:text-red-400"
+              >
+                Déconnexion
+              </button>
+            </div>
+          </div>
+        )}
       </header>
 
       <main className="mx-auto max-w-7xl px-4 py-6 sm:px-6 sm:py-8">

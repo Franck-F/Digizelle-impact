@@ -16,11 +16,11 @@ const typeStyles = {
 };
 
 const typeBadge = {
-  opening: "bg-purple/20 text-purple dark:text-purple-light",
-  talk: "bg-purple-light/20 text-purple dark:text-purple-light",
-  panel: "bg-navy/20 text-navy dark:text-cream",
-  networking: "bg-navy-light/20 text-navy-light dark:text-purple-light",
-  break: "bg-border text-body",
+  opening: "border border-purple/30 bg-cream-dark text-purple dark:text-purple-light",
+  talk: "border border-purple/30 bg-cream-dark text-purple dark:text-purple-light",
+  panel: "border border-purple/30 bg-cream-dark text-purple dark:text-purple-light",
+  networking: "border border-purple/30 bg-cream-dark text-purple dark:text-purple-light",
+  break: "border border-purple/30 bg-cream-dark text-purple dark:text-purple-light",
 };
 
 export function ProgrammePreview() {
@@ -53,7 +53,7 @@ export function ProgrammePreview() {
                       </h3>
                       <span
                         className={clsx(
-                          "rounded-full px-2 py-0.5 text-[10px] font-medium sm:text-xs",
+                          "rounded-full px-2 py-0.5 text-[10px] font-semibold sm:text-xs",
                           typeBadge[item.type]
                         )}
                       >
@@ -71,7 +71,7 @@ export function ProgrammePreview() {
                         {item.speakers.map((name) => (
                           <span
                             key={name}
-                            className="rounded-sm border border-border bg-surface px-2 py-1 text-xs font-medium text-heading"
+                            className="rounded-full border border-purple/30 bg-cream-dark px-2.5 py-1 text-xs font-semibold text-purple dark:text-purple-light"
                           >
                             {name}
                           </span>

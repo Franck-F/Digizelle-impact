@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
@@ -33,6 +33,9 @@ export default function AdminCheckinPage() {
   const [manualOpen, setManualOpen] = useState(false);
   const [manualSaving, setManualSaving] = useState(false);
   const [manualError, setManualError] = useState("");
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const mobileMenuRef = useRef<HTMLDivElement | null>(null);
+  const mobileMenuButtonRef = useRef<HTMLButtonElement | null>(null);
   const [confirmCheckinTarget, setConfirmCheckinTarget] = useState<CheckinRegistration | null>(null);
   const [confirmUncheckTarget, setConfirmUncheckTarget] = useState<CheckinRegistration | null>(null);
   const [confirmManualAdd, setConfirmManualAdd] = useState(false);
@@ -105,6 +108,33 @@ export default function AdminCheckinPage() {
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [confirmCheckinTarget, confirmUncheckTarget, confirmManualAdd, manualSaving, savingId]);
+
+  useEffect(() => {
+    if (!mobileMenuOpen) return;
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setMobileMenuOpen(false);
+      }
+    };
+
+    const onPointerDown = (event: MouseEvent | TouchEvent) => {
+      const target = event.target as Node;
+      if (mobileMenuRef.current?.contains(target)) return;
+      if (mobileMenuButtonRef.current?.contains(target)) return;
+      setMobileMenuOpen(false);
+    };
+
+    window.addEventListener("keydown", onKeyDown);
+    document.addEventListener("mousedown", onPointerDown);
+    document.addEventListener("touchstart", onPointerDown);
+
+    return () => {
+      window.removeEventListener("keydown", onKeyDown);
+      document.removeEventListener("mousedown", onPointerDown);
+      document.removeEventListener("touchstart", onPointerDown);
+    };
+  }, [mobileMenuOpen]);
 
   const filtered = useMemo(() => {
     const query = search.trim().toLowerCase();
@@ -344,19 +374,57 @@ export default function AdminCheckinPage() {
             </button>
             <Link
               href="/admin"
-              className="rounded-lg border border-border bg-surface px-3 py-1.5 text-xs text-body transition-all hover:border-purple/30 hover:text-purple"
+              className="hidden rounded-lg border border-border bg-surface px-3 py-1.5 text-xs text-body transition-all hover:border-purple/30 hover:text-purple sm:inline-flex"
             >
               Back office
             </Link>
             <Link
               href="/admin/dashboard"
-              className="rounded-lg border border-border bg-surface px-3 py-1.5 text-xs text-body transition-all hover:border-purple/30 hover:text-purple"
+              className="hidden rounded-lg border border-border bg-surface px-3 py-1.5 text-xs text-body transition-all hover:border-purple/30 hover:text-purple sm:inline-flex"
             >
               Dashboard
             </Link>
             <ThemeToggle />
+            <button
+              ref={mobileMenuButtonRef}
+              onClick={() => setMobileMenuOpen((v) => !v)}
+              aria-label={mobileMenuOpen ? "Fermer le menu" : "Ouvrir le menu"}
+              title={mobileMenuOpen ? "Fermer le menu" : "Ouvrir le menu"}
+              className="rounded-lg border border-border bg-surface p-2 text-body transition-all hover:border-purple/30 hover:text-purple sm:hidden"
+            >
+              {mobileMenuOpen ? (
+                <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
+                </svg>
+              ) : (
+                <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5m-16.5 5.25h16.5m-16.5 5.25h16.5" />
+                </svg>
+              )}
+            </button>
           </div>
         </div>
+
+        {mobileMenuOpen && (
+          <div className="mx-auto max-w-7xl px-4 pb-3 sm:hidden sm:px-6">
+            <div ref={mobileMenuRef} className="space-y-2 rounded-lg border border-border bg-surface p-3">
+              <Link
+                href="/admin"
+                onClick={() => setMobileMenuOpen(false)}
+                className="block rounded-lg border border-border px-3 py-2 text-xs text-body transition-all hover:border-purple/30 hover:text-purple"
+              >
+                Back office
+              </Link>
+              <Link
+                href="/admin/dashboard"
+                onClick={() => setMobileMenuOpen(false)}
+                className="block rounded-lg border border-border px-3 py-2 text-xs text-body transition-all hover:border-purple/30 hover:text-purple"
+              >
+                Dashboard
+              </Link>
+            </div>
+          </div>
+        )}
       </header>
 
       <main className="mx-auto max-w-7xl space-y-4 px-4 py-6 sm:space-y-6 sm:px-6 sm:py-8">
