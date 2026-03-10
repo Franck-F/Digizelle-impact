@@ -9,10 +9,6 @@ const GOOGLE_STREET_VIEW_DIRECT_URL =
 export function AccessPlan3D() {
   return (
     <div className="rounded-sm border border-border bg-cream p-4 sm:p-5">
-      <div className="rounded-sm border border-purple/20 bg-purple/5 p-3 text-center text-xs font-semibold uppercase tracking-[0.18em] text-purple sm:text-sm">
-        Google Maps — vue Street View
-      </div>
-
       <div className="relative mt-4 overflow-hidden rounded-xl border border-border bg-surface shadow-sm">
         <div className="flex flex-col gap-3 border-b border-border bg-cream-dark px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
           <div>
@@ -27,28 +23,6 @@ export function AccessPlan3D() {
           >
             Ouvrir en plein écran
           </a>
-        </div>
-
-        <div className="grid gap-2 border-b border-border bg-surface px-4 py-3 sm:hidden">
-          <a
-            href={GOOGLE_STREET_VIEW_DIRECT_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex w-full items-center justify-center rounded-lg bg-purple px-4 py-3 text-sm font-semibold text-white transition-colors hover:bg-purple-light"
-          >
-            Voir l&apos;entrée en 3D
-          </a>
-          <a
-            href={EVENT.mapsUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex w-full items-center justify-center rounded-lg border border-border bg-cream px-4 py-3 text-sm font-semibold text-heading transition-colors hover:border-purple/30 hover:text-purple"
-          >
-            Ouvrir l&apos;itinéraire
-          </a>
-          <p className="text-center text-xs text-body">
-            Astuce mobile : ouvre en plein écran pour zoomer et repérer plus facilement l&apos;entrée.
-          </p>
         </div>
 
         <iframe
