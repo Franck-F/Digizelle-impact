@@ -287,7 +287,7 @@ export function buildBroadcastEmailHtml(data: { firstName: string }): string {
               <table role="presentation" cellpadding="0" cellspacing="0" width="100%">
                 <tr>
                   <td align="center">
-                    <a href="https://impact.digizelle.fr/contact" target="_blank" style="display: inline-block; background: linear-gradient(135deg, #7301FF 0%, #5B21B6 100%); color: #FFFFFF; font-size: 15px; font-weight: 600; text-decoration: none; padding: 14px 28px; border-radius: 8px;">
+                    <a href="https://impact.digizelle.fr/inscription" target="_blank" style="display: inline-block; background: linear-gradient(135deg, #7301FF 0%, #5B21B6 100%); color: #FFFFFF; font-size: 15px; font-weight: 600; text-decoration: none; padding: 14px 28px; border-radius: 8px;">
                       Partager le lien d'inscription &#8594;
                     </a>
                   </td>
@@ -328,7 +328,7 @@ export function buildLiteBroadcastEmailHtml(data: { firstName: string }): string
       <div style="background-color: #F5F3FF; border-left: 4px solid #7301FF; padding: 15px; margin: 20px 0;">
         <p style="margin: 0; font-weight: bold;">📢 Partagez l'impact !</p>
         <p style="margin: 5px 0 0;">Il reste encore quelques places disponibles. N'hésitez pas à partager le lien d'inscription :</p>
-        <p style="margin: 10px 0 0;"><a href="https://impact.digizelle.fr/contact" style="color: #7301FF; font-weight: bold;">https://impact.digizelle.fr/contact</a></p>
+        <p style="margin: 10px 0 0;"><a href="https://impact.digizelle.fr/inscription" style="color: #7301FF; font-weight: bold;">https://impact.digizelle.fr/inscription</a></p>
       </div>
       <p>À vendredi prochain,<br><strong>L'équipe Digizelle</strong></p>
     </div>

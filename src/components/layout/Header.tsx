@@ -40,7 +40,7 @@ export function Header() {
               </Link>
             ))}
             <ThemeToggle />
-            <Button href="/contact" variant="secondary" size="sm">
+            <Button href="/inscription" variant="secondary" size="sm">
               S&apos;inscrire
             </Button>
           </div>
@@ -93,7 +93,7 @@ export function Header() {
                 {link.label}
               </Link>
             ))}
-            <Button href="/contact" variant="secondary" size="sm" className="mt-2 self-start">
+            <Button href="/inscription" variant="secondary" size="sm" className="mt-2 self-start">
               S&apos;inscrire
             </Button>
           </div>

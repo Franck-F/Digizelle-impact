@@ -110,7 +110,7 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Contact CTA */}
+          {/* Inscription CTA */}
           <div>
             <h4 className="mb-5 text-xs font-semibold uppercase tracking-[0.15em] text-purple-light">
               Rejoindre
@@ -119,7 +119,7 @@ export function Footer() {
               Places limitées. Réservez dès maintenant pour cet événement exclusif.
             </p>
             <Link
-              href="/contact"
+              href="/inscription"
               className="inline-flex items-center gap-2 rounded-sm bg-purple px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-purple-light"
             >
               S&apos;inscrire

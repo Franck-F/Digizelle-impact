@@ -126,7 +126,7 @@ export default async function SpeakerPage({ params }: Props) {
             </div>
 
             <div className="mt-8 sm:mt-10">
-              <Button href="/contact" variant="secondary">
+              <Button href="/inscription" variant="secondary">
                 Réserver ma place
               </Button>
             </div>

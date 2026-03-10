@@ -175,7 +175,7 @@ export default function ProgrammePage() {
         </div>
 
         <div className="mt-6 text-center sm:mt-8">
-          <Button href="/contact" variant="secondary" size="lg">
+          <Button href="/inscription" variant="secondary" size="lg">
             Réserver ma place
           </Button>
         </div>

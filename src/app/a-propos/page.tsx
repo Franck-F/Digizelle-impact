@@ -123,7 +123,7 @@ export default function AboutPage() {
           </div>
 
           <div className="mt-8 text-center sm:mt-12">
-            <Button href="/contact" variant="secondary" size="lg">
+            <Button href="/inscription" variant="secondary" size="lg">
               Réserver ma place
             </Button>
           </div>

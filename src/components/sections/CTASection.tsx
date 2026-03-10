@@ -54,7 +54,7 @@ export function CTASection() {
 
         <FadeIn delay={0.3}>
           <div className="mt-6 flex w-full flex-col items-center gap-3 sm:mt-8 sm:w-auto sm:flex-row sm:justify-center sm:gap-4">
-            <Button href="/contact" variant="secondary" size="lg">
+            <Button href="/inscription" variant="secondary" size="lg">
               Réserver ma place
             </Button>
             <Button href="/a-propos" variant="accent" size="lg">

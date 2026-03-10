@@ -1,0 +1,32 @@
+.scene {
+  background:
+    radial-gradient(circle at top, rgba(163, 75, 245, 0.12), transparent 38%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(248, 247, 255, 0.96));
+}
+
+:global(.dark) .scene {
+  background:
+    radial-gradient(circle at top, rgba(163, 75, 245, 0.18), transparent 38%),
+    linear-gradient(180deg, rgba(20, 30, 48, 1), rgba(11, 17, 32, 1));
+}
+
+.road {
+  transform: perspective(900px) rotateX(68deg) rotateZ(-13deg);
+}
+
+.building {
+  transform: perspective(900px) rotateZ(-12deg);
+}
+
+.roof {
+  transform: skewX(-45deg);
+}
+
+.side {
+  transform: skewY(-45deg);
+  transform-origin: left top;
+}
+
+.marker {
+  transform: rotate(-12deg);
+}

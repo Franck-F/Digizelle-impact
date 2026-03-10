@@ -58,7 +58,7 @@ export async function sendBroadcast(testEmail?: string): Promise<BroadcastResult
                 ? buildLiteBroadcastEmailHtml({ firstName: user.first_name })
                 : buildBroadcastEmailHtml({ firstName: user.first_name });
 
-            const text = `Bonjour ${user.first_name}, J-7 avant le Digizelle Impact Event 2026 ! Nous vous attendons Vendredi 13 Mars à 18h00 à l'Epitech Paris. Partagez l'événement : https://impact.digizelle.fr/contact`;
+            const text = `Bonjour ${user.first_name}, J-7 avant le Digizelle Impact Event 2026 ! Nous vous attendons Vendredi 13 Mars à 18h00 à l'Epitech Paris. Partagez l'événement : https://impact.digizelle.fr/inscription`;
 
             const sendResult = await sendEmailGeneric({
                 to: user.email,

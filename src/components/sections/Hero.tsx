@@ -51,7 +51,7 @@ export function Hero() {
 
         <FadeIn delay={0.4}>
           <div className="mt-8 flex w-full flex-col gap-3 sm:mt-10 sm:w-auto sm:flex-row sm:gap-4">
-            <Button href="/contact" variant="secondary" size="lg">
+            <Button href="/inscription" variant="secondary" size="lg">
               Réserver ma place
             </Button>
             <Button href="/programme" variant="outline" size="lg">
