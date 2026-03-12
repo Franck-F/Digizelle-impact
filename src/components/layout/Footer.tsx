@@ -9,7 +9,6 @@ export function Footer() {
       {/* Decorative circles */}
       <div className="pointer-events-none absolute -left-20 -top-20 h-[300px] w-[300px] rounded-full border border-purple/5" />
       <div className="pointer-events-none absolute -bottom-32 -right-16 h-[400px] w-[400px] rounded-full border border-purple/5" />
-
       {/* Top banner — tagline + mascotte */}
       <div className="border-b border-white/5">
         <Container className="flex flex-col items-center gap-6 py-10 sm:flex-row sm:justify-between sm:py-14">
@@ -127,6 +126,29 @@ export function Footer() {
                 <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
               </svg>
             </Link>
+
+            <ul className="mt-5 space-y-2">
+              <li>
+                <Link href="/conditions-generales-inscription" className="text-xs text-white/60 transition-colors hover:text-purple-light">
+                  Conditions Générales d&apos;Inscription
+                </Link>
+              </li>
+              <li>
+                <Link href="/mentions-legales" className="text-xs text-white/60 transition-colors hover:text-purple-light">
+                  Mentions légales
+                </Link>
+              </li>
+              <li>
+                <Link href="/charte-bonne-conduite" className="text-xs text-white/60 transition-colors hover:text-purple-light">
+                  Charte de bonne conduite
+                </Link>
+              </li>
+              <li>
+                <Link href="/politique-traitement-donnees" className="text-xs text-white/60 transition-colors hover:text-purple-light">
+                  Politique de traitement des données
+                </Link>
+              </li>
+            </ul>
           </div>
         </div>
       </Container>

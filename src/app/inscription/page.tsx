@@ -38,6 +38,9 @@ export default function InscriptionPage() {
       school: profileType === "etudiant" ? (formData.get("school") as string) : "",
       role: profileType === "entreprise" ? (formData.get("role") as string) : "",
       message: formData.get("message") as string,
+      acceptedTermsAndCharter: formData.get("acceptedTermsAndCharter") === "on",
+      acceptedPrivacyPolicy: formData.get("acceptedPrivacyPolicy") === "on",
+      acceptedImageRights: formData.get("acceptedImageRights") === "on",
     };
 
     try {
@@ -190,6 +193,56 @@ export default function InscriptionPage() {
                   Message (optionnel)
                 </label>
                 <textarea id="message" name="message" rows={3} placeholder="Une question ? Un message ?" className={inputClasses} />
+              </div>
+
+              <div className="space-y-3 rounded-sm border border-border bg-cream p-4 sm:p-5">
+                <label className="flex items-start gap-2 text-sm text-heading sm:text-base">
+                  <input
+                    type="checkbox"
+                    name="acceptedTermsAndCharter"
+                    required
+                    className="mt-1 h-4 w-4 rounded border-border text-purple focus:ring-purple"
+                  />
+                  <span>
+                    J&apos;ai lu et j&apos;accepte les{" "}
+                    <a href="/conditions-generales-inscription" target="_blank" rel="noopener noreferrer" className="font-semibold text-purple underline underline-offset-2">
+                      Conditions Générales d&apos;Inscription
+                    </a>{" "}
+                    ainsi que la{" "}
+                    <a href="/charte-bonne-conduite" target="_blank" rel="noopener noreferrer" className="font-semibold text-purple underline underline-offset-2">
+                      Charte de bonne conduite
+                    </a>
+                    .
+                  </span>
+                </label>
+
+                <label className="flex items-start gap-2 text-sm text-heading sm:text-base">
+                  <input
+                    type="checkbox"
+                    name="acceptedPrivacyPolicy"
+                    required
+                    className="mt-1 h-4 w-4 rounded border-border text-purple focus:ring-purple"
+                  />
+                  <span>
+                    J&apos;ai pris connaissance de la{" "}
+                    <a href="/politique-traitement-donnees" target="_blank" rel="noopener noreferrer" className="font-semibold text-purple underline underline-offset-2">
+                      politique de traitement des données personnelles
+                    </a>{" "}
+                    et consens au traitement de mes données dans le cadre de l&apos;organisation de l&apos;événement.
+                  </span>
+                </label>
+
+                <label className="flex items-start gap-2 text-sm text-heading sm:text-base">
+                  <input
+                    type="checkbox"
+                    name="acceptedImageRights"
+                    required
+                    className="mt-1 h-4 w-4 rounded border-border text-purple focus:ring-purple"
+                  />
+                  <span>
+                    J&apos;accepte que mon image (photos et vidéos prises lors de l&apos;événement) soit utilisée par l&apos;association à des fins de communication non commerciale.
+                  </span>
+                </label>
               </div>
 
               <Button type="submit" variant="secondary" size="lg" className="w-full" disabled={form.status === "submitting"}>

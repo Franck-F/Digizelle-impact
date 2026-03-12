@@ -13,7 +13,19 @@ export async function POST(req: NextRequest) {
     await initDb();
 
     const body = await req.json();
-    const { type, firstName, lastName, email, company, school, role, message } = body;
+    const {
+      type,
+      firstName,
+      lastName,
+      email,
+      company,
+      school,
+      role,
+      message,
+      acceptedTermsAndCharter,
+      acceptedPrivacyPolicy,
+      acceptedImageRights,
+    } = body;
 
     const profileType = type === "etudiant" ? "etudiant" : "entreprise";
 
@@ -30,6 +42,15 @@ export async function POST(req: NextRequest) {
     }
     if (profileType === "etudiant" && (!school || typeof school !== "string" || school.trim().length < 2)) {
       errors.push("L'école / université est requise.");
+    }
+    if (acceptedTermsAndCharter !== true) {
+      errors.push("Vous devez accepter les Conditions Générales d'Inscription et la Charte de bonne conduite.");
+    }
+    if (acceptedPrivacyPolicy !== true) {
+      errors.push("Vous devez accepter la politique de traitement des données personnelles.");
+    }
+    if (acceptedImageRights !== true) {
+      errors.push("Vous devez accepter l'utilisation de votre image (photos/vidéos) à des fins de communication non commerciale.");
     }
 
     if (errors.length > 0) {
