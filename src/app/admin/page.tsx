@@ -460,7 +460,7 @@ export default function AdminPage() {
             </Link>
 
             <span className="hidden rounded-full border border-purple/20 bg-purple/10 px-3 py-1.5 text-xs text-purple sm:block">
-              13 Mars 2026
+
             </span>
 
             <button

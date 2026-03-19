@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     template: "%s | Digizelle Impact 2026",
   },
   description:
-    "Votre avis compte ! 13 Mars 2026, Paris. Un événement élégant réunissant les leaders de la tech.",
+    "Votre avis compte ! Paris. Un événement élégant réunissant les leaders de la tech.",
   keywords: [
     "Digizelle",
     "Impact Event",
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Digizelle Impact Event 2026",
     description:
-      "Votre avis compte ! 13 Mars 2026, Paris.",
+      "Votre avis compte ! Paris.",
     type: "website",
     locale: "fr_FR",
   },

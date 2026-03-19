@@ -33,7 +33,7 @@ export default function ConditionsGeneralesInscriptionPage() {
                 L&apos;association DIGIZELLE organise une table ronde intitulée : « DIGIZELLE IMPACT EVENT 2026 - Leadership & Innovation : construire l&apos;avenir ensemble ».
               </p>
               <p className="mt-2">
-                Date : Vendredi 13 mars 2026<br />
+                Date : Vendredi<br />
                 Lieu : Campus EPITECH Paris, 24 Rue Pasteur, 94270 Le Kremlin-Bicêtre, France
               </p>
               <p className="mt-2">
