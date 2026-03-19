@@ -16,7 +16,6 @@ export function LayoutShell({ children }: { children: React.ReactNode }) {
     <>
       <Header />
       <main>{children}</main>
-      <Footer />
     </>
   );
 }

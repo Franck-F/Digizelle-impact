@@ -319,7 +319,7 @@ export function CelebrationAnimation({
                 transition={{ duration: 3, repeat: Infinity }}
                 className="bg-gradient-to-r from-purple via-purple-light to-purple bg-[length:200%_auto] bg-clip-text text-transparent"
               >
-                Inscription confirmée !
+                Terminé
               </motion.span>
             </motion.h3>
 
@@ -334,14 +334,7 @@ export function CelebrationAnimation({
             </motion.p>
 
             {/* Confirmation notice */}
-            <motion.p
-              initial={{ y: 10, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 1.4, duration: 0.5 }}
-              className="mt-4 text-sm text-body sm:mt-6"
-            >
-              Une confirmation vous sera envoyée par email.
-            </motion.p>
+            {/* Confirmation notice removed */}
 
             {/* Side mascots that peek in */}
             <div className="pointer-events-none absolute -left-4 bottom-0 sm:-left-8">
@@ -407,19 +400,7 @@ export function CelebrationAnimation({
             )}
 
             {/* Date reminder */}
-            <motion.div
-              initial={{ y: 20, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 2, duration: 0.5 }}
-              className="mt-6 rounded-sm border border-purple/20 bg-purple/5 px-6 py-4 sm:mt-8"
-            >
-              <p className="text-xs font-medium uppercase tracking-[0.15em] text-purple sm:text-sm">
-                Rendez-vous le 13 Mars 2026
-              </p>
-              <p className="mt-1 text-xs text-body sm:text-sm">
-                Epitech Paris — 24 Rue Pasteur, 94270 Le Kremlin-Bicêtre
-              </p>
-            </motion.div>
+            {/* Date reminder removed */}
           </div>
         </motion.div>
       )}

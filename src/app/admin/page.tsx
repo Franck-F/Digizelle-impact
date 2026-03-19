@@ -451,6 +451,7 @@ export default function AdminPage() {
 
             <ThemeToggle />
 
+
             <Link
               href="/admin/dashboard"
               className="hidden rounded-lg border border-border px-3 py-1.5 text-xs text-body transition-all hover:border-purple/30 hover:text-purple sm:inline-flex"
@@ -458,14 +459,6 @@ export default function AdminPage() {
               Dashboard
             </Link>
 
-            <Link
-              href="/admin/checkin"
-              className="hidden rounded-lg border border-border px-3 py-1.5 text-xs text-body transition-all hover:border-purple/30 hover:text-purple sm:inline-flex"
-            >
-              Check-in
-            </Link>
-
-            {/* Event date */}
             <span className="hidden rounded-full border border-purple/20 bg-purple/10 px-3 py-1.5 text-xs text-purple sm:block">
               13 Mars 2026
             </span>
@@ -517,11 +510,11 @@ export default function AdminPage() {
                 Dashboard
               </Link>
               <Link
-                href="/admin/checkin"
+                href="/admin/dashboard"
                 onClick={() => setMobileMenuOpen(false)}
                 className="block rounded-lg border border-border px-3 py-2 text-xs text-body transition-all hover:border-purple/30 hover:text-purple"
               >
-                Check-in
+                Dashboard
               </Link>
               <button
                 onClick={() => {

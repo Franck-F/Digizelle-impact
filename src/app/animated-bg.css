@@ -1,0 +1,28 @@
+@keyframes gradient-move {
+  0%, 100% {
+    filter: blur(60px);
+    transform: translateX(-50%) scale(1);
+  }
+  50% {
+    filter: blur(80px);
+    transform: translateX(-48%) scale(1.04);
+  }
+}
+
+@keyframes gradient-move-reverse {
+  0%, 100% {
+    filter: blur(32px);
+    transform: translateX(-50%) scale(1);
+  }
+  50% {
+    filter: blur(48px);
+    transform: translateX(-52%) scale(1.03);
+  }
+}
+
+.animate-gradient-move {
+  animation: gradient-move 8s ease-in-out infinite;
+}
+.animate-gradient-move-reverse {
+  animation: gradient-move-reverse 10s ease-in-out infinite;
+}

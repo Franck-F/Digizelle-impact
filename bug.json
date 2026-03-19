@@ -1,0 +1,42 @@
+[
+  {
+    "date": "2026-03-19",
+    "error": "Orphaned JSX and parsing errors in dashboard/page.tsx and contact/page.tsx",
+    "fix": "Forcefully truncated files after export statement, removed all orphaned code."
+  },
+  {
+    "date": "2026-03-19",
+    "error": "TypeScript error: Property 'id' does not exist on type 'never' in admin/contact/page.tsx",
+    "fix": "Added explicit message type to messages state."
+  },
+  {
+    "date": "2026-03-19",
+    "error": "Implicit any type for SurveyFilters prop and handleFilter params in admin/survey/page.tsx",
+    "fix": "Added explicit prop and parameter types."
+  },
+  {
+    "date": "2026-03-19",
+    "error": "Index signature error for answers[step] in survey/page.tsx",
+    "fix": "Typed answers state as Record<number, string>."
+  },
+  {
+    "date": "2026-03-19",
+    "error": "Missing module: @types/three and tailwind-merge",
+    "fix": "Installed @types/three and tailwind-merge packages."
+  },
+  {
+    "date": "2026-03-19",
+    "error": "Block-scoped variable 'sql' used before its declaration in db.ts",
+    "fix": "Declared sql inside initDb by calling getDb()."
+  },
+  {
+    "date": "2026-03-19",
+    "error": "Button prop error: 'asChild' does not exist in Header.tsx",
+    "fix": "Removed 'asChild' prop from Button."
+  },
+  {
+    "date": "2026-03-19",
+    "error": "Three.js and canvas typing errors in glsl-hills.tsx",
+    "fix": "Added explicit types and null checks for canvas and Plane class properties."
+  }
+]

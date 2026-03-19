@@ -19,11 +19,11 @@ const signika = Signika_Negative({
 
 export const metadata: Metadata = {
   title: {
-    default: "Digizelle Impact Event 2026 — Leadership & Innovation",
+    default: "Digizelle Impact Event 2026 — Votre avis compte !",
     template: "%s | Digizelle Impact 2026",
   },
   description:
-    "Leadership & Innovation : construire l'avenir ensemble. 13 Mars 2026, Paris. Un événement élégant réunissant les leaders de la tech.",
+    "Votre avis compte ! 13 Mars 2026, Paris. Un événement élégant réunissant les leaders de la tech.",
   keywords: [
     "Digizelle",
     "Impact Event",
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Digizelle Impact Event 2026",
     description:
-      "Leadership & Innovation : construire l'avenir ensemble. 13 Mars 2026, Paris.",
+      "Votre avis compte ! 13 Mars 2026, Paris.",
     type: "website",
     locale: "fr_FR",
   },

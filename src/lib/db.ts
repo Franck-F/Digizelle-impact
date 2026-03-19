@@ -7,23 +7,16 @@ export function getDb() {
 
 export async function initDb() {
   const sql = getDb();
+  // Contact messages table
   await sql`
-    CREATE TABLE IF NOT EXISTS registrations (
+    CREATE TABLE IF NOT EXISTS contact_messages (
       id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-      type VARCHAR(20) DEFAULT 'entreprise',
       first_name VARCHAR(100) NOT NULL,
       last_name VARCHAR(100) NOT NULL,
-      email VARCHAR(255) UNIQUE NOT NULL,
-      company VARCHAR(200) DEFAULT '',
-      school VARCHAR(200) DEFAULT '',
-      role VARCHAR(200) DEFAULT '',
-      message TEXT DEFAULT '',
-      added_manually BOOLEAN DEFAULT FALSE,
-      present_at TIMESTAMPTZ,
-      email_status VARCHAR(50) DEFAULT 'pending',
-      email_provider VARCHAR(50) DEFAULT 'none',
-      email_error TEXT DEFAULT '',
-      registered_at TIMESTAMPTZ DEFAULT NOW()
+      email VARCHAR(255) NOT NULL,
+      subject VARCHAR(255) NOT NULL,
+      message TEXT NOT NULL,
+      submitted_at TIMESTAMPTZ DEFAULT NOW()
     )
   `;
   // Add columns for existing tables
@@ -34,4 +27,14 @@ export async function initDb() {
   await sql`ALTER TABLE registrations ADD COLUMN IF NOT EXISTS email_status VARCHAR(50) DEFAULT 'pending'`;
   await sql`ALTER TABLE registrations ADD COLUMN IF NOT EXISTS email_provider VARCHAR(50) DEFAULT 'none'`;
   await sql`ALTER TABLE registrations ADD COLUMN IF NOT EXISTS email_error TEXT DEFAULT ''`;
+
+  // Survey responses table
+  await sql`
+    CREATE TABLE IF NOT EXISTS survey_responses (
+      id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+      answers JSONB NOT NULL,
+      submitted_at TIMESTAMPTZ DEFAULT NOW()
+    )
+  `;
+  // Add columns for existing tables if needed
 }

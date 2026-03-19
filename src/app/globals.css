@@ -1,3 +1,23 @@
+
+/* Mascotte max size */
+.mascotte-max {
+  max-width: 90px;
+  max-height: 90px;
+}
+
+/* Timeline bar background */
+.timeline-bar-bg {
+  transform: translateY(-50%);
+}
+
+/* Timeline bar fill */
+.timeline-bar-fill {
+  transform: translateY(-50%);
+}
+
+.timeline-bar-fill[data-progress] {
+  width: calc(attr(data-progress number) * 100%);
+}
 @import "tailwindcss";
 
 @custom-variant dark (&:where(.dark, .dark *));

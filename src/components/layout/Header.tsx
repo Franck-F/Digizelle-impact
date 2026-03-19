@@ -28,30 +28,20 @@ export function Header() {
             />
           </Link>
 
-          {/* Desktop Nav */}
+          {/* Desktop Nav : uniquement Contact + ThemeToggle */}
           <div className="hidden items-center gap-6 lg:flex xl:gap-8">
-            {NAV_LINKS.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="text-sm font-medium tracking-wide text-heading transition-colors hover:text-purple"
-              >
-                {link.label}
-              </Link>
-            ))}
+            <Link href="/contact" className="rounded-sm px-3 py-2 text-base font-medium text-heading transition-colors hover:bg-surface hover:text-purple">
+              Nous contacter
+            </Link>
             <ThemeToggle />
-            <Button href="/inscription" variant="secondary" size="sm">
-              S&apos;inscrire
-            </Button>
           </div>
 
-          {/* Mobile actions */}
-          <div className="flex items-center gap-2 lg:hidden">
-            <ThemeToggle />
+          {/* Mobile menu button */}
+          <div className="lg:hidden">
             <button
-              onClick={() => setIsOpen(!isOpen)}
               className="flex flex-col gap-1.5 p-2"
               aria-label="Ouvrir le menu"
+              onClick={() => setIsOpen(!isOpen)}
             >
               <span
                 className={clsx(
@@ -79,23 +69,14 @@ export function Header() {
         <div
           className={clsx(
             "overflow-hidden transition-all duration-300 lg:hidden",
-            isOpen ? "max-h-96 pb-6" : "max-h-0"
+            isOpen ? "max-h-32 pb-6" : "max-h-0"
           )}
         >
           <div className="flex flex-col gap-3 border-t border-border pt-4">
-            {NAV_LINKS.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                onClick={() => setIsOpen(false)}
-                className="rounded-sm px-3 py-2 text-base font-medium text-heading transition-colors hover:bg-surface hover:text-purple"
-              >
-                {link.label}
-              </Link>
-            ))}
-            <Button href="/inscription" variant="secondary" size="sm" className="mt-2 self-start">
-              S&apos;inscrire
-            </Button>
+            <Link href="/contact" onClick={() => setIsOpen(false)} className="rounded-sm px-3 py-2 text-base font-medium text-heading transition-colors hover:bg-surface hover:text-purple">
+              Nous contacter
+            </Link>
+            <ThemeToggle />
           </div>
         </div>
       </Container>

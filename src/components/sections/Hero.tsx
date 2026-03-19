@@ -23,40 +23,24 @@ export function Hero() {
         </FadeIn>
 
         <FadeIn delay={0.1}>
-          <h1 className="max-w-4xl font-serif text-3xl font-bold leading-tight text-heading sm:text-4xl md:text-5xl lg:text-7xl">
-            Leadership & Innovation :{" "}
-            <span className="text-purple dark:text-purple-light">construire l&apos;avenir ensemble</span>
+          <h1 className="max-w-4xl font-serif text-5xl font-extrabold leading-tight text-heading sm:text-7xl md:text-8xl lg:text-9xl">
+            Votre avis compte !
           </h1>
         </FadeIn>
-
         <FadeIn delay={0.2}>
-          <p className="mt-4 max-w-xl text-base text-body sm:mt-6 sm:text-lg">
-            {EVENT.displayDate} &middot;{" "}
-            <a
-              href={EVENT.mapsUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="underline decoration-purple/40 underline-offset-2 transition-colors hover:text-purple"
-            >
-              {EVENT.locationFull}
-            </a>
+          <p className="mt-6 max-w-2xl text-base text-purple dark:text-purple-light sm:mt-8 sm:text-lg md:text-xl mx-auto">
+            Merci d’avoir participé à l’événement. Prenez 1 minute pour partager votre ressenti et contribuer à l’avenir de la communauté.
           </p>
         </FadeIn>
-
         <FadeIn delay={0.3}>
-          <div className="mt-8 sm:mt-10">
-            <CountdownTimer />
-          </div>
-        </FadeIn>
-
-        <FadeIn delay={0.4}>
-          <div className="mt-8 flex w-full flex-col gap-3 sm:mt-10 sm:w-auto sm:flex-row sm:gap-4">
-            <Button href="/inscription" variant="secondary" size="lg">
-              Réserver ma place
+          <div className="mt-8 flex w-full flex-col gap-3 sm:mt-10 sm:w-auto sm:flex-row sm:gap-4 justify-center">
+            <Button href="/survey" variant="secondary" size="lg">
+              Donner mon avis
             </Button>
-            <Button href="/programme" variant="outline" size="lg">
-              Voir le programme
+            <Button href="/event-images" variant="outline" size="lg">
+              L'événement en images
             </Button>
+          {/* Fin du bloc boutons */}
           </div>
         </FadeIn>
 
