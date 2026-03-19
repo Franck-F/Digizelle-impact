@@ -52,14 +52,14 @@ export default function SondagePage() {
           <h1 className="text-3xl font-bold font-playfair text-purple dark:text-purple-200 mb-6 text-center md:text-left">Votre avis compte pour l'avenir de Digizelle</h1>
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
-              <label className="block mb-1 font-medium text-purple-900 dark:text-purple-100">Nom (optionnel)</label>
+              <label className="block mb-1 font-medium text-purple-900 dark:text-purple-100">Nom</label>
               <input
                 type="text"
                 className="w-full border rounded-xl px-4 py-3 text-lg bg-cream dark:bg-gray-800 text-purple dark:text-purple-200"
                 value={nom}
                 onChange={e => setNom(e.target.value)}
-                placeholder="Votre nom (optionnel)"
-                title="Nom (optionnel)"
+                placeholder="Votre nom"
+                title="Nom"
               />
             </div>
             <div>

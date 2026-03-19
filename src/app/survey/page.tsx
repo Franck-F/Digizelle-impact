@@ -184,7 +184,7 @@ export default function SurveyPage() {
                           name="qro"
                           rows={2}
                           className="rounded-xl border-2 border-purple/30 bg-white dark:bg-navy/80 text-heading dark:text-white placeholder:text-body/60 dark:placeholder:text-white focus:border-purple focus:ring-2 focus:ring-purple/30 outline-none transition text-xs sm:text-base shadow-md py-1 px-2 sm:py-2 sm:px-4 resize-none"
-                          placeholder="Votre réponse... (optionnel)"
+                          placeholder="Votre réponse..."
                           value={answers[step] || ""}
                           onChange={e => setAnswers(prev => ({ ...prev, [step]: e.target.value }))}
                         />

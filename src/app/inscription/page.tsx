@@ -190,7 +190,7 @@ export default function InscriptionPage() {
 
               <div>
                 <label htmlFor="message" className="mb-1.5 block text-sm font-medium text-heading sm:mb-2">
-                  Message (optionnel)
+                  Message
                 </label>
                 <textarea id="message" name="message" rows={3} placeholder="Une question ? Un message ?" className={inputClasses} />
               </div>
