@@ -80,7 +80,11 @@ export default function SurveyCharts({ responses, questionLabels }: { responses:
                 color: '#fff',
                 font: { weight: 'bold', size: 13 },
                 formatter: (value, context) => {
-                  const total = context.chart.data.datasets[0].data.reduce((a: number, b: number) => a + b, 0);
+                  const total = context.chart.data.datasets[0].data.reduce((a: number, b: any) => {
+                    const aNum = typeof a === 'number' ? a : 0;
+                    const bNum = typeof b === 'number' ? b : 0;
+                    return aNum + bNum;
+                  }, 0);
                   const pct = total ? ((value / total) * 100).toFixed(1) : '0';
                   return pct + '%';
                 },
